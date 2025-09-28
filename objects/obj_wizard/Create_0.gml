@@ -94,7 +94,6 @@ isInputItem2 = false;		// Se ta mandando um input pro item em mãos(secundario)
 inJumpAnimation = false;
 isUpdateInvetory = false;
 isInLadder = false;		// Se ta subindo uma escada
-isChangeSlotOnInventory = false; // Se trocou o slot clicando com o mouse
 
 #endregion
 

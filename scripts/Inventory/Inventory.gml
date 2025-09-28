@@ -526,8 +526,6 @@ function fWithInvetoryMouse(_instance) {
 						// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
 						if(leftClickReleased && (slotClick != -1)) {
 					
-							isChangeSlotOnInventory = true;	// Nescessario pra q o lastSelectedSlot n mude no step event
-					
 							newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x]);
 							fWithSetNewInventory(self);
 					
