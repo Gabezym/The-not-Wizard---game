@@ -1,0 +1,1 @@
+// Cooldown de interaçao

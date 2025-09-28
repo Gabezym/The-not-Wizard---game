@@ -1,0 +1,593 @@
+#region Inventario
+
+#region Reutilizados	
+	
+// -- Aprovado \[T]/
+// Retorna Struct da posição
+// P: Array + posição do item(int)
+// Retorna struct da posição q eu pedi
+function fGetSlotInventory(inventory, slotToFind) {
+
+	var _slotToCheck = 0;
+
+	// Percorre o inventario até achar "slotToFind" posição do inventario
+	for(var _y = 0; _y < array_length(inventory); _y++) {
+	
+		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+
+			if(slotToFind == _slotToCheck) {
+				
+				// Retorna struct da posição q eu pedi
+				return inventory[_y][_x];
+			}
+			
+			_slotToCheck++;
+		}
+	}
+}
+
+// -- Aprovado \[T]/
+// Retorna a posição do inventario como numero
+// P: array, array[y][x]
+// Retorna a posição do slot como int
+function fGetPositionInventory(inventory, slotToFind) {
+
+	var _slotToCheck = 0;
+
+	// Percorre o inventario até achar "slotToFind" posição do inventario
+	for(var _y = 0; _y < array_length(inventory); _y++) {
+	
+		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+
+			if(slotToFind == inventory[_y][_x]) {
+				
+				// Retorna a posição do slot
+				return _slotToCheck;
+			}
+			
+			_slotToCheck++;
+		}
+	}
+}
+
+// -- Aprovado \[T]/
+// Retorna o Inventario com o novo valor no status
+// P: array, posiçao(int), struct
+function fSetSlotInventory(inventory, slotToFind, newVal) {
+
+	var _slotToCheck = 0;
+
+	// Percorre o inventario até achar "slotToFind" posição do inventario
+	for(var _y = 0; _y < array_length(inventory); _y++) {
+	
+		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+
+			if(slotToFind == _slotToCheck) {
+							
+				// Define novo valor
+				inventory[_y][_x] = newVal;
+				return inventory;
+			}
+			
+			_slotToCheck++;
+		}
+	}
+	
+	// Coloquei dps pra caso n ache o slot pra mudar
+	return inventory;
+}
+
+// -- Aprovado \[T]/
+// Retorna o inventario com o um item a menos naquele slot
+// P: posiçao(int)
+function fRemoveOneItemSlotInventory(inventory, slotToChange) {
+
+	var _slotStruct = fGetSlotInventory(inventory, slotToChange);
+		
+	var _newStruct = {
+			
+		isFull: _slotStruct.isFull,
+		itemId: _slotStruct.itemId,
+		itemStatus: _slotStruct.itemStatus,
+		itemAmount: _slotStruct.itemAmount-1
+	}
+		
+	return fSetSlotInventory(inventory, slotToChange, _newStruct);	// Define como vazio o slot
+}
+
+// -- Aprovado \[T]/
+// Exclui itens do inventario q n estao mais la e retorna o novo inventario
+// P: array, struct(slot Vazio)
+function fGetUpdateInventory(inventory, clearSlot) {
+
+	// Atualiza o inventario
+	for(var _y = 0; _y < array_length(inventory); _y++) {
+
+		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+		
+			var _slotCheck = inventory[_y][_x];
+			var _notExist = (_slotCheck.isFull == false) && (_slotCheck != clearSlot);
+			var _noAmount = (_slotCheck.itemAmount <= 0) && (_slotCheck != clearSlot);
+			
+			if(_notExist || _noAmount) {
+		
+				inventory[_y][_x] = clearSlot;
+			}
+		}	
+	}
+	
+	return inventory;
+}
+
+// -- Aprovado \[T]/
+// Atualiza o novo inventario
+function fWithSetNewInventory(_instance) {
+	
+	with(_instance) {
+	
+		// Atualiza o inventario caso haja um novo na var newInventario
+		if(newInventory != undefined) {
+
+			inventory = newInventory;
+			newInventory = undefined;
+		}
+		// Checa se o amount dos itens chegou a 0, se chegou, limapa o slot.
+		if(isUpdateInvetory) {
+	
+			inventory = fGetUpdateInventory(inventory, clearSlot);
+			isUpdateInvetory = false;
+		}
+
+	}
+}
+
+
+#endregion
+
+
+// -- Aprovado \[T]/
+// Muda o selecetedSlot se vc usou as teclas de slot do inventario
+function fSelectedSlot(slot1, slot2, slot3, slot4, slot5, selectedSlot) {
+
+	var _slotIputButton = slot1 + slot2 + slot3 + slot4 + slot5;
+	
+	if(_slotIputButton != 0) {
+
+		if		(slot1)	return 0;
+		else if (slot2)	return 1;
+		else if (slot3)	return 2;
+		else if (slot4)	return 3;
+		else if (slot5)	return 4;
+	}
+	
+	return selectedSlot;
+}
+
+
+// -- Aprovado \[T]/
+// P: array, id do item, tantoDeItem
+// Retorna array[tipo de cheio, amount]
+function fHaveSpaceInInvetory(inventory, item, amount){
+
+	var _newAmount = amount;
+	var _canPutSome = 0;
+	
+	// Percorre o inventario
+	for(var _y = 0; _y < array_length(inventory); _y ++) {
+		
+		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+						
+			var _noItemInSlot = (inventory[_y][_x].isFull == false);
+			
+			var _sameItem = (inventory[_y][_x].itemId == item);
+			
+			var _maxAmount = obj_config.itemsData[item].maxAmount;	// Maximo de itens
+			var _haveSpace = (inventory[_y][_x].itemAmount + _newAmount <= _maxAmount);
+			
+			// Se tem espaço no slot
+			if(_noItemInSlot) return [1, 0];
+					
+			else if(_sameItem) {
+					
+				if(_haveSpace) return [1, 0];
+
+				else if(inventory[_y][_x].itemAmount < _maxAmount) { 
+					
+					_newAmount = inventory[_y][_x].itemAmount + _newAmount - _maxAmount;
+					_canPutSome = 2;
+					}
+			}
+		}
+	}
+	
+	return [_canPutSome, _newAmount]
+}
+
+
+// -- Aprovado \[T]/
+// Retorna o inventario com os itens coletados
+// P: Array, Array, int
+// AVISO: Deseve-se definir a array toPick do obj_wizard pra = [];
+function fGetInventoryColletToPick(inventory, toPick, _lenArrToPick) {
+	
+	for(var _i = _lenArrToPick-1; _i >= 0; _i--) {
+	
+		var _done = false;
+		
+		// Percorre o inventario
+		for(var _y = 0; _y < array_length(inventory); _y ++) {
+			
+			// N acho um slot ainda
+			if(_done == false){
+			
+				for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+						
+					var _str = inventory[_y][_x];
+					var _slotMaxAmount = obj_config.itemsData[_str.itemId].maxAmount;
+					var _itemAmount = toPick[_i].itemAmount;
+					
+					var _oldPlusNewAmount = (_str.itemAmount + _itemAmount);
+					
+					var _isNoItem = (_str.isFull == false);
+					var _isSameItem = (_str.itemId == toPick[_i].itemId);
+					var _haveAmountSpace = (_oldPlusNewAmount <= _slotMaxAmount);
+				
+					
+					// Se tem espaço mp slot
+					if(_isNoItem || (_isSameItem && _haveAmountSpace)) {
+							
+						var _structSlot = {
+							
+							isFull: toPick[_i].isFull,
+							itemId: toPick[_i].itemId,
+							itemStatus: toPick[_i].itemStatus,
+							itemAmount: _oldPlusNewAmount
+						}
+							
+							
+						inventory[_y][_x] = _structSlot;
+						
+						// Tira o item da fila pra pegar
+						array_delete(toPick, _i, 1);
+						_done = true;
+						break;
+					}
+					else if(_isSameItem && (_str.itemAmount < _slotMaxAmount)) {
+						
+						// Item menos oq ja stacou
+						var _thiStructSlot = {
+							
+							isFull: toPick[_i].isFull,
+							itemId: toPick[_i].itemId,
+							itemStatus: toPick[_i].itemStatus,
+							itemAmount: _oldPlusNewAmount-_slotMaxAmount
+						}
+						// Slot cheio
+						var _newToPick = {
+							
+							isFull: toPick[_i].isFull,
+							itemId: toPick[_i].itemId,
+							itemStatus: toPick[_i].itemStatus,
+							itemAmount: _slotMaxAmount
+						}
+						
+						inventory[_y][_x] = _newToPick;
+						toPick[_i] = _thiStructSlot;
+						
+					}
+				}
+			}
+				
+			else break;
+		}
+	}
+
+	return inventory;
+}
+
+
+// Destroi antigo, cria novo, bota na lista FollowObjects
+function fWithCreateInstanceInHands(instance) {
+ 	
+	with(instance) {
+		
+		var _strObjHand = obj_config.itemsData[itemInHand];
+		var _haveInstance = (instanceInHands != noone);
+		
+		// O Tool n usa o itemId, mas precisa pra n dar erro de run time
+		var _struct = (_strObjHand.type == ITEMS_TYPE.TOOLS) ? {status: itemSelectedStruct.itemStatus, itemId: -1} : {status: itemSelectedStruct.itemStatus, itemId: itemInHand};
+
+	
+		// Destroi Objeto antigo
+		if(_haveInstance) instance_destroy(instanceInHands);
+		
+		// Cria objeto novo
+		instanceInHands = instance_create_layer(x , y, "Objects", _strObjHand.typeData, _struct);
+		
+		// Coloca nos objeto q segue o player
+		array_insert(followObjects, 0, instanceInHands);
+	}
+}
+
+// Checagem de quando criar ou destruir Objetos (quando usa a funçao: fWithCreateInstanceInHands(instance))
+function fWithChangeInstanceHands(instance) {
+
+	with(instance) {
+		
+		var _strObjHand = obj_config.itemsData[itemInHand];
+		var _isTypeTrue = ((_strObjHand.type == ITEMS_TYPE.TOOLS) || (_strObjHand.type == ITEMS_TYPE.NO_ACTION));
+		var _haveInstance = (instanceInHands != noone);
+	
+		if(_isTypeTrue) {
+	
+			var _InstExist = instance_exists(instanceInHands);
+			
+			var _isNewObject = (_InstExist) ? (instanceInHands.object_index != _strObjHand.typeData) : false;
+			
+			// No action muda só o id
+			var _NASameId = (_strObjHand.type == ITEMS_TYPE.NO_ACTION && _InstExist) ? (itemInHand == instanceInHands.itemId) : true;
+
+			var _lastStruct = fGetSlotInventory(inventory, lastSelectedSlot);
+			var _newStatus = (itemSelectedStruct != _lastStruct.itemStatus);
+			
+			
+			if((_haveInstance == false) || _isNewObject ||  _newStatus) fWithCreateInstanceInHands(instance);
+			
+		}
+		
+		// Destroi a Instancia 
+		else if(_haveInstance){
+			
+			instance_destroy(instanceInHands);
+			
+			instanceInHands = noone;
+		}
+	}
+}
+
+// Retorna o inventario depois de arrastar um item pra outro slot(ou n) do inventario
+function fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventoryYX) {
+		
+	var _newInventory = undefined;	
+		
+	// Se n soltou no mesmo slot
+	if(_inSLot != slotClick) {
+						
+		var _amoundId = inventoryYX.itemId;
+		var _maxAmont = obj_config.itemsData[_amoundId].maxAmount;
+						
+		var _type1 = obj_config.itemsData[_amoundId];
+		var _type2 = obj_config.itemsData[slotStrClick.itemId];
+							
+		var _sameType = (_type1 == _type2);
+							
+		var _sameStatus = (slotStrClick.itemStatus == inventoryYX.itemStatus);
+				
+		var _str01;
+		var _str02;		
+				
+		// Se n é o mesmo tipo de item ou mesmo status
+		if(!_sameType || !_sameStatus) {
+							
+			// Muda de lugar o item (inverte)
+			_str01 = inventoryYX;
+			_str02 = slotStrClick;
+		}
+		// É o msm tipo de item, da pra juntar os dois
+		else {
+								
+			// Structs
+			_str01 = slotStrClick;		// Do clique
+			_str02 = inventoryYX;	// Pra onde arrastou
+								
+			// Quantidade dos itens
+			var _a01 = _str01.itemAmount;
+			var _a02 = _str02.itemAmount;
+								
+			// Se somando as quantias da mais do q o maximo
+			if(_a01 + _a02 > _maxAmont) {
+								
+				// Um fica como a soma menos o maximo do outro
+				_str01.itemAmount = (_a01 + _a02 - _maxAmont);
+				// E o outro fica com o maximo
+				_str02.itemAmount = _maxAmont;
+			}
+			// Da pra colocar tudo em um
+			else{
+								
+				// Un fica vazio
+				_str01 = clearSlot;
+				// O outro cheio
+				_str02.itemAmount = (_a01 + _a02);
+			}							
+		}
+		
+		// Muda de lugar o item(ou nao)
+		_newInventory = fSetSlotInventory(inventory, slotClick, _str01);
+		_newInventory = fSetSlotInventory(_newInventory, _inSLot, _str02);
+	}
+	
+	return _newInventory;
+}
+
+function fGetIconInventory(_slotStruct) {
+
+		var _itemId = _slotStruct.itemId;
+
+		// Mesmo objeto, diferentes sprite.
+		if(_itemId == ITEMS_ID.BOTTLE) {
+					
+			var _liquidId = _slotStruct.itemStatus.liquidId;
+			
+			return  obj_config.liquidsData[_liquidId].spriteBottle;
+		}
+		else return obj_config.itemsData[_itemId].sprite;	
+}
+
+// Dropa os items quando arrastados ou com input pra dropar com o inventario aberto
+function fWithDropItemInventoryOpen(_instance, _slotDrop,  _dropAll) {
+
+	with(_instance){
+
+		var _x, _y, _scl;
+		
+		if(selectedSlot != _slotDrop) {
+						
+			var _xplus = choose(5,6,7,8,9,10);
+			var _yplus = choose(-5, -2, 0, 2, 5);
+			
+			_x = (x + (_xplus * xScale));
+			_y = (y + _yplus);
+			_scl = xScale;
+		}
+		else {
+			
+			_x = instanceInHands.x;	
+			_y = instanceInHands.y;
+			_scl = instanceInHands.image_xscale;
+		}
+						
+		isUpdateInvetory = true;
+		if(_dropAll)	newInventory = fDropAllItems(inventory, _slotDrop, _x, _y, xScale);
+		else			newInventory = fDropItem(inventory, _slotDrop, _x, _y, xScale);	
+		fWithSetNewInventory(self);
+						
+		// Reseta as vars do click no slot do mouse
+		slotClick = -1;
+		slotStrClick = undefined;
+	}
+}
+
+// Todo o codigo pra mudar slots de lugar com o mouse
+function fWithInvetoryMouse(_instance) {
+
+	with(_instance) {
+	
+		// Mexer itens com o mouse
+		if(isInInventory) {
+
+			#region Vars 
+	
+			var _viewWid = obj_camera.camWidth;
+			var _viewHei = obj_camera.camHeight;
+	
+			// Cordenadas Mouse
+			var _mouseX = display_mouse_get_x();
+			var _mouseY = display_mouse_get_y();
+	
+			// Posição X Y
+			var _yLen = array_length(inventory);
+			var _defaultX = _viewWid div 14 * 2;
+			var _defaultY = _viewHei div 12;
+	
+			// Tamanho usado
+			var _sprSize = 64;
+	
+			// Slot atual no loop
+			var _inSLot = 0;
+	
+			#endregion 
+	
+			for(var _y = 0; _y <_yLen; _y++) {
+	
+				for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
+		
+					// Posição de cada sprite no loop
+					var _xSpr	= (_defaultX + (_sprSize*_x));
+					var _ySpr	= (_defaultY + (_sprSize*_y));
+			
+					#region Vars Colisao
+				
+					// Metade do tamanho do sprite de um sprite
+					var _halfSprSize = _sprSize div 2;
+			
+					// Colisão X cada Slot
+					var _slotColMaX		= _xSpr + _halfSprSize;
+					var _slotColMinX	= _xSpr - _halfSprSize;
+					// Colisão Y cada Slot
+					var _slotColMaxY	= _ySpr + _halfSprSize;
+					var _slotColMinY	= _ySpr - _halfSprSize;
+				
+					// Colisão X do Total do inventario
+					var _maxXCol = _halfSprSize +(_defaultX + (_sprSize * (array_length(inventory[0])-1)));
+					var _minXcol = _halfSprSize +(_defaultX - _sprSize);
+					// Colisão Y do Total do inventario
+					var _maxYcol = (_defaultY + (_sprSize * (_yLen)))	- _halfSprSize;
+					var _minYcol = _defaultY							- _halfSprSize;
+					
+					
+					#endregion
+			
+					// Na caixa de colisao do slot
+					if ((_mouseX >= _slotColMinX && _mouseX <= _slotColMaX) &&
+						(_mouseY >= _slotColMinY && _mouseY <= _slotColMaxY)) {
+				
+						// Arrasta os items pra outro lugar quando solta
+						// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
+						if(leftClickReleased && (slotClick != -1)) {
+					
+							isChangeSlotOnInventory = true;	// Nescessario pra q o lastSelectedSlot n mude no step event
+					
+							newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x]);
+							fWithSetNewInventory(self);
+					
+							slotClick = -1;				// Reseta o slot do click
+							slotStrClick = undefined;	// Reseta a var da struct do slot do click
+						}
+
+						// Armazena Slot Clicado
+						if((leftClickPressed) && (slotClick == -1) && (inventory[_y][_x].isFull)) {
+										
+							slotClick = _inSLot;
+					
+							// Guarda struct do slot selecionado
+							slotStrClick = fGetSlotInventory(inventory, slotClick);
+						}
+					
+						// Dropa os itens
+						else if (rightClickPressed) {
+						
+							var _strSlot = fGetSlotInventory(inventory, _inSLot);
+							var _isFull = (_strSlot.isFull == 1);				
+						
+							// Se tiver item, da pra dropar
+							// Da pra vc dropar o NADA kkkkk
+							if(_isFull) { 
+						
+								fWithDropItemInventoryOpen(self, _inSLot, false);
+							}
+						}	
+					}
+		
+					// Fora da col do inventario
+					else if !((_mouseX > _minXcol && _mouseX < _maxXCol) &&
+							(_mouseY > _minYcol && _mouseY < _maxYcol)) {
+				
+						// Dropa o item
+						// Se soltou um item fora do inventario
+						if (leftClickReleased && (slotClick != -1)) {
+					
+							fWithDropItemInventoryOpen(self, slotClick, true);
+						}
+					}
+			
+					_inSLot++;	// Atualiza o slot atual
+				}
+			}
+		}
+		// Reseta as var do item q o mouse pode arrastar 
+		// + Selecionar item por teclado
+		else {
+			
+			slotClick = -1;
+			slotStrClick = undefined;
+	
+			// Salva o ultimo slot 
+			lastSelectedSlot = selectedSlot;
+			// Seleciona o slot por botão
+			selectedSlot = fSelectedSlot(slot1, slot2, slot3, slot4, slot5, selectedSlot);
+		}
+	}
+}
+
+#endregion

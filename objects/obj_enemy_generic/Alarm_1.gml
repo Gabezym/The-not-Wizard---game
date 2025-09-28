@@ -1,0 +1,1 @@
+//  /----/ COOLDOWN ENTRE COLISAO DOS INIMIGOS /----------------------------/

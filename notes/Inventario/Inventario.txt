@@ -1,0 +1,34 @@
+// ----------- [ Estrutura do inventario ] ----------- //
+
+// O inventario é uma array de tamanho Y, cada valor dessa array é uma array X de Structs
+Inventario = array[Posiçao Y][Posição X] == {valor ae};
+
+// Cada valor das Structs
+inventario[0][0] = {
+
+	isFull = Se tem coisa no slot
+	itemId = constante do id
+	itemStatus = struct com informações do item
+	itemAmount;
+}
+
+// ----------- [ Funções ] ----------- //
+
+// Retorna struct
+fGetSlotInventory(inventory, slotToFind)		// Serve pra acessar as structs do inventario
+
+// Retorna posição int
+fGetPositionInventory(inventory, slotToFind)	// Mais facil pra checar em loop for
+
+
+// Muda o o valor do slot, retorna o novo inventario
+fSetSlotInventory(inventory, slotToFind, newVal)
+
+// Remove um item do slot, retorna o novo inventario
+fRemoveOneItemSlotInventory(inventory, slotToChange)
+
+
+// Ao alterar o inventario com alguma função, use esse padrão:
+isUpdateInvetory = true;	// Essa parte é pra checar se n tem nenhum item negativo(subtração);
+newInventory = função();
+fWithSetNewInventory(self);	// Define o novo inventario e checa o isUpdateInventory;
