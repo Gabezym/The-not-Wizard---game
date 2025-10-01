@@ -95,6 +95,13 @@ itemsData[ITEMS_ID.WEAPON]	= {
 #endregion
 
 
+enum EFFCTS
+{
+	NOTHING = 0,
+	WATER = 1,
+	FIRE = 2,
+}
+
 #region LIQUIDOS
 
 // Sempre alterar quando adicionar um novo liquido
@@ -117,7 +124,7 @@ liquidsData[LIQUIDS_ID.WATER] = {
 	amount: 5,
 	damage: 0,
 	slow: 1, 
-	effect: noone,
+	effect: EFFCTS.WATER,
 };
 liquidsData[LIQUIDS_ID.BLOOD] = {
 	
@@ -126,7 +133,7 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	amount: 5,
 	damage: 0,
 	slow: 0.5, 
-	effect: noone,
+	effect: EFFCTS.FIRE,
 };
 liquidsData[LIQUIDS_ID.ACID] = {
 	
@@ -135,7 +142,7 @@ liquidsData[LIQUIDS_ID.ACID] = {
 	amount: 3,
 	damage: 5,
 	slow: 1, 
-	effect: noone,
+	effect: EFFCTS.NOTHING,
 };
 
 #endregion

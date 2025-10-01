@@ -70,3 +70,94 @@ function fResetSlow(instance) {
 	
 	return _slow;
 }
+	
+#region Fogo 
+
+// Particula
+function fWithCreateParticleFire(_instance) { 
+
+	with(_instance) { 
+		
+		partSystemFire = part_system_create(); 
+		partTypeFire = part_type_create(); 
+		
+		part_type_sprite(partTypeFire, spr_pixel, false, false, false);
+		part_type_size(partTypeFire, 0.5, 1, -0.01, 0);
+		
+		
+		var _col1 = make_colour_hsv(0, 200, 200); 
+		var _col2 = make_colour_hsv(30, 200, 220); 
+		var _col3 = make_colour_hsv(50, 180, 240);
+
+		
+		part_type_scale(partTypeFire, 1, 1.9); 
+		
+		part_type_direction(partTypeFire, 75, 105, 0, 0);
+		part_type_speed(partTypeFire, 1.5, 2.5, 0, 0);
+		
+		part_type_color3(partTypeFire, _col1, _col2, _col3); 
+		part_type_alpha1(partTypeFire, 0.4); 
+	
+		part_type_life(partTypeFire, 40, 60);
+		
+		partEmitterFire = part_emitter_create(partSystemFire); 
+	} 
+}
+
+// No Alarme
+function fWithFireDamage(_instance) {
+
+	with(_instance) {
+	
+		// Fire damage
+		if(timesFireDamage > 0) {
+	
+			life-=fireDamage;
+	
+	
+			timesFireDamage --;
+			alarm[alarmFire] = cooldownFireDamage;
+		}
+	}
+}	
+	
+// No Step
+function fWithSpawParticleFire(_instance) { 
+	
+	with(_instance) { 
+		
+		var _spr_wid = sprite_get_width(sprite_index);
+		var _spr_hei = sprite_get_height(sprite_index);
+		var _x1 = x - _spr_wid/2; var _x2 = x + _spr_wid/2; 
+		var _y1 = y - _spr_hei/2; var _y2 = y + _spr_hei/2; 
+		
+		// Posição 
+		part_emitter_region(partSystemFire, partEmitterFire, _x1, _x2, _y1, _y2, ps_shape_diamond, ps_distr_gaussian); 
+		// Junta tudo 
+		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(timesFireDamage)); 
+	} 
+}
+
+// No Create
+function fWithCreateFire(_instance, _numAlarm){
+	
+	with(_instance) {
+
+		cooldownFireDamage = CONSTANTS.SPD_GAME* 0.5;
+
+		alarmFire = _numAlarm;
+
+		valTimesFireDamage = 8;
+		timesFireDamage = 0;
+
+		fireDamage = 5;
+
+		partSystemFire = 0;
+		partTypeFire = 0;
+		partEmitterFire = 0;
+
+		fWithCreateParticleFire(self);
+	}
+}
+
+#endregion

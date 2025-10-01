@@ -43,3 +43,5 @@ hitStruct = {
 
 	hitVal: 0
 };
+	
+fWithCreateFire(self, 4);

@@ -1,42 +1,3 @@
-// Geral
-maxLife = 100;
-life = maxLife;
-
-maxEstamina = 100;
-estamina = maxEstamina;
-regeneracaoEstaminaVal = 2;
-regeneracaoEstamina = regeneracaoEstaminaVal;
-
-xScaleVal = 2;		// Valor pra mudar o lado
-xScale = xScaleVal;	// Inverte o sprite ou nao
-image_yscale = xScaleVal;
-image_xscale = xScaleVal;
-
-sprCollision = spr_wizard_collision;	// Sprite da colisao
-mask_index = sprCollision;				// Colisao
-
-itemInHand = 0;		// Armazeana o id do item selecionado -> IMPORTANTE
-instanceInHands = noone;
-
-
-// Valores Movimentação
-spdVal = 5
-spd = spdVal;
-spdJumpVal = -12;
-spdJump = spdJumpVal;
-maxJumpVal = 15; // Maximo q pode pressionar o pulo
-grav = 1;
-slow = 1;
-
-estJump = 1.5;	// Dreno de estamina por pulo
-
-
-// Valores XY
-hval = 0;
-vval = 0;
-jumpVal = 0;	// Armazema pulo Pressionado(vezes q ocorreu)
-
-
 #region Comandos 
 
 leftClickPressed = 0;
@@ -61,7 +22,6 @@ slot4	= 0;
 slot5	= 0;
 
 #endregion
-
 #region	Keybinds
 
 mouseLeftClick = mb_left;
@@ -81,6 +41,44 @@ keySlot5 = ord("5");
 
 #endregion
 
+maxLife = 100;
+life = maxLife;
+
+// Valores XY
+hval = 0;
+vval = 0;
+jumpVal = 0;	// Armazema pulo Pressionado(vezes q ocorreu)
+
+#region Valores Movimentação
+
+spdVal = 5
+spd = spdVal;
+spdJumpVal = -12;
+spdJump = spdJumpVal;
+maxJumpVal = 15; // Maximo q pode pressionar o pulo
+grav = 1;
+slow = 1;
+
+#endregion
+
+#region Estamina
+
+maxEstamina = 100;
+estamina = maxEstamina;
+regeneracaoEstaminaVal = 2;
+regeneracaoEstamina = regeneracaoEstaminaVal;
+estJump = 1.5;	// Dreno de estamina por pulo
+
+#endregion
+
+xScaleVal = 2;		// Valor pra mudar o lado
+xScale = xScaleVal;	// Inverte o sprite ou nao
+image_yscale = xScaleVal;
+image_xscale = xScaleVal;
+
+sprCollision = spr_wizard_collision;	// Sprite da colisao
+mask_index = sprCollision;				// Colisao
+
 #region Bool
 isDead = false;
 isJumping = false
@@ -96,9 +94,6 @@ isUpdateInvetory = false;
 isInLadder = false;		// Se ta subindo uma escada
 
 #endregion
-
-// Array
-followObjects = [];	// Originalmente, pra guardar os objetos de ataque e manipulalos posteriormente
 
 #region Inventario
 
@@ -136,6 +131,9 @@ toPick = []				// Itens a serem adicionados ao inventario
 selectedSlot = 0;		// Slot selecionado
 lastSelectedSlot = selectedSlot;
 
+itemInHand = 0;		// Armazeana o id do item selecionado -> IMPORTANTE
+instanceInHands = noone;
+
 // Retorna a struct do INVENTARIO
 itemSelectedStruct = {}
 
@@ -146,8 +144,16 @@ newInventory = undefined;
 
 #endregion
 
+// Array
+followObjects = [];	
+
+
 // Time
 coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
 cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
 cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.75;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
+
+// Effects Vars
+
+fWithCreateFire(self, 5);

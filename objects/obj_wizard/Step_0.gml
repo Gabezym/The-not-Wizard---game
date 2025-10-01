@@ -35,8 +35,13 @@ fWithMovementHvalVval(self);
 // Estamina
 fWithEstamina(self);
 
-// Efeitos:
+#region Effects
+
 slow = fResetSlow(self);
+
+fWithSpawParticleFire(self);
+
+#endregion
 
 // Colisão XY 
 fWithCollisionPlayer(self);

@@ -4,6 +4,8 @@ inGround = place_meeting(x, y +1, obj_r_collision);
  // Checa se morreu 
 if(isDead) instance_destroy();
 
+
+// TEMPORARIO ---------------------//----
 if(isHit) {
 	
 	fEnemyGetDamage(self);
@@ -27,8 +29,6 @@ else vval += grav;								// Aplica a gravidade -> cai
 hval = spd *sideMoveVal*slow;
 
 #endregion
-
-fResetSlow(self);
 
 #region Colisão XY
 
@@ -60,3 +60,7 @@ fEnemyColisionEnemy(self);
 
 // ATUALIZA oq ta acontecendo com vval -> -1 pula.
 vertMoveVal = fEnemyActionVval(vval);
+
+fResetSlow(self);
+
+fWithSpawParticleFire(self);

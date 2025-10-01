@@ -1,0 +1,2 @@
+// Fire damage
+fWithFireDamage(self);
