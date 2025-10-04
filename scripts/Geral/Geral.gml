@@ -160,4 +160,25 @@ function fWithCreateFire(_instance, _numAlarm){
 	}
 }
 
+function fWithDeleteFire(_instance) {
+
+	with(_instance) {
+	
+		if (partSystemFire != noone) {
+    
+		    // Destroi o emissor
+		    part_emitter_destroy(partSystemFire, partEmitterFire);
+		    partEmitterFire = noone;
+    
+		    // Destroi o tipo
+		    part_type_destroy(partTypeFire);
+		    partTypeFire = noone;
+    
+		    // Destroi o sistema
+		    part_system_destroy(partSystemFire);
+		    partSystemFire = noone;
+		}
+	}
+}
+
 #endregion

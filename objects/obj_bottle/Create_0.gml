@@ -1,4 +1,7 @@
+show_debug_message("Criado")
+
 liquidId = status.liquidId;
+liquidAmount = status.liquidAmount;
 
 sprite_index = obj_config.liquidsData[liquidId].spriteBottle;
 

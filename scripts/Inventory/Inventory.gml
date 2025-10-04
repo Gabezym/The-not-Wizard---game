@@ -109,9 +109,29 @@ function fGetUpdateInventory(inventory, clearSlot) {
 			var _notExist = (_slotCheck.isFull == false) && (_slotCheck != clearSlot);
 			var _noAmount = (_slotCheck.itemAmount <= 0) && (_slotCheck != clearSlot);
 			
+			var _isBottle = (_slotCheck.itemId == ITEMS_ID.BOTTLE);
+			
 			if(_notExist || _noAmount) {
 		
 				inventory[_y][_x] = clearSlot;
+			}
+			// Acabou liquido do bottle
+			else if(_isBottle) {
+				
+				var _noLiquid = (_slotCheck.itemStatus.liquidAmount <= 0);
+				
+				if(_noLiquid){
+
+					var _emptyBottle = {
+
+						isFull: true,
+						itemId: ITEMS_ID.EMPTY_BOTTLE,
+						itemStatus: undefined,
+						itemAmount: 1
+					}
+
+					inventory[_y][_x] = _emptyBottle;
+				}
 			}
 		}	
 	}
@@ -146,21 +166,32 @@ function fWithSetNewInventory(_instance) {
 
 
 // -- Aprovado \[T]/
-// Muda o selecetedSlot se vc usou as teclas de slot do inventario
-function fSelectedSlot(slot1, slot2, slot3, slot4, slot5, selectedSlot) {
-
-	var _slotIputButton = slot1 + slot2 + slot3 + slot4 + slot5;
+// Define selectedSlot e lastSelectedSlot
+function fWithSelectedSlot(instance) {
 	
-	if(_slotIputButton != 0) {
+	with(instance) {
+		
+		var _newSelectedSlot		= selectedSlot;
+		var _newLastSelectedSlot	= lastSelectedSlot;
 
-		if		(slot1)	return 0;
-		else if (slot2)	return 1;
-		else if (slot3)	return 2;
-		else if (slot4)	return 3;
-		else if (slot5)	return 4;
+		var _slotIputButton = slot1 + slot2 + slot3 + slot4 + slot5;
+	
+		if(_slotIputButton != 0) {
+
+			if		(slot1)	_newSelectedSlot =	0;
+			else if (slot2)	_newSelectedSlot =  1;
+			else if (slot3)	_newSelectedSlot =	2;
+			else if (slot4)	_newSelectedSlot =  3;
+			else if (slot5)	_newSelectedSlot =  4;
+		}
+	
+		// Se trocou de slot
+		if(_newSelectedSlot != selectedSlot) _newLastSelectedSlot = selectedSlot;
+	
+	
+		selectedSlot		= _newSelectedSlot;
+		lastSelectedSlot	= _newLastSelectedSlot;
 	}
-	
-	return selectedSlot;
 }
 
 
@@ -295,7 +326,7 @@ function fWithCreateInstanceInHands(instance) {
 		var _haveInstance = (instanceInHands != noone);
 		
 		// O Tool n usa o itemId, mas precisa pra n dar erro de run time
-		var _struct = (_strObjHand.type == ITEMS_TYPE.TOOLS) ? {status: itemSelectedStruct.itemStatus, itemId: -1} : {status: itemSelectedStruct.itemStatus, itemId: itemInHand};
+		var _struct = {status: itemSelectedStruct.itemStatus, itemId: itemInHand};
 
 	
 		// Destroi Objeto antigo
@@ -322,14 +353,13 @@ function fWithChangeInstanceHands(instance) {
 	
 			var _InstExist = instance_exists(instanceInHands);
 			
-			var _isNewObject = (_InstExist) ? (instanceInHands.object_index != _strObjHand.typeData) : false;
+			var _isNewObject = (_InstExist) ? (instanceInHands.itemId != itemSelectedStruct.itemId) : false;
 			
 			// No action muda só o id
 			var _NASameId = (_strObjHand.type == ITEMS_TYPE.NO_ACTION && _InstExist) ? (itemInHand == instanceInHands.itemId) : true;
 
 			var _lastStruct = fGetSlotInventory(inventory, lastSelectedSlot);
-			var _newStatus = (itemSelectedStruct != _lastStruct.itemStatus);
-			
+			var _newStatus = (itemSelectedStruct.itemStatus != _lastStruct.itemStatus);
 			
 			if((_haveInstance == false) || _isNewObject ||  _newStatus) fWithCreateInstanceInHands(instance);
 			
@@ -580,10 +610,7 @@ function fWithInvetoryMouse(_instance) {
 			slotClick = -1;
 			slotStrClick = undefined;
 	
-			// Salva o ultimo slot 
-			lastSelectedSlot = selectedSlot;
-			// Seleciona o slot por botão
-			selectedSlot = fSelectedSlot(slot1, slot2, slot3, slot4, slot5, selectedSlot);
+			fWithSelectedSlot(_instance);
 		}
 	}
 }

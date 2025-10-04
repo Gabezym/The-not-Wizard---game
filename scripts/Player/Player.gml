@@ -504,10 +504,7 @@ function fWithInventory(_instance) {
 
 	with(_instance) {
 	
-		// Inventario
-		selectedSlot =  fSelectedSlot(slot1, slot2, slot3, slot4, slot5, selectedSlot);
-
-		// Inventario com o mouse(ações)
+		// Inventario com o mouse(ações) + selectedSlot/last
 		fWithInvetoryMouse(self);
 
 		// Coleta Itens

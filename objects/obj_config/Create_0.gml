@@ -29,13 +29,14 @@ enum ITEMS_TYPE
 }
 
 // Sempre alterar quando adicionar um novo item no ITEMS_ID
-var _sizeItemsId = 4;
+var _sizeItemsId = 5;
 enum ITEMS_ID
 {	
 	NOTHING = 0,
 	GENERIC = 1,
 	BOTTLE	= 2,
-	WEAPON = 3
+	WEAPON = 3, 
+	EMPTY_BOTTLE = 4, 
 }
 
 // Tem as informações dos items sem ação, os ingredientes(todos sao um mesmo item com info diferente)
@@ -44,11 +45,17 @@ enum ITEMS_ID
 
 itemsNoActionData = array_create(_sizeItemsId);
 itemsNoActionData[ITEMS_ID.GENERIC] = {
-
+	
+	canUse: true,
 	xPlus: 15,
 	heal: 10
 }
-
+itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
+	
+	canUse: false,
+	xPlus: 15,
+	heal: 0
+}
 #endregion
 
 
@@ -75,6 +82,13 @@ itemsData[ITEMS_ID.GENERIC] = {
 	typeData: obj_itemNoAction,
 	maxAmount: 15
 };
+itemsData[ITEMS_ID.EMPTY_BOTTLE] = {
+
+	sprite: spr_bottle_empty,
+	type: ITEMS_TYPE.NO_ACTION,
+	typeData: obj_itemNoAction,
+	maxAmount: 15
+};
 itemsData[ITEMS_ID.BOTTLE]	= {
 
 	sprite: spr_bottle_water,
@@ -89,6 +103,7 @@ itemsData[ITEMS_ID.WEAPON]	= {
 	typeData:  obj_weapon,
 	maxAmount: 1
 }
+
 
 #endregion
 
@@ -105,12 +120,13 @@ enum EFFCTS
 #region LIQUIDOS
 
 // Sempre alterar quando adicionar um novo liquido
-var _sizeLiquidsId = 3;
+var _sizeLiquidsId = 4;
 enum LIQUIDS_ID 
 {
 	WATER	= 0,
 	BLOOD	= 1,
-	ACID	= 2
+	ACID	= 2,
+	LAVA	= 3
 }
 
 #region LIQUIDS STRUCT
@@ -122,6 +138,7 @@ liquidsData[LIQUIDS_ID.WATER] = {
 	spriteBottle: spr_bottle_water,
 	color: make_color_rgb(33, 182, 239),
 	amount: 5,
+	maxLiquidAmount: 50,
 	damage: 0,
 	slow: 1, 
 	effect: EFFCTS.WATER,
@@ -131,18 +148,30 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	spriteBottle: spr_bottle_blood,
 	color: make_color_rgb(102, 7, 9),
 	amount: 5,
+	maxLiquidAmount: 40,
 	damage: 0,
 	slow: 0.5, 
-	effect: EFFCTS.FIRE,
+	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.ACID] = {
 	
 	spriteBottle: spr_bottle_acid,
 	color: make_color_rgb(197, 255, 50),
 	amount: 3,
+	maxLiquidAmount: 30,
 	damage: 5,
 	slow: 1, 
 	effect: EFFCTS.NOTHING,
+};
+liquidsData[LIQUIDS_ID.LAVA] = {
+	
+	spriteBottle: spr_bottle_lava,
+	color: make_color_rgb(248, 146, 24),
+	amount: 3,
+	maxLiquidAmount: 20,
+	damage: 2,
+	slow: 1, 
+	effect: EFFCTS.FIRE,
 };
 
 #endregion

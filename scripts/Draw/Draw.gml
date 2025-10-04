@@ -106,7 +106,23 @@ function fDrawInventory(_instance) {
 				var _amoundId = inventory[_y][_x].itemId;
 				var _maxAmont = obj_config.itemsData[_amoundId].maxAmount;
 				var _strAmount = inventory[_y][_x].itemAmount;	
-				var _string = string(_strAmount) + "/" + string(_maxAmont);
+				
+				var _string = "";
+				
+				// Porcentagem do liquido
+				if(_amoundId == ITEMS_ID.BOTTLE) {
+				
+					var _status = inventory[_y][_x].itemStatus
+					
+					var _liquidAmount = _status.liquidAmount;
+					var _MaxliquidAmount = obj_config.liquidsData[_status.liquidId].maxLiquidAmount;
+					
+					var _percentage = (_liquidAmount/_MaxliquidAmount) * 100;
+				
+					_string = string(_percentage) + "%";
+				}
+				// Qunatos items tem
+				else _string = string(_strAmount) + "/" + string(_maxAmont);
 			
 				draw_text_ext_transformed(_xpl, _ypl-5, _string, 5, _sprWidPl, _strScl, _strScl, 1);
 			
