@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"items",
-    "path":"folders/Sprites/items.yy",
+    "name":"Ingredients",
+    "path":"folders/Sprites/items/Ingredients.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

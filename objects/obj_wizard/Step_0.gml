@@ -5,6 +5,7 @@ left			= keyboard_check(keyLeft);
 jump			= keyboard_check(keyJump);
 inputInventory	= keyboard_check_pressed(keyInventory);
 interact		= keyboard_check_pressed(keyInteract);
+changeIndex		= keyboard_check_pressed(keyChangeIndex);
 
 leftClick			= mouse_check_button(mouseLeftClick);
 leftClickReleased	= mouse_check_button_released(mouseLeftClick);
@@ -49,7 +50,37 @@ fWithCollisionPlayer(self);
 // Inventario
 fWithInventory(self);
 
-// Ta enviando input pro objeto?
+
+// Input Interaçao
+var _lenIA = array_length(interactionObjects);
+if(_lenIA != 0) {
+	
+	// Muda qual objeto esta interagindo
+	if(changeIndex) {
+		
+		if(indexAI+1 >= _lenIA) indexAI = 0;
+		else					indexAI++;
+	}
+	
+	if(instance_exists(interactionObjects[indexAI])) {
+		
+		var _objInter = interactionObjects[indexAI];
+			
+		interactionObjects[indexAI].colliding = true;
+	
+		// Manda input pro objeto
+		if(interact) {
+
+			interactionObjects[indexAI].interacted = true;
+		}
+	}
+}
+else {
+	
+	indexAI = 0;
+}
+
+// Input pro objeto inventario
 var _id = fGetSlotInventory(inventory, selectedSlot).itemId;
 
 isInputItem			= fIsInputItem(leftClick, alarm[0], isInInventory, _id);

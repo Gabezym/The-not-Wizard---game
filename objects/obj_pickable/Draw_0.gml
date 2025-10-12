@@ -3,7 +3,7 @@ draw_sprite_ext(spr, 1, x, y, 1, 1, angl, c_white, 1);
 fDrawHitBox(colW, colH, self);
 
 // Amount
-if(isNextToPlayer) {
+if(colliding) {
 
 	draw_set_font(font_default);
 

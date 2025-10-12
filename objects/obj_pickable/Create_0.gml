@@ -34,8 +34,9 @@ colH = sprite_get_height(sprite_index) + addCol;
 // Se foi coletado
 isInteracted = false;
 
-// Se ta colidindo com o player(raio de interaçao)
-isNextToPlayer = false;
+colliding = false;			// Se ta colidindo com o wizard
+canInteract = colliding;	// Pro draw do wizard
+interacted = false;			// Se interagiu com esse item
 
 itemData = {
 	

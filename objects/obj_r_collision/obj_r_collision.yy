@@ -7,7 +7,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Reference",
-    "path":"folders/Objects/Reference.yy",
+    "path":"folders/Objects/General/Reference.yy",
   },
   "parentObjectId":null,
   "persistent":false,

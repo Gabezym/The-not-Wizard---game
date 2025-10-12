@@ -28,8 +28,8 @@
   "nineSlice":null,
   "origin":3,
   "parent":{
-    "name":"UI",
-    "path":"folders/Sprites/UI.yy",
+    "name":"Estamina",
+    "path":"folders/Sprites/UI/PlayerUI/Estamina.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

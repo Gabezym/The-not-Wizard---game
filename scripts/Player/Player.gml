@@ -1,149 +1,5 @@
 #region WIZARD
 
-#region Spawn
-
-// Spawna o objeto do ataque se tiver o input
-function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
-
-	with(obj_wizard) {
-
-			var _scl = instanceInHands.image_xscale; 
-			var _x = instanceInHands.x;
-			var _y = instanceInHands.y;
-
-			var _struct = {
-	
-				xScale: _scl,
-				xPlus: xPlusAttack,
-				damage: valDamage
-			}
-
-			var _id = instance_create_layer(_x, _y, layer, obj_attack, _struct);
-	
-			array_insert(followObjects, array_length(followObjects), _id);
-	
-			alarm[0] = cooldown;
-		}
-}
-
-// Pro player lançar do bottle
-function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance) {
-	
-	with(instance) {
-		
-		var _xVal = x;
-		var _yVal = y;
-		var _anglVal = 5;
-		var _amount = obj_config.liquidsData[varLiquidId].amount;
-		
-		var _spdVal = varSpd;
-		var _widColSpr = sprite_get_width(spr_water_ground);
-	
-		for(var _i = 0; _i < _amount; _i++) {
-			
-			var _x = _xVal + random_range(-5, 5);
-			var _y = _yVal + random_range(-5, 5);
-			
-			var _ang = obj_mouse.mouseAnglePlayer - (_anglVal*(_amount-1)) +_anglVal*_i;
-			var _spd = lerp(_spdVal, _spdVal*2, abs(cos(degtorad(_ang))));	// N entendo de fisica.
-			var _spawnX = _x + lengthdir_x(5, _ang);
-			var _spawnY = _y + lengthdir_y(5, _ang);
-			
-			var _structLiquid = {
-	
-				liquidId: varLiquidId,
-				gravVal : varGravVal,
-				grav : varGravVal,
-	
-				spd : _spd,
-
-				valHval	: cos(degtorad(_ang)) * _spd,		// Valor usado
-				valVval	: -sin(degtorad(_ang)) * _spd * 1.4	// Valor usado
-	
-		}
-			
-			if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
-		
-				instance_create_layer(_spawnX, _spawnY, layer, obj_liquid, _structLiquid)
-				// Coldown entre Inputs
-				obj_wizard.alarm[0] = cooldown;
-			}
-		}
-	}
-}
-
-// Generico
-function fSpawnLiquid(_xVal, _yVal, varLiquidId, varGravVal, varSpd, varAngleTo, varAmount) {
-			
-	var _anglVal = 5;	
-	var _amount = varAmount;
-	var _spdVal = varSpd;
-	var _widColSpr = sprite_get_width(spr_water_ground);
-	
-	for(var _i = 0; _i < _amount; _i++) {
-			
-		var _x = _xVal + random_range(-5, 5);
-		var _y = _yVal + random_range(-5, 5);
-			
-		var _ang = varAngleTo - (_anglVal*(_amount-1)) +_anglVal*_i;
-		var _spd = lerp(_spdVal, _spdVal*2, abs(cos(degtorad(_ang))));	// N entendo de fisica.
-		var _spawnX = _x + lengthdir_x(5, _ang);
-		var _spawnY = _y + lengthdir_y(5, _ang);
-			
-		var _structLiquid = {
-	
-			liquidId: varLiquidId,
-			gravVal : varGravVal,
-			grav : varGravVal,
-	
-			spd : _spd,
-
-			valHval	: cos(degtorad(_ang)) * _spd,		// Valor usado
-			valVval	: -sin(degtorad(_ang)) * _spd * 1.4	// Valor usado
-	
-	}
-			
-		if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
-		
-			instance_create_layer(_spawnX, _spawnY, "Objects", obj_liquid, _structLiquid)
-		}
-	}
-}
-
-// -- Aprovado \[T]/
-function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
-	
-	var _itemData = obj_config.itemsData[idd];
-	var _sprr = _itemData.sprite;
-	
-	var _struct = {
-	
-		_id: idd,
-		_gravVal : varGravVal,
-		_grav : varGravVal,
-		_spr: _sprr,
-		_angl: choose(-15, -10, -5, 0, 5, 10, 15),
-		_valHval	: hval,
-		_valVval	: vval,
-		status: _status,
-		amount: _amount
-	}
-	
-	var _widColSpr = sprite_get_width(_sprr)+5;
-	var _heiColSpr = sprite_get_height(_sprr)+5;
-		
-	if(!fIsColliding(_x, _y, _widColSpr, _heiColSpr, obj_r_collision)) {
-		
-		instance_create_layer(_x, _y, "Scenario", obj_pickable, _struct);
-		return true;
-	}
-		
-	return false
-}
-
-
-#endregion
-
 #region Use/Throw/Drop ITEMS
 
 // -- Aprovado \[T]/
@@ -320,6 +176,45 @@ function fGetEstamina(_instance) {
 	}
 	
 	return _newEst;
+}
+
+// Arruma Array interactedObjects
+function fWithInteractedObjects(_instance) {
+
+	with(_instance) {
+	
+		// Organiza a array dos interactObjects
+		var _lenAI = array_length(interactionObjects);
+		if(_lenAI != 0) {
+
+			with(objColInteraction) {
+			
+				for(var _z = _lenAI-1; _z >= 0; _z--) {
+				
+					if(instance_exists(other.interactionObjects[_z])) {
+						
+						// N tiver mais colidindo, tira da array
+						if(place_empty(x, y, other.interactionObjects[_z])) { 
+					
+							// N esta mais colidindo nem interagindo
+							other.interactionObjects[_z].colliding = false;
+							other.interactionObjects[_z].interacted = false;
+					
+							// Tira da array
+							array_delete(other.interactionObjects, _z, 1);	
+						}
+					}
+					else {
+					
+						// Tira da array
+						array_delete(other.interactionObjects, _z, 1);	
+					}
+				}
+			}
+		} 
+	
+		if(_lenAI != array_length(interactionObjects)) indexAI = 0;
+	}
 }
 
 #region Sistemas

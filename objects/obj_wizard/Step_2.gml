@@ -35,3 +35,6 @@ x+=hval;
 
 // Organiza a array dos followObjects
 fWithFollowObjects(self);
+
+// Organiza a array dos interactObjects
+fWithInteractedObjects(self);

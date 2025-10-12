@@ -14,7 +14,10 @@
     "name":"Pickable",
     "path":"folders/Objects/Items/Pickable.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_r_interaction",
+    "path":"objects/obj_r_interaction/obj_r_interaction.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

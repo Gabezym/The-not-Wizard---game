@@ -14,6 +14,7 @@ left	= 0;
 inputInventory = 0;
 
 interact = 0;
+changeIndex = 0;
 
 slot1	= 0;
 slot2	= 0;
@@ -32,6 +33,7 @@ keyRight = ord("D");
 keyLeft = ord("A");
 keyInventory = vk_tab
 keyInteract = ord("E");
+keyChangeIndex = ord("Q");
 
 keySlot1 = ord("1");
 keySlot2 = ord("2");
@@ -78,6 +80,11 @@ image_xscale = xScaleVal;
 
 sprCollision = spr_wizard_collision;	// Sprite da colisao
 mask_index = sprCollision;				// Colisao
+
+// Colisão de interação
+objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
+// Qual instancia da array de objetos interagiveis sera usado
+indexAI = 0;
 
 #region Bool
 isDead = false;
@@ -146,7 +153,7 @@ newInventory = undefined;
 
 // Array
 followObjects = [];	
-
+interactionObjects = [];
 
 // Time
 coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
@@ -155,5 +162,4 @@ cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.75;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
 
 // Effects Vars
-
 fWithCreateFire(self, 5);

@@ -96,8 +96,7 @@ function fRemoveOneItemSlotInventory(inventory, slotToChange) {
 }
 
 // -- Aprovado \[T]/
-// Exclui itens do inventario q n estao mais la e retorna o novo inventario
-// P: array, struct(slot Vazio)
+// Pro fWithSetNewInventory
 function fGetUpdateInventory(inventory, clearSlot) {
 
 	// Atualiza o inventario
@@ -140,7 +139,8 @@ function fGetUpdateInventory(inventory, clearSlot) {
 }
 
 // -- Aprovado \[T]/
-// Atualiza o novo inventario
+// Caso use new inventory, inventory = newInventory
+// Se isUpdateInvetory for true, chama fGetUpdateInventory
 function fWithSetNewInventory(_instance) {
 	
 	with(_instance) {
@@ -161,9 +161,9 @@ function fWithSetNewInventory(_instance) {
 	}
 }
 
-
 #endregion
 
+#region Pra encurtar
 
 // -- Aprovado \[T]/
 // Define selectedSlot e lastSelectedSlot
@@ -194,10 +194,10 @@ function fWithSelectedSlot(instance) {
 	}
 }
 
-
 // -- Aprovado \[T]/
 // P: array, id do item, tantoDeItem
 // Retorna array[tipo de cheio, amount]
+// 1 = colocar tudo, 2 = um pouco, 0 = n tem espaço
 function fHaveSpaceInInvetory(inventory, item, amount){
 
 	var _newAmount = amount;
@@ -614,5 +614,52 @@ function fWithInvetoryMouse(_instance) {
 		}
 	}
 }
+	
+function fColletPickableItem(_self, _instance) {
+
+	with(_instance) {
+	
+		// Ta na colisão e interagiu
+		if(_self.colliding && _self.interacted) {
+		
+			show_debug_message("Interagiu")
+		
+			var _spaceInInventory = fHaveSpaceInInvetory(inventory, _self._id, _self.itemData.itemAmount)[0];
+			var _newAmount = fHaveSpaceInInvetory(inventory, _self._id, _self.itemData.itemAmount)[1];
+			var _noItemToPick = (array_length(toPick) == 0);
+		
+			// Tem espaço pro item
+			if(_spaceInInventory == 1 && _noItemToPick) {
+		
+				// Adiciona as info desse objeto
+				array_insert(toPick, array_length(toPick) , _self.itemData);
+			
+				instance_destroy(_self);
+			}	
+			// Tem espaço, mas n vai da pra colocar o amount iteiro
+			else if(_spaceInInventory == 2) {
+			
+				var _itemCopy = {
+				    isFull: _self.itemData.isFull,
+				    itemId: _self.itemData.itemId,
+				    itemStatus: _self.itemData.itemStatus,
+				    itemAmount: _self.itemData.itemAmount - _newAmount // parte que vai pro inventário
+				};
+			
+				array_insert(toPick, array_length(toPick), _itemCopy);
+			
+				show_debug_log(_newAmount);
+			
+				// Atualiza o objeto no chão com o que sobrou
+				_self.itemData.itemAmount = _newAmount;
+			
+			}
+			else show_debug_message("Inventory full");
+		}
+		
+		_self.interacted = false;
+	}
+}
+#endregion
 
 #endregion

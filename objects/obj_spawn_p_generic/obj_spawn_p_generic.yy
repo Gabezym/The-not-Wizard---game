@@ -8,8 +8,8 @@
   "name":"obj_spawn_p_generic",
   "overriddenProperties":[],
   "parent":{
-    "name":"Spawn",
-    "path":"folders/Objects/Items/Pickable/Spawn.yy",
+    "name":"group1",
+    "path":"folders/Objects/Items/Pickable/Spawn/group1.yy",
   },
   "parentObjectId":null,
   "persistent":false,

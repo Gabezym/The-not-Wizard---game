@@ -29,14 +29,15 @@ enum ITEMS_TYPE
 }
 
 // Sempre alterar quando adicionar um novo item no ITEMS_ID
-var _sizeItemsId = 5;
+var _sizeItemsId = 6;
 enum ITEMS_ID
 {	
 	NOTHING = 0,
 	GENERIC = 1,
 	BOTTLE	= 2,
 	WEAPON = 3, 
-	EMPTY_BOTTLE = 4, 
+	EMPTY_BOTTLE = 4,
+	PLANT_BLUE = 5,
 }
 
 // Tem as informações dos items sem ação, os ingredientes(todos sao um mesmo item com info diferente)
@@ -55,6 +56,12 @@ itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	canUse: false,
 	xPlus: 15,
 	heal: 0
+}
+itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
+	
+	canUse: true,
+	xPlus: 15,
+	heal: 2
 }
 #endregion
 
@@ -89,6 +96,14 @@ itemsData[ITEMS_ID.EMPTY_BOTTLE] = {
 	typeData: obj_itemNoAction,
 	maxAmount: 15
 };
+itemsData[ITEMS_ID.PLANT_BLUE] = {
+
+	sprite: spr_plant_blue,
+	type: ITEMS_TYPE.NO_ACTION,
+	typeData: obj_itemNoAction,
+	maxAmount: 15
+};
+
 itemsData[ITEMS_ID.BOTTLE]	= {
 
 	sprite: spr_bottle_water,

@@ -8,8 +8,8 @@
   "name":"obj_spawn_p_bottle_lava",
   "overriddenProperties":[],
   "parent":{
-    "name":"Spawn",
-    "path":"folders/Objects/Items/Pickable/Spawn.yy",
+    "name":"Bottle",
+    "path":"folders/Objects/Items/Pickable/Spawn/Bottle.yy",
   },
   "parentObjectId":null,
   "persistent":false,

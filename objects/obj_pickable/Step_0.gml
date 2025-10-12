@@ -1,6 +1,5 @@
 var _colDown = place_meeting(x,y+1, obj_r_collision);
-
-isNextToPlayer =  fIsColliding(x, y, colW, colH, obj_wizard);
+canInteract = colliding;	// A condição pra interagir é estar colidindo
 
 #region Colisão XY + (x+=hval e y+=vval) + Grav
 
@@ -74,44 +73,4 @@ if(hval != 0) {
 }
 
 
-
-with(obj_wizard) {
-	
-	// Ta na colisão e interagiu
-	if(other.isNextToPlayer && interact == 1) {
-		
-		show_debug_message("Interagiu")
-		
-		var _spaceInInventory = fHaveSpaceInInvetory(inventory, other._id, other.itemData.itemAmount)[0];
-		var _newAmount = fHaveSpaceInInvetory(inventory, other._id, other.itemData.itemAmount)[1];
-		var _noItemToPick = (array_length(toPick) == 0);
-		
-		// Tem espaço pro item
-		if(_spaceInInventory == 1 && _noItemToPick) {
-		
-			// Adiciona as info desse objeto
-			array_insert(toPick, array_length(toPick) , other.itemData);
-			
-			instance_destroy(other);
-		}	
-		// Tem espaço, mas n vai da pra colocar o amount iteiro
-		else if(_spaceInInventory == 2) {
-			
-			var _itemCopy = {
-			    isFull: other.itemData.isFull,
-			    itemId: other.itemData.itemId,
-			    itemStatus: other.itemData.itemStatus,
-			    itemAmount: other.itemData.itemAmount - _newAmount // parte que vai pro inventário
-			};
-			
-			array_insert(toPick, array_length(toPick), _itemCopy);
-			
-			show_debug_log(_newAmount);
-			
-			// Atualiza o objeto no chão com o que sobrou
-			other.itemData.itemAmount = _newAmount;
-			
-		}
-		else show_debug_message("Inventory full");
-	}
-}
+fColletPickableItem(self, obj_wizard);

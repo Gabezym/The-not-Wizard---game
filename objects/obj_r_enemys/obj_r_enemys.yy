@@ -7,7 +7,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Reference",
-    "path":"folders/Objects/Reference.yy",
+    "path":"folders/Objects/General/Reference.yy",
   },
   "parentObjectId":{
     "name":"obj_r_entities",
