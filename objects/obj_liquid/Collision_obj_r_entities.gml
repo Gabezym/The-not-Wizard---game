@@ -32,19 +32,6 @@ if(alarm[2] <= 0) {
 		}
 		
 		
-		switch(_effect) {
-		
-			case EFFCTS.NOTHING: break;
-			case EFFCTS.FIRE:
-			
-				alarm[alarmFire] = cooldownFireDamage;
-				timesFireDamage = valTimesFireDamage;
-				
-			break;
-			case EFFCTS.WATER: 
-				
-				timesFireDamage = 0;
-			break;
-		}
+		fWithEffects(self, _effect)
 	}
 }	

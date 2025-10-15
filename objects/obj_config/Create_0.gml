@@ -6,7 +6,6 @@ enum CONSTANTS
 	GRID = 32
 }
 
-
 enum DIR
 {
 	RIGHT = 1,
@@ -17,9 +16,19 @@ enum DIR
 }
 
 
+
+enum EFFCTS
+{
+	NOTHING = 0,
+	WATER = 1,
+	FIRE = 2,
+	BIG_JUMP = 3, 
+}
+
+
 #region ITEMS
 
-// Tipos de itens (alterar se fizer um novo tipo)
+// Sempre alterar
 var _sizeItemsType = 3;
 enum ITEMS_TYPE
 {
@@ -28,7 +37,7 @@ enum ITEMS_TYPE
 	TOOLS = 2
 }
 
-// Sempre alterar quando adicionar um novo item no ITEMS_ID
+// Sempre alterar
 var _sizeItemsId = 6;
 enum ITEMS_ID
 {	
@@ -49,19 +58,22 @@ itemsNoActionData[ITEMS_ID.GENERIC] = {
 	
 	canUse: true,
 	xPlus: 15,
-	heal: 10
+	heal: 10,
+	effect: EFFCTS.NOTHING
 }
 itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	
 	canUse: false,
-	xPlus: 15,
-	heal: 0
+	xPlus: 20,
+	heal: 0,
+	effect: EFFCTS.NOTHING
 }
 itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	
 	canUse: true,
 	xPlus: 15,
-	heal: 2
+	heal: 2,
+	effect: EFFCTS.BIG_JUMP
 }
 #endregion
 
@@ -94,7 +106,7 @@ itemsData[ITEMS_ID.EMPTY_BOTTLE] = {
 	sprite: spr_bottle_empty,
 	type: ITEMS_TYPE.NO_ACTION,
 	typeData: obj_itemNoAction,
-	maxAmount: 15
+	maxAmount: 5
 };
 itemsData[ITEMS_ID.PLANT_BLUE] = {
 
@@ -124,13 +136,6 @@ itemsData[ITEMS_ID.WEAPON]	= {
 
 #endregion
 
-
-enum EFFCTS
-{
-	NOTHING = 0,
-	WATER = 1,
-	FIRE = 2,
-}
 
 #region LIQUIDOS
 
@@ -192,6 +197,7 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 #endregion
 
 #endregion
+
 
 // Define a velocida dos frames do jogo
 game_set_speed(60, gamespeed_fps);

@@ -10,8 +10,8 @@
   "name":"obj_wizard_collision_interaction",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/Objects/player.yy",
+    "name":"Characters",
+    "path":"folders/Objects/Characters.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -36,5 +36,5 @@
     "path":"sprites/spr_wizard_collision_interaction/spr_wizard_collision_interaction.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

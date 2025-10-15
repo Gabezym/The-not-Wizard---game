@@ -376,7 +376,7 @@ function fWithChangeInstanceHands(instance) {
 }
 
 // Retorna o inventario depois de arrastar um item pra outro slot(ou n) do inventario
-function fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventoryYX) {
+function fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventoryYX, _moveJustOne) {
 		
 	var _newInventory = undefined;	
 		
@@ -397,9 +397,9 @@ function fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventor
 		var _str02;		
 				
 		// Se n é o mesmo tipo de item ou mesmo status
-		if(!_sameType || !_sameStatus) {
+		if(!_sameType || !_sameStatus || _moveJustOne) {
 							
-			// Muda de lugar o item (inverte)
+			// Muda de lugar o item (inverte) ou muda só um item de lugar
 			_str01 = inventoryYX;
 			_str02 = slotStrClick;
 		}
@@ -502,8 +502,8 @@ function fWithInvetoryMouse(_instance) {
 			var _viewHei = obj_camera.camHeight;
 	
 			// Cordenadas Mouse
-			var _mouseX = display_mouse_get_x();
-			var _mouseY = display_mouse_get_y();
+			var _mouseX = display_mouse_get_x() div 1;
+			var _mouseY = display_mouse_get_y() div 1;
 	
 			// Posição X Y
 			var _yLen = array_length(inventory);
@@ -555,8 +555,34 @@ function fWithInvetoryMouse(_instance) {
 						// Arrasta os items pra outro lugar quando solta
 						// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
 						if(leftClickReleased && (slotClick != -1)) {
-					
-							newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x]);
+						
+							var _sameItemOrNoItem = ((inventory[_y][_x] == clearSlot) || (inventory[_y][_x].itemId == slotStrClick.itemId));
+							var _moveJustOneItem = (moveOneItem && _sameItemOrNoItem && (slotStrClick.itemAmount > 1));
+						
+							if(_moveJustOneItem) {
+							
+								var _strOne = {
+
+									isFull: true,
+									itemId: slotStrClick.itemId,
+									itemStatus: slotStrClick.itemStatus,
+									itemAmount:	inventory[_y][_x].itemAmount+1
+								}
+								var _strMinusOne = {
+
+									isFull: true,
+									itemId: slotStrClick.itemId,
+									itemStatus: slotStrClick.itemStatus,
+									itemAmount:	slotStrClick.itemAmount-1
+								}
+								
+								newInventory = fGetInventoryChangeSlotMouse(slotClick, _strOne, _inSLot, inventory, _strMinusOne, true);
+							}
+							else {
+								
+								newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x], false);
+							}
+							
 							fWithSetNewInventory(self);
 					
 							slotClick = -1;				// Reseta o slot do click

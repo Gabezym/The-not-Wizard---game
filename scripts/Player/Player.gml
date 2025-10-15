@@ -79,7 +79,11 @@ function fUseItem(idItem, inventory, selectedSlot, whoUseItem) {
 	
 	with(whoUseItem) {
 	
-		life+=obj_config.itemsNoActionData[idItem].heal;
+		var _infos = obj_config.itemsNoActionData[idItem];
+		
+		life+=_infos.heal;
+		
+		fWithEffects(self, _infos.effect);
 	}
 	
 	 return fRemoveOneItemSlotInventory(inventory, selectedSlot);
@@ -291,7 +295,7 @@ function fWithMovementHvalVval(_instance) {
 		// Vval Jump + estamina
 		if (isJumping) { 
 	
-			vval = (jump * spdJump) * slow;
+			vval = (jump * spdJump) * slow * efBigJump;
 			estamina -= estJump;
 			alarm[4] = cooldownEstamina;
 		}
@@ -468,32 +472,12 @@ function fWithFollowObjects(_ins) {
 				
 						var _lenX = lengthdir_x(_dis, _ang);
 						var _lenY = lengthdir_y(_dis, _ang);
-				
-				
-						var _minX = min(_x, _x + _lenX);
-						var _maxX = max(_x, _x + _lenX);
-						var _minY = min(_y, _y + _lenY);
-						var _maxY = max(_y, _y + _lenY);
-				
-						// Se as cordenada do mouse tao dentro da area de alcance do player
-						var _mxInPlayerRange = (mouse_x >= _minX && mouse_x <= _maxX);
-						var _myInPlayerRange = (mouse_y >= _minY && mouse_y <= _maxY);
-				
+								
 						#endregion
 				
 						// Posição XY
-						var _newX;
-						var _newY;
-						if(_mxInPlayerRange && _myInPlayerRange) {	
-					
-							_newX = mouse_x;
-							_newY = mouse_y;
-						}
-						else {
-					
-							_newX = _x + _lenX;
-							_newY = _y + _lenY;
-						}
+						var _newX = _x + _lenX;
+						var _newY = _y + _lenY;
 				
 						// Xscale
 						var _scl = sign(other.xScale);

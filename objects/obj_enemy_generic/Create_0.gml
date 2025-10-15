@@ -4,10 +4,10 @@ life = lifeVal;
 
 // Quase fixo
 spd= 3;
-jump = 20;	// Vai ser multiplicado pelo vertMoveVal
+jump = 15;	// Vai ser multiplicado pelo vertMoveVal
 slow = 1;
 
-grav = 1; 
+grav = 0.6; 
 hDisView = 12;
 vDisView = 8;
 
@@ -44,4 +44,4 @@ hitStruct = {
 	hitVal: 0
 };
 	
-fWithCreateFire(self, 4);
+fWithCreateFire(self);

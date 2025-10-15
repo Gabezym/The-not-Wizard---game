@@ -26,10 +26,9 @@ cooldownAngl = CONSTANTS.SPD_GAME * 0.1;
 // Sprite do draw
 spr = sprite_index;
 
-// Col vars
-addCol = 10;
-colW = sprite_get_width(sprite_index) + addCol;
-colH = sprite_get_height(sprite_index) + addCol;
+colH = sprite_get_height(sprite_index);
+colW = sprite_get_width(sprite_index);
+
 
 // Se foi coletado
 isInteracted = false;

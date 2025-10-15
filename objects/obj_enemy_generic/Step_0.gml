@@ -42,7 +42,9 @@ else {
 	
 		// Descer a escada
 		if(place_meeting(x, y+spd*2, obj_collision_ladder)) {
-
+			
+			y = y div 1;
+			
 			while (!place_meeting(x, y+sign(spd), obj_collision_ladder)) {
 		
 				y+=sign(spd);
@@ -50,7 +52,9 @@ else {
 		}
 		// Subir escada
 		if(place_meeting(x +hval, y+vval, obj_collision_ladder)) {
-
+			
+			y = y div 1;
+			
 			y-=spd;
 		}
 	}

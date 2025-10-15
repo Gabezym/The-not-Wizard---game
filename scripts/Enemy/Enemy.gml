@@ -17,7 +17,9 @@ function fEnemyColisionVH(instance) {
 		if(place_meeting(x, y + vval, obj_r_collision)) {
 	
 			var isColGround = sign(vval);
-	
+			
+			y = y div 1;
+			
 			while (!place_meeting(x, y+sign(vval), obj_r_collision)) {
 		
 				y+=sign(vval);
@@ -30,7 +32,9 @@ function fEnemyColisionVH(instance) {
 	
 		// Colisao X
 		if(place_meeting(x + hval, y, obj_r_collision)) {
-
+	
+			x = x div 1;
+				
 			while(!place_meeting(x+sign(hval), y, obj_r_collision)) {
 		
 				x+=sign(hval);

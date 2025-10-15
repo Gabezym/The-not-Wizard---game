@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_spawn_p_bottle_empty_1",
+  "%Name":"obj_spawn_p_plant_blue",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_spawn_p_bottle_empty_1",
+  "name":"obj_spawn_p_plant_blue",
   "overriddenProperties":[],
   "parent":{
-    "name":"group1",
-    "path":"folders/Objects/Items/Pickable/Spawn/group1.yy",
+    "name":"Ingredients",
+    "path":"folders/Objects/Items/Pickable/Spawn/Ingredients.yy",
   },
   "parentObjectId":null,
   "persistent":false,

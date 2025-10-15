@@ -1,6 +1,6 @@
 draw_sprite_ext(spr, 1, x, y, 1, 1, angl, c_white, 1);
 
-fDrawHitBox(colW, colH, self);
+fDrawHitBox(colW/2, colH/2, self);
 
 // Amount
 if(colliding) {

@@ -29,6 +29,6 @@ fRemoveOneItemSlotInventory(inventory, slotToChange)
 
 
 // Ao alterar o inventario com alguma função, use esse padrão:
-isUpdateInvetory = true;	// Essa parte é pra checar se n tem nenhum item negativo(subtração);
+isUpdateInvetory = true;	// Essa parte é pra checar se n tem nenhum item negativo(-item);
 newInventory = função();
 fWithSetNewInventory(self);	// Define o novo inventario e checa o isUpdateInventory;

@@ -6,6 +6,7 @@ jump			= keyboard_check(keyJump);
 inputInventory	= keyboard_check_pressed(keyInventory);
 interact		= keyboard_check_pressed(keyInteract);
 changeIndex		= keyboard_check_pressed(keyChangeIndex);
+moveOneItem		= keyboard_check(keyMoveOneItem);
 
 leftClick			= mouse_check_button(mouseLeftClick);
 leftClickReleased	= mouse_check_button_released(mouseLeftClick);
@@ -36,10 +37,15 @@ fWithMovementHvalVval(self);
 // Estamina
 fWithEstamina(self);
 
-#region Effects
-
+// Slow padrão 
 slow = fResetSlow(self);
 
+#region Effects
+
+// Efeito Big jump
+fWithStepEfBigJump(self);
+
+// Particulas fogo
 fWithSpawParticleFire(self);
 
 #endregion
@@ -51,7 +57,7 @@ fWithCollisionPlayer(self);
 fWithInventory(self);
 
 
-// Input Interaçao
+// Input Interaçao + index interação
 var _lenIA = array_length(interactionObjects);
 if(_lenIA != 0) {
 	

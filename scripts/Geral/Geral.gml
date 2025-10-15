@@ -25,8 +25,8 @@ function fDrawHitBox(halfWid, halfHei, instance) {
 		
 		var _x1 = x-halfWid;
 		var _x2 = x+halfWid;
-		var _y1 = y+halfHei;
-		var _y2 = y-halfHei;
+		var _y1 = y-halfHei;
+		var _y2 = y+halfHei;
 		
 		draw_set_colour(c_red); 
 		
@@ -70,7 +70,37 @@ function fResetSlow(instance) {
 	
 	return _slow;
 }
+
+#region Efeitos 
+
+// Aplica efeitos 
+function fWithEffects(_instance, _effect) {
+
+	with(_instance) {
 	
+		switch(_effect) {
+		
+				case EFFCTS.NOTHING: break;
+				case EFFCTS.FIRE:
+			
+					myAlarmFire = valMyAlarmFire;
+					alarm[11] = CONSTANTS.SPD_GAME * 1;
+				
+				break;
+				case EFFCTS.WATER: 
+				
+					myAlarmFire = 0;
+				break;
+			
+				case EFFCTS.BIG_JUMP:
+			
+					myAlarmEfBigJump = valMyAlarmEfBigJump;
+					alarm[11] = CONSTANTS.SPD_GAME * 1;
+				break;
+		}
+	}
+}
+
 #region Fogo 
 
 // Particula
@@ -104,20 +134,13 @@ function fWithCreateParticleFire(_instance) {
 	} 
 }
 
-// No Alarme
+// No Alarme 11
 function fWithFireDamage(_instance) {
 
 	with(_instance) {
 	
-		// Fire damage
-		if(timesFireDamage > 0) {
 	
-			life-=fireDamage;
-	
-	
-			timesFireDamage --;
-			alarm[alarmFire] = cooldownFireDamage;
-		}
+		life-=fireDamage;
 	}
 }	
 	
@@ -134,21 +157,18 @@ function fWithSpawParticleFire(_instance) {
 		// Posição 
 		part_emitter_region(partSystemFire, partEmitterFire, _x1, _x2, _y1, _y2, ps_shape_diamond, ps_distr_gaussian); 
 		// Junta tudo 
-		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(timesFireDamage)); 
+		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(myAlarmFire)); 
 	} 
 }
 
 // No Create
-function fWithCreateFire(_instance, _numAlarm){
+function fWithCreateFire(_instance){
 	
 	with(_instance) {
 
 		cooldownFireDamage = CONSTANTS.SPD_GAME* 0.5;
-
-		alarmFire = _numAlarm;
-
-		valTimesFireDamage = 8;
-		timesFireDamage = 0;
+		valMyAlarmFire = 5;
+		myAlarmFire = 0;
 
 		fireDamage = 5;
 
@@ -180,5 +200,40 @@ function fWithDeleteFire(_instance) {
 		}
 	}
 }
+
+#endregion
+
+#region Efeito Big Jump
+
+// Use no create
+function fWithCreateEfBigJump(_instance) {
+
+	with(_instance) {
+	
+		valMyAlarmEfBigJump = 15;
+		myAlarmEfBigJump = 0;
+
+		valEfBigJump = 1.3;
+		efBigJump = 1;
+	}
+}
+// Use no step
+function fWithStepEfBigJump(_instance) {
+
+	with(_instance) {
+		
+		// Efeito big jump
+		if(myAlarmEfBigJump > 0) {
+
+			efBigJump = valEfBigJump;
+		} 
+		else {
+
+			efBigJump = 1;
+		}
+	}
+}
+
+#endregion
 
 #endregion

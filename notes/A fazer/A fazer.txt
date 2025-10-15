@@ -3,3 +3,9 @@
 - Melhorar IA do inimigos
 - Os inimigos nao conseguem pular se estiverem descendo uma escada só se tiverem subindo
 - Fazer sistema de dialogo
+
+Arrumei posição itens em mão;
+Arrumei interação com obj_fill_bottle_default
+Mover só um item com ctrl
+Sistema de efeitos + alarme caseiro só pra efeito, fogo agora faz parte desses efeitos
+Liquidos e consumiveis podem dar esses efeitos agora

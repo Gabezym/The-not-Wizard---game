@@ -1,5 +1,5 @@
 instance = obj_p_g_bottle_empty;
-str = {amount: 15};
+str = {amount: 1};
 
 instance_create_layer(x, y, "Objects", instance, str);
 

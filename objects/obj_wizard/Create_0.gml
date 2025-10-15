@@ -12,6 +12,7 @@ right	= 0;
 left	= 0;
 
 inputInventory = 0;
+moveOneItem = 0;
 
 interact = 0;
 changeIndex = 0;
@@ -40,6 +41,8 @@ keySlot2 = ord("2");
 keySlot3= ord("3");
 keySlot4 = ord("4");
 keySlot5 = ord("5");
+
+keyMoveOneItem = vk_control;
 
 #endregion
 
@@ -161,5 +164,7 @@ cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
 cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.75;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
 
+
 // Effects Vars
-fWithCreateFire(self, 5);
+fWithCreateEfBigJump(self);
+fWithCreateFire(self);

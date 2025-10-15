@@ -8,8 +8,8 @@
   "name":"obj_spawn_p_bottle_empty",
   "overriddenProperties":[],
   "parent":{
-    "name":"group1",
-    "path":"folders/Objects/Items/Pickable/Spawn/group1.yy",
+    "name":"Ingredients",
+    "path":"folders/Objects/Items/Pickable/Spawn/Ingredients.yy",
   },
   "parentObjectId":null,
   "persistent":false,
