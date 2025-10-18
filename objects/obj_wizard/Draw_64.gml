@@ -55,19 +55,121 @@ draw_sprite_ext(spr_UI_Estamina, 1, _draw_x,  _draw_y, 3, 3, 0, c_white, 1);
 
 #region STATUS
 {
-var _xSlow = _UI_LifeXVal div 4;
-var _ySlow = _UI_LifeYVal * 4;
-var _scl = 0.6;
 
-draw_set_font(font_default);
+if(fWithHasEffects(self) || slow < 1) {
 
-draw_set_color(c_black);
+	var _numPerLine = 3;	// Maximo de efeitos por linha	
+	var _posLine = 0;		// Pra enumerar os efeitos	por linha
+		
+	var _xBegin = _UI_LifeXVal div 4;
+	var _yBegin = _UI_LifeYVal * 4;
+	
+	var _heiEffectSpr = sprite_get_height(spr_background_effect);
+	var _widEffectSpr = sprite_get_width(spr_background_effect);
+	
+	var _mx = display_mouse_get_x();
+	var _my = display_mouse_get_y();
+	
+	// Efeito do slow
+	if(slow < 1) {
+		
+		draw_sprite_ext(spr_background_effect, 1, _xBegin, _yBegin, 1, 1, 0, c_white, 1);
+		draw_sprite_ext(spr_effect_big_jump, 1, _xBegin, _yBegin, 1, 1, 0, c_white, 1);
+		draw_sprite_ext(spr_border_effect, 1, _xBegin, _yBegin, 1, 1, 0, c_white, 1);
+		draw_sprite_ext(spr_plate_effect, 1, _xBegin, _yBegin, 1, 1, 0, c_white, 1);
+		
+		var _xSlow = _xBegin;
+		var _ySlow = _yBegin;
+		var _scl = 0.2;
 
-draw_text_ext_transformed(_xSlow, _ySlow, "SLOW: " + string(slow*100) + "%", 15, 1000, _scl, _scl, 1);
+		draw_set_font(font_default);
+			
+		draw_set_halign(fa_center);
+			
+		draw_set_valign(fa_middle);
+	
+		var _percent = string(((1 - slow) / (1 - 0.4)) * 100 div 1) + "%";
+	
+		draw_text_ext_transformed(_xSlow, _ySlow+15, _percent, 15, 1000, _scl, _scl, 1);
 
-draw_set_color(-1);
+		draw_set_valign(-1);
+			
+		draw_set_halign(-1);
+			
+		draw_set_font(-1);
+			
+		_posLine++;
+	}
 
-draw_set_font(-1);
+	// Efeitos
+	for(var _i = 0; _i < global.lenAlarmEffects; _i++) {
+
+		if(effectsAlarm[_i] > 0) {
+			
+			// Novas linhas de efeitos
+			if((_posLine != 0) && (_posLine % _numPerLine == 0)) {
+				
+				_yBegin += _heiSpr;
+				_posLine = 0;
+				_numPerLine = 0;
+			}
+
+			var _xxx = _xBegin + (_widEffectSpr* _posLine);
+			var _sprEffect = obj_config.infoEffects[_i].sprite;	
+				
+			draw_sprite_ext(spr_background_effect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
+			draw_sprite_ext(_sprEffect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
+			draw_sprite_ext(spr_border_effect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
+			
+			var _cx1 = _xxx - _widEffectSpr/2;
+			var _cx2 = _xxx + _widEffectSpr/2;
+			var _cy1 = _yBegin - _heiEffectSpr/2;
+			var _cy2 = _yBegin + _heiEffectSpr/2;
+		
+			draw_rectangle(_cx1, _cy1, _cx2, _cy2, true);
+			
+			// ARRUMAR	
+			if(point_in_rectangle(_mx, _my, _cx1, _cy1, _cx2, _cy2)) {
+			
+				var _xp = _xxx + 40;
+				var _yp = _yBegin - 40;
+
+				var _sprWid = sprite_get_width(spr_plate_info);
+				var _sprHei = sprite_get_height(spr_plate_info);			
+
+				var _text = obj_config.infoEffects[_i].description;
+				var _sclTxt = 0.3;
+				var _font = font_default;
+
+				// mede o texto de verdade
+				var _txt_w = string_width_ext(_text, 5, 1000) * _sclTxt;
+				var _txt_h = string_height_ext(_text, 5, 1000) * _sclTxt;
+
+				// define escala do sprite pra caber o texto
+				var _xScl = _txt_w / _sprWid;
+				var _yScl = 0.5;
+
+				draw_sprite_ext(spr_plate_info, 1, _xp, _yp, _xScl, _yScl, 0, c_white, 0.8);
+
+				draw_set_font(_font);
+			
+				draw_set_halign(fa_left);
+			
+				draw_set_valign(fa_middle);
+				
+				draw_text_ext_transformed(_xp, _yp, _text, 5, 1000, _sclTxt, _sclTxt, 0);
+
+				draw_set_valign(-1);
+			
+				draw_set_halign(-1);
+			
+				draw_set_font(-1);
+			}
+			
+			_posLine++;
+		}
+	}
+}
 }	
 #endregion
 

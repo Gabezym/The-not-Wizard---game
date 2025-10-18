@@ -1,5 +1,3 @@
-show_debug_message("Criado")
-
 liquidId = status.liquidId;
 liquidAmount = status.liquidAmount;
 

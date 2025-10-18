@@ -61,14 +61,28 @@ function fResetSlow(instance) {
 		
 		_slow = slow;
 		
-		if((slow != 1) && ((hval != 0) || ( vval != 0))) {
-
-			if (slow + 0.005 < 1) _slow += 0.005;
+		if((slow != 1) && !(place_meeting(x, y, obj_r_liquid)) && ((hval != 0) || ( vval != 0))) {
+			
+			var _reductionSlow = 0.002;
+			
+			if (slow + _reductionSlow < 1) _slow += _reductionSlow;
 			else _slow = 1;
 		}
 	}
 	
 	return _slow;
+}
+
+function fStuck(_instance) {
+
+	with(_instance) {
+		
+		if(place_meeting(x,y, obj_r_collision)) {
+	
+			if(place_empty(x+spd, y, obj_r_collision)) x+= spd;
+			else if (place_empty(x-spd, y, obj_r_collision)) x-= spd;
+		}
+	}
 }
 
 #region Efeitos 
@@ -83,21 +97,37 @@ function fWithEffects(_instance, _effect) {
 				case EFFCTS.NOTHING: break;
 				case EFFCTS.FIRE:
 			
-					myAlarmFire = valMyAlarmFire;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = valMyAlarmFire;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				
 				break;
 				case EFFCTS.WATER: 
 				
-					myAlarmFire = 0;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = 0;
 				break;
 			
 				case EFFCTS.BIG_JUMP:
 			
-					myAlarmEfBigJump = valMyAlarmEfBigJump;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] = valMyAlarmEfBigJump;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				break;
 		}
+	}
+}
+
+// Retorna se tem algum efeito 
+function fWithHasEffects(_instance) {
+
+	with(_instance) {
+		
+		var _total = 0;
+	
+		for(var _i = 0; _i < array_length(effectsAlarm); _i++) {
+		
+			_total += effectsAlarm[_i] 
+		}
+		
+		return _total;
 	}
 }
 
@@ -157,7 +187,7 @@ function fWithSpawParticleFire(_instance) {
 		// Posição 
 		part_emitter_region(partSystemFire, partEmitterFire, _x1, _x2, _y1, _y2, ps_shape_diamond, ps_distr_gaussian); 
 		// Junta tudo 
-		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(myAlarmFire)); 
+		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE])); 
 	} 
 }
 
@@ -168,7 +198,6 @@ function fWithCreateFire(_instance){
 
 		cooldownFireDamage = CONSTANTS.SPD_GAME* 0.5;
 		valMyAlarmFire = 5;
-		myAlarmFire = 0;
 
 		fireDamage = 5;
 
@@ -211,7 +240,6 @@ function fWithCreateEfBigJump(_instance) {
 	with(_instance) {
 	
 		valMyAlarmEfBigJump = 15;
-		myAlarmEfBigJump = 0;
 
 		valEfBigJump = 1.3;
 		efBigJump = 1;
@@ -223,7 +251,7 @@ function fWithStepEfBigJump(_instance) {
 	with(_instance) {
 		
 		// Efeito big jump
-		if(myAlarmEfBigJump > 0) {
+		if(effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] > 0) {
 
 			efBigJump = valEfBigJump;
 		} 
@@ -237,3 +265,54 @@ function fWithStepEfBigJump(_instance) {
 #endregion
 
 #endregion
+
+// Intensidade 0: bottle liquid
+// Intensidade 1: static liquid
+
+function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensity) {
+
+	with(_instanceCall) {
+	
+		if(alarm[_alarmCooldown] <= 0) {
+	
+			with(_instanceCol) {
+				
+				var cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.15;
+				
+				var _status = obj_config.liquidsData[other.liquidId];
+				var _dmg = _status.damage;
+				var _slow = _status.slow;
+				var _effect = _status.effect;
+		
+				var _outOfCooldown;
+				if(_instensity == 0)	_outOfCooldown = (alarm[3] <= 0);
+				else					_outOfCooldown = (alarm[3] <= CONSTANTS.SPD_GAME * 0.1);
+				
+				var _areMoving = (hval != 0 || vval != 0);
+				var _damegeForMoving = (_areMoving && (alarm[3] <= cooldownDamageLiquid/2));
+			
+				// Damage + cooldown 
+				if(_outOfCooldown || _damegeForMoving ) {
+		
+					life-= _dmg;
+
+					alarm[3] = cooldownDamageLiquid;
+				}
+				
+				var _slowVal = 0.02;	
+				if(_instensity =! 0) _slowVal = 0.1;
+		
+				// Slow
+				if(_areMoving || _outOfCooldown) {
+			
+					slow = lerp(slow, _slow, _slowVal);
+			
+					// Se chegou perto o suficiente, trava no valor exato
+					if(abs(slow - _slow) < 0.01)  slow = _slow;
+				}
+			
+				fWithEffects(self, _effect)
+			}
+		}	
+	}
+}

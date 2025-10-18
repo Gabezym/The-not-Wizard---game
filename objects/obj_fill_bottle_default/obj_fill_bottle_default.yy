@@ -10,8 +10,8 @@
   "name":"obj_fill_bottle_default",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Liquid",
+    "path":"folders/Objects/Scenario/Liquid.yy",
   },
   "parentObjectId":{
     "name":"obj_r_interaction",
@@ -39,5 +39,5 @@
     "path":"sprites/spr_fill_bottle/spr_fill_bottle.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

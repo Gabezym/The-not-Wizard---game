@@ -220,7 +220,7 @@ function fWithInteractedObjects(_instance) {
 		if(_lenAI != array_length(interactionObjects)) indexAI = 0;
 	}
 }
-
+        
 #region Sistemas
 
 // Sistema de movimentação
@@ -428,12 +428,14 @@ function fWithEstamina(_instance) {
 		if(estamina != maxEstamina) {
 	
 			// Velocidade lenta
-			if(estamina <= 0 ) {
+			if(estamina == 0 ) {
 
 				spd = spdVal/2;
 				spdJump = spdJumpVal / 2;
 			}
 			// Velocidade normal
+			else if(estamina < 0 ) estamina = 0;
+			
 			else {
 
 				spd = spdVal;

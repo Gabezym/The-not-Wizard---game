@@ -15,7 +15,7 @@ enum DIR
 	FALL = 1
 }
 
-
+#region Effects
 
 enum EFFCTS
 {
@@ -24,6 +24,28 @@ enum EFFCTS
 	FIRE = 2,
 	BIG_JUMP = 3, 
 }
+
+global.lenAlarmEffects = 2;
+enum EFFECTS_ALARMS {
+
+	ALARM_FIRE = 0,
+	ALARM_BIG_JUMP = 1
+}
+
+infoEffects = array_create(global.lenAlarmEffects);
+infoEffects[EFFECTS_ALARMS.ALARM_FIRE] = {
+
+	sprite: spr_effect_big_jump,
+	description: "Você está pegando fogo!"
+}
+infoEffects[EFFECTS_ALARMS.ALARM_BIG_JUMP] = {
+
+	sprite: spr_effect_big_jump,
+	description: "Seu pulo está mais alto."
+}
+
+
+#endregion
 
 
 #region ITEMS
@@ -158,7 +180,7 @@ liquidsData[LIQUIDS_ID.WATER] = {
 	spriteBottle: spr_bottle_water,
 	color: make_color_rgb(33, 182, 239),
 	amount: 5,
-	maxLiquidAmount: 50,
+	maxLiquidAmount: 100,
 	damage: 0,
 	slow: 1, 
 	effect: EFFCTS.WATER,
@@ -168,9 +190,9 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	spriteBottle: spr_bottle_blood,
 	color: make_color_rgb(102, 7, 9),
 	amount: 5,
-	maxLiquidAmount: 40,
+	maxLiquidAmount: 200,
 	damage: 0,
-	slow: 0.5, 
+	slow: 0.6, 
 	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.ACID] = {
@@ -178,8 +200,8 @@ liquidsData[LIQUIDS_ID.ACID] = {
 	spriteBottle: spr_bottle_acid,
 	color: make_color_rgb(197, 255, 50),
 	amount: 3,
-	maxLiquidAmount: 30,
-	damage: 5,
+	maxLiquidAmount: 60,
+	damage: 4,
 	slow: 1, 
 	effect: EFFCTS.NOTHING,
 };
@@ -188,7 +210,7 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 	spriteBottle: spr_bottle_lava,
 	color: make_color_rgb(248, 146, 24),
 	amount: 3,
-	maxLiquidAmount: 20,
+	maxLiquidAmount: 40,
 	damage: 2,
 	slow: 1, 
 	effect: EFFCTS.FIRE,

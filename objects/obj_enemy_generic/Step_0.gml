@@ -23,6 +23,9 @@ else {
 	if (life<=0) isDead = true;
 	// Morte TEMPORARIA ---------------------//----
 
+	// Se ficar preso
+	fStuck(self);
+
 	#region VVAL e HVAL
 
 	// VVAL

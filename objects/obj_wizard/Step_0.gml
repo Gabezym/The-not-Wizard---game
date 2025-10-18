@@ -32,6 +32,10 @@ slot5	= keyboard_check_pressed(keySlot5);
 
 isInLadder = place_meeting(x, y+spd+15, obj_collision_ladder);
 
+// Se ficar preso
+fStuck(self);
+
+// Movimentação
 fWithMovementHvalVval(self);
 
 // Estamina
@@ -41,6 +45,11 @@ fWithEstamina(self);
 slow = fResetSlow(self);
 
 #region Effects
+
+if(fWithHasEffects(self)) {
+
+}
+
 
 // Efeito Big jump
 fWithStepEfBigJump(self);

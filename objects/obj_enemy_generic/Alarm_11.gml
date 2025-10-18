@@ -1,13 +1,13 @@
 // Effects
-var _effectsTime = (myAlarmFire);
 
-if(_effectsTime > 0) {
+// Só os efeitos do inimigo
+if(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] > 0) {
 	
 	// Efeito do fogo
-	if(myAlarmFire > 0) {
+	if(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] > 0) {
 	
 		fWithFireDamage(self);
-		myAlarmFire--;
+		effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE]--;
 	}
 }
 

@@ -161,10 +161,11 @@ interactionObjects = [];
 // Time
 coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
 cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
-cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.75;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
 
 
 // Effects Vars
+effectsAlarm = array_create(global.lenAlarmEffects, 0);
+
 fWithCreateEfBigJump(self);
 fWithCreateFire(self);

@@ -6,7 +6,6 @@ if(liquidAmount > 0) {
 	
 		fSpawnLiquidObject(liquidId, gravVal, spd, cooldownInput, self);
 	
-		
 	}
 }
 
