@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"font_default",
+  "%Name":"font_small",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":60,
@@ -212,7 +212,7 @@
   "last":0,
   "lineHeight":83,
   "maintainGms1Font":false,
-  "name":"font_default",
+  "name":"font_small",
   "parent":{
     "name":"Fonts",
     "path":"folders/Fonts.yy",

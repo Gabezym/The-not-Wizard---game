@@ -369,7 +369,7 @@ function fWithCollisionPlayer(_instance) {
 
 		// X
 		// Subir escada
-		if place_meeting(x + hval, y + vval, obj_collision_ladder) {
+		if place_meeting(x + hval, y, obj_collision_ladder) {
 	
 			x = x div 1
 			y = y div 1
@@ -380,7 +380,11 @@ function fWithCollisionPlayer(_instance) {
 			}
 	
 			// Soma o spd pra cima, assim fazendo com que ele suba a escada
-			y-=spd;
+			if(!place_meeting(x, y-spd*slow, obj_r_collision)) y-=spd*slow;
+			else {
+			
+				while (!place_meeting(x, y-1 , obj_r_collision)) y-=1;
+			}
 		}
 
 		// +vval pq ainda n somou, ele soma só no final

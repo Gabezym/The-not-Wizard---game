@@ -65,7 +65,7 @@ function fResetSlow(instance) {
 			
 			var _reductionSlow = 0.002;
 			
-			if (slow + _reductionSlow < 1) _slow += _reductionSlow;
+			if (slow + _reductionSlow < 0.99) _slow += _reductionSlow;
 			else _slow = 1;
 		}
 	}
@@ -315,4 +315,37 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 			}
 		}	
 	}
+}
+
+function fDrawBoxText(_x, _y, _text, _font) {
+		
+	var _sprWid = sprite_get_width(spr_plate_info);
+	var _sprHei = sprite_get_height(spr_plate_info);			
+
+				
+	draw_set_font(_font);
+	var _linesSize = font_get_size(_font) + 5;
+				
+	// mede o texto de verdade
+	var _txt_w = string_width_ext(_text, _linesSize, 100) + 20;
+	var _txt_h = string_height_ext(_text, _linesSize, 100)
+
+	// define escala do sprite pra caber o texto
+	var _valScl = 1.3;
+	var _xScl = (_txt_w/ _sprWid) * _valScl;
+	var _yScl = (_txt_h/ _sprHei);
+
+	draw_sprite_ext(spr_plate_info, 1, _x-15, _y, _xScl, _yScl, 0, c_white, 0.8);
+
+	draw_set_halign(fa_left);
+				
+	draw_set_valign(fa_top)
+				
+	draw_text_ext_transformed(_x, _y - (_txt_h/2), _text, _linesSize, 100, 1, 1, 0);
+
+	draw_set_valign(-1);
+			
+	draw_set_halign(-1);
+			
+	draw_set_font(-1);
 }
