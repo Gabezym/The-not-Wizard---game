@@ -1,6 +1,29 @@
 var _viewWid = obj_camera.camWidth;
 var _viewHei = obj_camera.camHeight;
 
+if(isCrafting) {
+	
+	draw_sprite(spr_craftingUI_base, 1, craftVarDefX, craftVarDefY);
+	draw_sprite(spr_inventory_border, 1, craftVarB1, craftVarDefY)
+	draw_sprite(spr_inventory_border, 1, craftVarB2, craftVarDefY)
+	draw_sprite(spr_inventory_border, 1, craftVarB3, craftVarDefY)
+	
+	if(craftIndexItem1 != -1) {
+	
+		var _itemStr = fGetSlotInventory(inventory, craftIndexItem1);
+		var _itemIcon = fGetIconInventory(_itemStr);
+		
+		draw_sprite(_itemIcon, 1, craftVarB1, craftVarDefY);
+	}
+	if(craftIndexItem2 != -1) {
+	
+		var _itemStr = fGetSlotInventory(inventory, craftIndexItem2);
+		var _itemIcon = fGetIconInventory(_itemStr);
+		
+		draw_sprite(_itemIcon, 1, craftVarB2, craftVarDefY);
+	}
+}
+
 fDrawInventory(self);
 
 #region UI Temporario

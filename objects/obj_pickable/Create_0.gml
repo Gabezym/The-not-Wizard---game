@@ -1,3 +1,9 @@
+/// @description Insert description here
+// You can write your code in this editor
+
+// Inherit the parent event
+event_inherited();
+
 // Mesmo objeto, diferentes sprite.
 if(_id == ITEMS_ID.BOTTLE) {
 					
@@ -32,10 +38,6 @@ colW = sprite_get_width(sprite_index);
 
 // Se foi coletado
 isInteracted = false;
-
-colliding = false;			// Se ta colidindo com o wizard
-canInteract = colliding;	// Pro draw do wizard
-interacted = false;			// Se interagiu com esse item
 
 itemData = {
 	

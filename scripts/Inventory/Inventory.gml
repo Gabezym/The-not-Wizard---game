@@ -440,6 +440,7 @@ function fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventor
 	return _newInventory;
 }
 
+// Retorna sprite da struct do slot
 function fGetIconInventory(_slotStruct) {
 
 		var _itemId = _slotStruct.itemId;
@@ -548,48 +549,60 @@ function fWithInvetoryMouse(_instance) {
 					
 					#endregion
 			
+					// Se é sem relaçao com o item do crafting
+					var _same1 = ((slotClick != craftIndexItem1) && (slotClick != craftIndexItem2));
+					var _same2 = ((_inSLot != craftIndexItem1) && (_inSLot != craftIndexItem2));
+
+					var _canIteract = (_same1 && _same2);
+
 					// Na caixa de colisao do slot
 					if ((_mouseX >= _slotColMinX && _mouseX <= _slotColMaX) &&
 						(_mouseY >= _slotColMinY && _mouseY <= _slotColMaxY)) {
-				
+						
 						// Arrasta os items pra outro lugar quando solta
 						// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
 						if(leftClickReleased && (slotClick != -1)) {
-						
-							var _sameItemOrNoItem = ((inventory[_y][_x] == clearSlot) || (inventory[_y][_x].itemId == slotStrClick.itemId));
-							var _moveJustOneItem = (moveOneItem && _sameItemOrNoItem && (slotStrClick.itemAmount > 1));
-						
-							if(_moveJustOneItem) {
 							
-								var _strOne = {
-
-									isFull: true,
-									itemId: slotStrClick.itemId,
-									itemStatus: slotStrClick.itemStatus,
-									itemAmount:	inventory[_y][_x].itemAmount+1
-								}
-								var _strMinusOne = {
-
-									isFull: true,
-									itemId: slotStrClick.itemId,
-									itemStatus: slotStrClick.itemStatus,
-									itemAmount:	slotStrClick.itemAmount-1
-								}
+							// Slot n é pra crafting
+							if(_canIteract) {
 								
-								newInventory = fGetInventoryChangeSlotMouse(slotClick, _strOne, _inSLot, inventory, _strMinusOne, true);
-							}
-							else {
+								var _sameStatus = (inventory[_y][_x].itemStatus == slotStrClick.itemStatus);
+								var _sameItem = (inventory[_y][_x].itemId == slotStrClick.itemId);
+								var _sameItemOrNoItem = ((inventory[_y][_x] == clearSlot) || _sameItem);
+								var _moveJustOneItem = (moveOneItem && _sameItemOrNoItem && (slotStrClick.itemAmount > 1));
+		
+								if(_moveJustOneItem) {
+							
+									var _strOne = {
+
+										isFull: true,
+										itemId: slotStrClick.itemId,
+										itemStatus: slotStrClick.itemStatus,
+										itemAmount:	inventory[_y][_x].itemAmount+1
+									}
+									var _strMinusOne = {
+
+										isFull: true,
+										itemId: slotStrClick.itemId,
+										itemStatus: slotStrClick.itemStatus,
+										itemAmount:	slotStrClick.itemAmount-1
+									}
 								
-								newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x], false);
+									newInventory = fGetInventoryChangeSlotMouse(slotClick, _strOne, _inSLot, inventory, _strMinusOne, true);
+								}
+								else {
+								
+									newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x], false);
+								}
+							
+								fWithSetNewInventory(self);
 							}
 							
-							fWithSetNewInventory(self);
-					
 							slotClick = -1;				// Reseta o slot do click
 							slotStrClick = undefined;	// Reseta a var da struct do slot do click
 						}
 
-						// Armazena Slot Clicado
+						// Armazena Slot Clicado se tem algo no slot
 						if((leftClickPressed) && (slotClick == -1) && (inventory[_y][_x].isFull)) {
 										
 							slotClick = _inSLot;
@@ -599,7 +612,7 @@ function fWithInvetoryMouse(_instance) {
 						}
 					
 						// Dropa os itens
-						else if (rightClickPressed) {
+						else if (rightClickPressed && _canIteract) {
 						
 							var _strSlot = fGetSlotInventory(inventory, _inSLot);
 							var _isFull = (_strSlot.isFull == 1);				
@@ -617,11 +630,21 @@ function fWithInvetoryMouse(_instance) {
 					else if !((_mouseX > _minXcol && _mouseX < _maxXCol) &&
 							(_mouseY > _minYcol && _mouseY < _maxYcol)) {
 				
-						// Dropa o item
-						// Se soltou um item fora do inventario
-						if (leftClickReleased && (slotClick != -1)) {
-					
-							fWithDropItemInventoryOpen(self, slotClick, true);
+							// Se soltou um item fora do inventario
+							if (leftClickReleased && (slotClick != -1)) {
+								
+								// Nao ta craftando algo
+								if(isCrafting == false) {
+									
+									// Dropa o item
+									fWithDropItemInventoryOpen(self, slotClick, true);
+								}
+								// N dropa
+								else {
+						
+									slotClick = -1;				// Reseta o slot do click
+									slotStrClick = undefined;	// Reseta a var da struct do slot do click
+							}
 						}
 					}
 			

@@ -1,17 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_fill_bottle_default",
+  "%Name":"obj_crafting_table",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_fill_bottle_default",
+  "name":"obj_crafting_table",
   "overriddenProperties":[],
   "parent":{
-    "name":"Liquid",
-    "path":"folders/Objects/Scenario/Liquid.yy",
+    "name":"Scenario",
+    "path":"folders/Objects/Scenario.yy",
   },
   "parentObjectId":{
     "name":"obj_r_interaction",
@@ -35,9 +34,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_fill_bottle",
-    "path":"sprites/spr_fill_bottle/spr_fill_bottle.yy",
+    "name":"spr_crafting_table",
+    "path":"sprites/spr_crafting_table/spr_crafting_table.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

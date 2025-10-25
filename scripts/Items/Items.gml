@@ -16,7 +16,7 @@ function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 				damage: valDamage
 			}
 
-			var _id = instance_create_layer(_x, _y, layer, obj_attack, _struct);
+			var _id = instance_create_layer(_x, _y, "ScenarioFront", obj_attack, _struct);
 	
 			array_insert(followObjects, array_length(followObjects), _id);
 	
@@ -107,7 +107,7 @@ function fSpawnLiquid(_xVal, _yVal, varLiquidId, varGravVal, varSpd, varAngleTo,
 			
 		if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
 		
-			instance_create_layer(_spawnX, _spawnY, "Objects", obj_liquid, _structLiquid)
+			instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
 		}
 	}
 }
@@ -136,7 +136,7 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 		
 	if(!fIsColliding(_x, _y, _widColSpr, _heiColSpr, obj_r_collision)) {
 		
-		instance_create_layer(_x, _y, "Scenario", obj_pickable, _struct);
+		instance_create_layer(_x, _y, "ScenarioFront", obj_pickable, _struct);
 		return true;
 	}
 		

@@ -1,5 +1,7 @@
 #region Comandos 
 
+escape = 0;
+
 leftClickPressed = 0;
 leftClickReleased = 0;
 leftClick = 0;
@@ -25,6 +27,8 @@ slot5	= 0;
 
 #endregion
 #region	Keybinds
+
+keyEscape = vk_escape;
 
 mouseLeftClick = mb_left;
 mouseRightClick = mb_right;
@@ -153,6 +157,25 @@ slotClick = -1;
 newInventory = undefined;
 
 #endregion
+
+// Crafting
+isCrafting = false;
+crafting = array_create(2, 0);	// Onde vao ficar os objetos no crafting
+craftIndexItem1 = -1;	// Armazena Id do item colocado no primeiro slot
+craftIndexItem2 = -1	// Armazena Id do item colocado no segundo slot
+craftMoveItem	= false;// Se acabou de mover um item pro slot do crafting
+
+
+craftVarInXDef	= 274;
+craftVarInLen	= array_length(inventory[0]);
+craftVarInSize	= 64;
+
+craftVarDefX	= craftVarInXDef + (craftVarInLen*craftVarInSize);
+craftVarDefY	= 150;
+
+craftVarB1	= craftVarDefX + 15		+32;
+craftVarB2	= craftVarDefX + 144	+32;
+craftVarB3	= craftVarDefX + 271	+32;
 
 // Array
 followObjects = [];	

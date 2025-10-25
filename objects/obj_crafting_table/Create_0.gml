@@ -4,4 +4,3 @@
 // Inherit the parent event
 event_inherited();
 
-liquidColor = obj_config.liquidsData[liquidId].color;
