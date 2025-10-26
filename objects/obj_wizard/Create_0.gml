@@ -158,7 +158,7 @@ newInventory = undefined;
 
 #endregion
 
-// Crafting
+#region Crafting
 isCrafting = false;
 crafting = array_create(2, 0);	// Onde vao ficar os objetos no crafting
 craftIndexItem1 = -1;	// Armazena Id do item colocado no primeiro slot
@@ -170,12 +170,20 @@ craftVarInXDef	= 274;
 craftVarInLen	= array_length(inventory[0]);
 craftVarInSize	= 64;
 
+var _halfWid = sprite_get_width(spr_craftingUI_base) div 2;
+var _halfHei = sprite_get_height(spr_craftingUI_base) div 2;
+
 craftVarDefX	= craftVarInXDef + (craftVarInLen*craftVarInSize);
 craftVarDefY	= 150;
+
+craftDoneVarDefX =  craftVarDefX + _halfWid;
+craftDoneVarDefY = craftVarDefY + _halfHei*2.5;
 
 craftVarB1	= craftVarDefX + 15		+32;
 craftVarB2	= craftVarDefX + 144	+32;
 craftVarB3	= craftVarDefX + 271	+32;
+
+#endregion
 
 // Array
 followObjects = [];	

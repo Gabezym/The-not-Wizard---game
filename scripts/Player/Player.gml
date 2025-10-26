@@ -18,7 +18,7 @@ function fDropItem(_inventory, _slot, _x, _y, _spd) {
 	var _can = fSpawnItem(_x, _y, _id, _grav, hval, vval, _status, 1);
 	
 	// Se conseguiu spawnar o objeto, ele tira o objeto do inventario
-	if(_can)	return fRemoveOneItemSlotInventory(_inventory, _slot);
+	if(_can)	return fRemoveOneItemSlotInventoryAndDelete(_inventory, _slot);
 	else		return _inventory;
 }
 
@@ -50,7 +50,7 @@ function fDropAllItems(_inventory, _slot, _x, _y,  _spd) {
 }
 
 // -- Aprovado \[T]/
-// Retorna o inventario com o slot a menos e spawna o item
+// Retorna o inventario com o slot a menos ou ele zerado e spawna o item
 // P: array, int, int, int
 function fThrowItem(_inventory, _slot, _x, _y) {
 	
@@ -68,22 +68,32 @@ function fThrowItem(_inventory, _slot, _x, _y) {
 	var _can = fSpawnItem(_x, _y, _id, _grav, hval, vval, _status, 1);
 	
 	// Se conseguiu spawnar o objeto, ele tira o objeto do inventario
-	if(_can)	return fRemoveOneItemSlotInventory(_inventory, _slot);
+	if(_can)	return fRemoveOneItemSlotInventoryAndDelete(_inventory, _slot);
 	else		return _inventory;
 } 
 
 // -- Aprovado \[T]/
 // Aplica efeitos no player
 // Retorna o novo inventario com o item a menos
-function fUseItem(idItem, inventory, selectedSlot, whoUseItem) {
+function fUseItem(idItem, whoUseItem) {
 	
 	with(whoUseItem) {
-	
-		var _infos = obj_config.itemsNoActionData[idItem];
 		
-		life+=_infos.heal;
+		var _effect = EFFCTS.NOTHING;
 		
-		fWithEffects(self, _infos.effect);
+		if(idItem == ITEMS_ID.POTION) {
+		
+			_effect = itemSelectedStruct.itemStatus.effectId;
+
+		}
+		else {
+			
+			var _infos = obj_config.itemsNoActionData[idItem];
+			life+=_infos.heal;
+			_effect = _infos.effect;
+		}	
+		
+		fWithEffects(self, _effect);
 	}
 	
 	 return fRemoveOneItemSlotInventory(inventory, selectedSlot);

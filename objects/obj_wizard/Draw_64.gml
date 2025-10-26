@@ -3,10 +3,15 @@ var _viewHei = obj_camera.camHeight;
 
 if(isCrafting) {
 	
+	var _halfWid = sprite_get_width(spr_craftingUI_base) div 2;
+	var _halfHei = sprite_get_height(spr_craftingUI_base) div 2;
+	
 	draw_sprite(spr_craftingUI_base, 1, craftVarDefX, craftVarDefY);
 	draw_sprite(spr_inventory_border, 1, craftVarB1, craftVarDefY)
 	draw_sprite(spr_inventory_border, 1, craftVarB2, craftVarDefY)
 	draw_sprite(spr_inventory_border, 1, craftVarB3, craftVarDefY)
+	
+	draw_sprite(spr_craftingUI_done, 1, craftDoneVarDefX, craftDoneVarDefY);
 	
 	if(craftIndexItem1 != -1) {
 	

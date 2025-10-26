@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_p_g_bottle_acid",
+  "%Name":"obj_p_g_potion_jump",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_p_g_bottle_acid",
+  "name":"obj_p_g_potion_jump",
   "overriddenProperties":[],
   "parent":{
-    "name":"Bottles",
-    "path":"folders/Objects/Items/Pickable/Ground/Bottles.yy",
+    "name":"Potions",
+    "path":"folders/Objects/Items/Pickable/Ground/Potions.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",

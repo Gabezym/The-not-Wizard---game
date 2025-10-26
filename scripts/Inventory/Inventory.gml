@@ -79,19 +79,52 @@ function fSetSlotInventory(inventory, slotToFind, newVal) {
 
 // -- Aprovado \[T]/
 // Retorna o inventario com o um item a menos naquele slot
+// Deixa o slot zerado caso n tenha mais itens 
+function fRemoveOneItemSlotInventoryAndDelete(inventory, slotToChange) {
+
+	var _slotStruct = fGetSlotInventory(inventory, slotToChange);
+	
+	var _newStruct = {};
+	// Se ainda tem item depois de jo
+	if(_slotStruct.itemAmount-1 > 0) {
+	
+		_newStruct = {
+			
+			isFull: _slotStruct.isFull,
+			itemId: _slotStruct.itemId,
+			itemStatus: _slotStruct.itemStatus,
+			itemAmount: _slotStruct.itemAmount-1
+		}
+	}
+	else {
+	
+		_newStruct = {
+			
+			isFull: false,
+			itemId: ITEMS_ID.NOTHING,
+			itemStatus: {},
+			itemAmount: 0
+		}
+	}
+
+	return fSetSlotInventory(inventory, slotToChange, _newStruct);	// Define como vazio o slot
+}
+
+// -- Aprovado \[T]/
+// Retorna o inventario com o um item a menos naquele slot
 // P: posiçao(int)
 function fRemoveOneItemSlotInventory(inventory, slotToChange) {
 
 	var _slotStruct = fGetSlotInventory(inventory, slotToChange);
-		
+	
 	var _newStruct = {
 			
-		isFull: _slotStruct.isFull,
-		itemId: _slotStruct.itemId,
-		itemStatus: _slotStruct.itemStatus,
-		itemAmount: _slotStruct.itemAmount-1
-	}
-		
+			isFull: _slotStruct.isFull,
+			itemId: _slotStruct.itemId,
+			itemStatus: _slotStruct.itemStatus,
+			itemAmount: _slotStruct.itemAmount-1
+		}
+
 	return fSetSlotInventory(inventory, slotToChange, _newStruct);	// Define como vazio o slot
 }
 
@@ -103,34 +136,38 @@ function fGetUpdateInventory(inventory, clearSlot) {
 	for(var _y = 0; _y < array_length(inventory); _y++) {
 
 		for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
-		
+			
+			var _emptyBottle = {
+
+				isFull: true,
+				itemId: ITEMS_ID.EMPTY_BOTTLE,
+				itemStatus: undefined,
+				itemAmount: 1
+			}
+			
 			var _slotCheck = inventory[_y][_x];
 			var _notExist = (_slotCheck.isFull == false) && (_slotCheck != clearSlot);
 			var _noAmount = (_slotCheck.itemAmount <= 0) && (_slotCheck != clearSlot);
 			
 			var _isBottle = (_slotCheck.itemId == ITEMS_ID.BOTTLE);
+			var _isPotion = (_slotCheck.itemId == ITEMS_ID.POTION);
 			
-			if(_notExist || _noAmount) {
-		
-				inventory[_y][_x] = clearSlot;
+			
+			if(_notExist) inventory[_y][_x] = clearSlot;
+			
+			// Acabou o item
+			else if(_noAmount) {
+			
+				if(_isPotion)	inventory[_y][_x] = _emptyBottle;
+				else			inventory[_y][_x] = clearSlot;
 			}
+
 			// Acabou liquido do bottle
 			else if(_isBottle) {
 				
 				var _noLiquid = (_slotCheck.itemStatus.liquidAmount <= 0);
 				
-				if(_noLiquid){
-
-					var _emptyBottle = {
-
-						isFull: true,
-						itemId: ITEMS_ID.EMPTY_BOTTLE,
-						itemStatus: undefined,
-						itemAmount: 1
-					}
-
-					inventory[_y][_x] = _emptyBottle;
-				}
+				if(_noLiquid) inventory[_y][_x] = _emptyBottle;
 			}
 		}	
 	}
@@ -328,7 +365,6 @@ function fWithCreateInstanceInHands(instance) {
 		// O Tool n usa o itemId, mas precisa pra n dar erro de run time
 		var _struct = {status: itemSelectedStruct.itemStatus, itemId: itemInHand};
 
-	
 		// Destroi Objeto antigo
 		if(_haveInstance) instance_destroy(instanceInHands);
 		
@@ -452,6 +488,12 @@ function fGetIconInventory(_slotStruct) {
 			
 			return  obj_config.liquidsData[_liquidId].spriteBottle;
 		}
+		else if(_itemId == ITEMS_ID.POTION) {
+		
+			var _effectId = _slotStruct.itemStatus.effectId;
+			
+			return obj_config.effectsData[_effectId].spritePotion;
+		}
 		else return obj_config.itemsData[_itemId].sprite;	
 }
 
@@ -550,7 +592,7 @@ function fWithInvetoryMouse(_instance) {
 					#endregion
 			
 					// Se é sem relaçao com o item do crafting
-					var _same1 = ((slotClick != craftIndexItem1) && (slotClick != craftIndexItem2));
+					var _same1 = (slotClick == -1 || ((slotClick != craftIndexItem1) && (slotClick != craftIndexItem2)));
 					var _same2 = ((_inSLot != craftIndexItem1) && (_inSLot != craftIndexItem2));
 
 					var _canIteract = (_same1 && _same2);
@@ -612,6 +654,7 @@ function fWithInvetoryMouse(_instance) {
 						}
 					
 						// Dropa os itens
+						// ARRUMAR
 						else if (rightClickPressed && _canIteract) {
 						
 							var _strSlot = fGetSlotInventory(inventory, _inSLot);

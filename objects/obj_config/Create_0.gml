@@ -17,6 +17,17 @@ enum DIR
 
 #region Effects
 
+enum EFFCTS_TYPE {
+	
+	STATUS = 0,
+	RESISTANCE = 1,
+	CONDITIONS = 2,
+	SPECIAL = 3
+}
+
+#region Efeitos 
+
+var _sizeEffects = 4
 enum EFFCTS
 {
 	NOTHING = 0,
@@ -24,6 +35,32 @@ enum EFFCTS
 	FIRE = 2,
 	BIG_JUMP = 3, 
 }
+
+effectsData = array_create(_sizeEffects);
+effectsData[EFFCTS.NOTHING] = {
+
+	spritePotion: spr_potion_jump
+}
+effectsData[EFFCTS.WATER] = {
+
+	spritePotion: spr_potion_jump
+}
+effectsData[EFFCTS.FIRE] = {
+
+	spritePotion: spr_potion_jump
+}
+effectsData[EFFCTS.BIG_JUMP] = {
+
+	spritePotion: spr_potion_jump
+}
+
+#endregion
+
+#region Efeitos que possuem duração
+
+// Isso é pra organizar todos os efeitos em um só alarme
+// alem de poder mostrar o sprite e descrição
+// Assim: effectsAlarm = array_create(global.lenAlarmEffects, 0);
 
 global.lenAlarmEffects = 2;
 enum EFFECTS_ALARMS {
@@ -44,6 +81,7 @@ infoEffects[EFFECTS_ALARMS.ALARM_BIG_JUMP] = {
 	description: "Seu pulo está mais alto."
 }
 
+#endregion
 
 #endregion
 
@@ -60,7 +98,7 @@ enum ITEMS_TYPE
 }
 
 // Sempre alterar
-var _sizeItemsId = 6;
+var _sizeItemsId = 7;
 enum ITEMS_ID
 {	
 	NOTHING = 0,
@@ -69,6 +107,7 @@ enum ITEMS_ID
 	WEAPON = 3, 
 	EMPTY_BOTTLE = 4,
 	PLANT_BLUE = 5,
+	POTION = 6,
 }
 
 // Tem as informações dos items sem ação, os ingredientes(todos sao um mesmo item com info diferente)
@@ -76,6 +115,16 @@ enum ITEMS_ID
 #region Struct dos itens NoAction
 
 itemsNoActionData = array_create(_sizeItemsId);
+
+itemsNoActionData[ITEMS_ID.POTION] = {
+	
+	canUse: true,
+	xPlus: 15,
+	heal: 0,
+	// Em poções o efeito é aplicado pelo status
+	effect: EFFCTS.NOTHING
+}
+
 itemsNoActionData[ITEMS_ID.GENERIC] = {
 	
 	canUse: true,
@@ -95,7 +144,7 @@ itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	canUse: true,
 	xPlus: 15,
 	heal: 2,
-	effect: EFFCTS.BIG_JUMP
+	effect: EFFCTS.NOTHING
 }
 #endregion
 
@@ -115,6 +164,16 @@ itemsData[ITEMS_ID.NOTHING] = {
 	typeData: obj_noone,
 	maxAmount: 0
 
+};
+	
+// No action
+itemsData[ITEMS_ID.POTION] = {
+	
+	// Sprite generico 
+	sprite: spr_bottle_empty,
+	type: ITEMS_TYPE.NO_ACTION,
+	typeData: obj_itemNoAction,
+	maxAmount: 1
 };
 itemsData[ITEMS_ID.GENERIC] = {
 
@@ -138,6 +197,7 @@ itemsData[ITEMS_ID.PLANT_BLUE] = {
 	maxAmount: 15
 };
 
+// Tools
 itemsData[ITEMS_ID.BOTTLE]	= {
 
 	sprite: spr_bottle_water,

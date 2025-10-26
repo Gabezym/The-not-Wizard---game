@@ -1,20 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_p_g_bottle_acid",
+  "%Name":"obj_spawn_p_generic_1",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_p_g_bottle_acid",
+  "name":"obj_spawn_p_generic_1",
   "overriddenProperties":[],
   "parent":{
-    "name":"Bottles",
-    "path":"folders/Objects/Items/Pickable/Ground/Bottles.yy",
+    "name":"Potions",
+    "path":"folders/Objects/Items/Pickable/Spawn/Potions.yy",
   },
-  "parentObjectId":{
-    "name":"obj_p_g_default",
-    "path":"objects/obj_p_g_default/obj_p_g_default.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,7 +29,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_potion_jump",
+    "path":"sprites/spr_potion_jump/spr_potion_jump.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

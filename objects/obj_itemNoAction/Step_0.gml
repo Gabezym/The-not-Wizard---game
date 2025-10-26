@@ -7,7 +7,7 @@ with(obj_wizard) {
 	if(isInputPressedItem && _canUse)	{
 		
 		isUpdateInvetory = true;
-		newInventory = fUseItem(other.itemId, inventory, selectedSlot, obj_wizard);
+		newInventory = fUseItem(other.itemId, obj_wizard);
 		fWithSetNewInventory(self)
 	}
 	// Se clicou com o botao direito, joga o item

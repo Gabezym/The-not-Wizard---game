@@ -8,8 +8,8 @@
   "name":"obj_p_g_bottle_water",
   "overriddenProperties":[],
   "parent":{
-    "name":"Bottle",
-    "path":"folders/Objects/Items/Pickable/Ground/Bottle.yy",
+    "name":"Bottles",
+    "path":"folders/Objects/Items/Pickable/Ground/Bottles.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",

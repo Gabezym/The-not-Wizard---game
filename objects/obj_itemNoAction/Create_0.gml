@@ -1,4 +1,10 @@
-spr = obj_config.itemsData[itemId].sprite;
+// Vars de parametro
+// itemId
+// status
+
+// Sprite das poções
+if(itemId == ITEMS_ID.POTION)	spr = obj_config.effectsData[status.effectId].spritePotion;
+else							spr = obj_config.itemsData[itemId].sprite;
 
 // Fisica
 //grav = 1

@@ -6,3 +6,7 @@
 
 - Effcts ta inacabado no wizard
 - Acabar Crafting, n da pra craftar ainda, só botar os itens no lugar la
+
+
+
+fiz novo item, poções. Um item pra todas as futuras poções do jogo.

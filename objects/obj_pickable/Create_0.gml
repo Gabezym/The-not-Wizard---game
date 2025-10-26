@@ -11,6 +11,10 @@ if(_id == ITEMS_ID.BOTTLE) {
 			
 	_spr = obj_config.liquidsData[_liquidId].spriteBottle;
 }
+else if(_id == ITEMS_ID.POTION) {
+	
+	_spr = obj_config.effectsData[status.effectId].spritePotion;
+}
 else _spr = obj_config.itemsData[_id].sprite;	
 
 // Sprite
