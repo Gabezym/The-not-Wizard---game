@@ -18,8 +18,8 @@
   "name":"obj_wizard",
   "overriddenProperties":[],
   "parent":{
-    "name":"Characters",
-    "path":"folders/Objects/Characters.yy",
+    "name":"Wizard",
+    "path":"folders/Objects/Characters/Wizard.yy",
   },
   "parentObjectId":{
     "name":"obj_r_entities",

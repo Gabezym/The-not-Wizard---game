@@ -713,9 +713,7 @@ function fColletPickableItem(_self, _instance) {
 	
 		// Ta na colisão e interagiu
 		if(_self.colliding && _self.interacted) {
-		
-			show_debug_message("Interagiu")
-		
+
 			var _spaceInInventory = fHaveSpaceInInvetory(inventory, _self._id, _self.itemData.itemAmount)[0];
 			var _newAmount = fHaveSpaceInInvetory(inventory, _self._id, _self.itemData.itemAmount)[1];
 			var _noItemToPick = (array_length(toPick) == 0);
@@ -752,6 +750,7 @@ function fColletPickableItem(_self, _instance) {
 		_self.interacted = false;
 	}
 }
+
 #endregion
 
 #endregion

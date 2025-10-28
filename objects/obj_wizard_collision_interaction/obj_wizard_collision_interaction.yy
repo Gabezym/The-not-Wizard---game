@@ -10,8 +10,8 @@
   "name":"obj_wizard_collision_interaction",
   "overriddenProperties":[],
   "parent":{
-    "name":"Characters",
-    "path":"folders/Objects/Characters.yy",
+    "name":"Wizard",
+    "path":"folders/Objects/Characters/Wizard.yy",
   },
   "parentObjectId":null,
   "persistent":false,

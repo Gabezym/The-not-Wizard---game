@@ -4,7 +4,7 @@ liquidAmount = status.liquidAmount;
 sprite_index = obj_config.liquidsData[liquidId].spriteBottle;
 
 gravVal = 0.2;
-spd = 4;
+spd = 6;
 
 isThrowing = false;
 

@@ -1,5 +1,22 @@
 #region Spawn
 
+// Checa se ta colidinodo com uma caixa de colisao(uso no spawn)
+function fIsColliding(_posX, _posY, wid, hei, obj) {
+	
+	var val	= 5;
+		
+	var valHY = hei div 2;
+	var valHX = wid div 2;
+	
+	var valIY = _posY-(valHY)-val;
+	var valIX = _posX-(wid div 2)-val;
+
+	var valFY = _posY+(valHY)+val;
+	var valFX = _posX+(valHX)+val;
+
+	return collision_rectangle(valIX, valIY, valFX, valFY, obj, 0, 1) != noone;
+}
+
 // Spawna o objeto do ataque se tiver o input
 function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 
@@ -42,8 +59,8 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 			var _x = _xVal + random_range(-5, 5);
 			var _y = _yVal + random_range(-5, 5);
 			
-			var _ang = obj_mouse.mouseAnglePlayer - (_anglVal*(_amount-1)) +_anglVal*_i;
-			var _spd = lerp(_spdVal, _spdVal*2, abs(cos(degtorad(_ang))));	// N entendo de fisica.
+			var _ang = obj_mouse.mouseAnglePlayer + _anglVal * (_i - (_amount - 1) / 2) + random_range(-_anglVal * 0.3, _anglVal * 0.3);
+
 			var _spawnX = _x + lengthdir_x(5, _ang);
 			var _spawnY = _y + lengthdir_y(5, _ang);
 			
@@ -53,10 +70,10 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 				gravVal : varGravVal,
 				grav : varGravVal,
 	
-				spd : _spd,
+				spd : varSpd,
 
-				valHval	: cos(degtorad(_ang)) * _spd,		// Valor usado
-				valVval	: -sin(degtorad(_ang)) * _spd * 1.4	// Valor usado
+				valHval	: cos(degtorad(_ang)) * varSpd,		// Valor usado
+				valVval	: -sin(degtorad(_ang)) * varSpd		// Valor usado
 	
 		}
 			
@@ -145,6 +162,57 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 
 
 #endregion
+
+// Colisão de liquidos com characters
+// Intensidade 0: bottle liquid
+// Intensidade 1: static liquid
+function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensity) {
+
+	with(_instanceCall) {
+	
+		if(alarm[_alarmCooldown] <= 0) {
+	
+			with(_instanceCol) {
+				
+				var cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.15;
+				
+				var _status = obj_config.liquidsData[other.liquidId];
+				var _dmg = _status.damage;
+				var _slow = _status.slow;
+				var _effect = _status.effect;
+		
+				var _outOfCooldown = false;
+				if(_instensity == 0)	_outOfCooldown = (alarm[3] <= 0);
+				else					_outOfCooldown = (alarm[3] <= CONSTANTS.SPD_GAME * 0.1);
+				
+				var _areMoving = (hval != 0 || vval != 0);
+				var _damegeForMoving = (_areMoving && (alarm[3] <= cooldownDamageLiquid/2));
+			
+				// Damage + cooldown 
+				if(_outOfCooldown || _damegeForMoving ) {
+		
+					life-= _dmg;
+
+					alarm[3] = cooldownDamageLiquid;
+				}
+				
+				var _slowVal = 0.02;	
+				if(_instensity =! 0) _slowVal = 0.1;
+		
+				// Slow
+				if(_areMoving || _outOfCooldown) {
+			
+					slow = lerp(slow, _slow, _slowVal);
+			
+					// Se chegou perto o suficiente, trava no valor exato
+					if(abs(slow - _slow) < 0.01)  slow = _slow;
+				}
+			
+				fWithEffects(self, _effect)
+			}
+		}	
+	}
+}
 
 function fFillBottle(_instance, _liquidId, _canInteract) {
 

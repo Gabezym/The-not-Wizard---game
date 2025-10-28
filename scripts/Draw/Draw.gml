@@ -67,6 +67,8 @@ function fDrawInventory(_instance) {
 			}
 		}
 	
+		_inSLot = 0;
+	
 		// Icons
 		for(var _y = 0; _y < _yLen; _y++) {
 	
@@ -86,33 +88,19 @@ function fDrawInventory(_instance) {
 				if (_inventoryPos == craftIndexItem2) _amount--;
 
 				// Icone e plaquina
-				if(inventory[_y][_x].isFull) {
-
-					#region Icone
-			
+				if(inventory[_y][_x].isFull && _amount > 0) {
+		
 					// Var pro Icone
 					var _sprIcon = 0;
 			
 					// Icone no lugar padrão
 					if((_inSLot != slotClick)) {
 				
-							_sprIcon = fGetIconInventory(inventory[_y][_x]);
+						_sprIcon = fGetIconInventory(inventory[_y][_x]);
 				
 						draw_sprite(_sprIcon, 1, _xSpr, _ySpr);
 					}
 	
-					// Se tiver uma struct pra ele (ta segurando o click)
-					// Icone no Mouse
-					if(slotStrClick != undefined) {
-				
-						_sprIcon = fGetIconInventory(slotStrClick);
-				
-						draw_sprite(_sprIcon, 1, _mouseX, _mouseY);
-					}
-			
-			
-					#endregion
-			
 					#region Plaquinha pro texto
 			
 					var _xpl = _xSpr;
@@ -158,7 +146,15 @@ function fDrawInventory(_instance) {
 					draw_set_font(-1);
 			
 					#endregion
-
+					
+					// Se tiver uma struct pra ele (ta segurando o click)
+					// Icone no Mouse
+					if(slotStrClick != undefined ) {
+				
+						_sprIcon = fGetIconInventory(slotStrClick);
+						
+						draw_sprite(_sprIcon, 1, _mouseX, _mouseY);
+					}
 				}
 				
 				_inSLot++;	// Atualiza o slot atual

@@ -101,6 +101,8 @@ function fUseItem(idItem, whoUseItem) {
 
 #endregion
 
+#region  Pra encurtar (genérico)
+
 // Pq??
 function fCoyoteJump(cjTime, vval) {
 
@@ -230,7 +232,68 @@ function fWithInteractedObjects(_instance) {
 		if(_lenAI != array_length(interactionObjects)) indexAI = 0;
 	}
 }
-        
+
+
+#region	About Crafting
+
+// Retorna o status da poção pro crafting
+// -1 == n da pra craftar
+function fGetStatusCraftingPotion(_liquid, _ingredient) {
+
+		var _effect = -1;
+
+		if(_liquid == LIQUIDS_ID.WATER) {
+			
+			switch(_ingredient) {
+				
+				case ITEMS_ID.PLANT_BLUE: 		
+				
+					_effect	= EFFCTS.BIG_JUMP;
+				break;
+			}
+	}
+	
+	return _effect
+}
+
+// Coleta a poção e tira ingredientes do inventario
+function fWithCollectPotion(_instance, _effect) {
+
+	with(_instance) {
+	
+		var _status = {
+				
+			effectId: _effect, 
+			effectType: EFFCTS_TYPE.STATUS
+		}
+		var _potionStr = {
+				
+			isFull: true,
+			itemId: ITEMS_ID.POTION,
+			itemStatus: _status,
+			itemAmount: 1
+		}
+			
+		// Remove os items do crafting
+		newInventory = fRemoveOneItemSlotInventory(inventory, craftIndexItem1);
+		newInventory = fRemoveOneItemSlotInventory(newInventory, craftIndexItem2);
+				
+		// Checar se algum item chegou a 0 (Bottle)
+		isUpdateInvetory = true; 
+		
+		// Atualiza inventario
+		fWithSetNewInventory(self);
+		
+		// Coleta poção
+		array_insert(toPick, array_length(toPick), _potionStr);
+	}
+}
+
+#endregion
+
+#endregion
+
+
 #region Sistemas
 
 // Sistema de movimentação
@@ -516,6 +579,133 @@ function fWithFollowObjects(_ins) {
 		
 						array_delete(followObjects, _i, 1);
 					}
+			}
+		}
+	}
+}
+
+// Sistema dos efeitos
+function fWithEffectsPlayer(_instance) {
+
+	if(fWithHasEffects(self)) {
+ 
+		// Efeito Big jump
+		fWithStepEfBigJump(self);
+
+	}
+}
+
+// Sistema de crafting
+function fWithCraftingPotions(_instance) {
+
+	with(_instance) {
+	
+		if(isCrafting) {
+
+			var _mx = display_mouse_get_x();
+			var _my = display_mouse_get_y();
+	
+			#region Colisao das caixas (cordenadas)
+	
+			var _bcy1 = craftVarDefY - 32;
+			var _bcy2 = craftVarDefY + 32;
+	
+			// Box 1
+			var _b1cx1 = craftVarB1 - 32;
+			var _b1cx2 = craftVarB1 + 32;
+	
+			// Box 2
+			var _b2cx1 = craftVarB2 - 32;
+			var _b2cx2 = craftVarB2 + 32;
+
+			// Done 
+			var _dWidHalf = sprite_get_width(spr_craftingUI_done) div 2;
+			var _dHeiHalf = sprite_get_height(spr_craftingUI_done) div 2;
+	
+			var _donecx1 = craftDoneVarDefX - _dWidHalf;
+			var _donecx2 = craftDoneVarDefX + _dWidHalf;
+	
+			var _donecy1 = craftDoneVarDefY - _dHeiHalf;
+			var _donecy2 = craftDoneVarDefY + _dHeiHalf;
+	
+			#endregion
+	
+			// Colisoes com mouse
+			var _colb1 = point_in_rectangle(_mx, _my, _b1cx1, _bcy1, _b1cx2, _bcy2);
+			var _colb2 = point_in_rectangle(_mx, _my, _b2cx1, _bcy1, _b2cx2, _bcy2);
+			var _coldone = point_in_rectangle(_mx, _my, _donecx1, _donecy1, _donecx2, _donecy2);
+
+
+			// MOVER ITENS PROS SLOTS
+			// Mouse dentro de uma das caixas de colisão
+			if(_colb1 || _colb2) {
+	
+				// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
+				if(leftClickReleased && (slotClick != -1)) {
+		
+					var _notTheSameItem = ((craftIndexItem1 != slotClick) && (craftIndexItem2 != slotClick));
+					if(_notTheSameItem) {
+				
+						var _itemId = slotStrClick.itemId;
+				
+						var _isLiquidBottle = (_itemId == ITEMS_ID.BOTTLE);
+						var _isIngredient	= (obj_config.itemsData[_itemId].type == ITEMS_TYPE.NO_ACTION);
+				
+						// Liquido
+						if(_colb1 && _isLiquidBottle){
+					
+							craftIndexItem1 = slotClick;
+						}
+						// Ingredientes
+						else if(_colb2 && _isIngredient) {
+					
+							craftIndexItem2 = slotClick;
+						}
+					}
+				}
+		
+				// Tirar item do slot
+				if(rightClickPressed) {
+		
+					if(_colb1)	craftIndexItem1 = -1;
+					else		craftIndexItem2 = -1;
+				}
+			}
+	
+			// CRAFTAR ITENS
+			// Mouse no botao pra craftar
+			else if(_coldone) {
+		
+				// Se clicou e tem items nos slots de crafting 
+				if(leftClickPressed && (craftIndexItem1 != -1) && (craftIndexItem2 != -1)) {
+			
+					var _item1 = fGetSlotInventory(inventory, craftIndexItem1);
+					var _item2 = fGetSlotInventory(inventory,craftIndexItem2);
+		
+					var _item2Type = obj_config.itemsData[_item2.itemId].type;
+		
+		
+					var _isBott	= (_item1.itemId == ITEMS_ID.BOTTLE);
+					var _isIng	= (_item2Type == ITEMS_TYPE.NO_ACTION);
+			
+					// Se são os itens pra crafting
+					if(_isBott && _isIng) {
+		
+						var _liquidId	= _item1.itemStatus.liquidId;
+						var _itemId		= _item2.itemId;
+			
+						var _effect		= fGetStatusCraftingPotion(_liquidId, _itemId);
+					
+						if(_effect != -1) {
+					
+							// Coleta poção e tira ingredientes (1 de cada)
+							fWithCollectPotion(self, _effect);
+					
+							craftIndexItem1 = -1;
+							craftIndexItem2 = -1;
+						}
+					}
+				}
 			}
 		}
 	}

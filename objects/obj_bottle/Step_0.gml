@@ -7,7 +7,6 @@ if(liquidAmount > 0) {
 	if(_isUsing) { 
 	
 		fSpawnLiquidObject(liquidId, gravVal, spd, cooldownInput, self);
-	
 	}
 		
 	// Se clicou com o botao direito, joga o item
