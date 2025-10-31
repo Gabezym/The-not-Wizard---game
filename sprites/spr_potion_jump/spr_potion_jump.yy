@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_potion_jump",
   "bboxMode":0,
   "bbox_bottom":18,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"da017b9e-8a6e-49a8-95aa-93b3fd086ec8","name":"da017b9e-8a6e-49a8-95aa-93b3fd086ec8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"da017b9e-8a6e-49a8-95aa-93b3fd086ec8","name":"da017b9e-8a6e-49a8-95aa-93b3fd086ec8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

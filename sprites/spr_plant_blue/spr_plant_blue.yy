@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_plant_blue",
   "bboxMode":0,
   "bbox_bottom":55,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"3679f863-2764-45b8-9335-d3055c14f36a","name":"3679f863-2764-45b8-9335-d3055c14f36a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"3679f863-2764-45b8-9335-d3055c14f36a","name":"3679f863-2764-45b8-9335-d3055c14f36a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

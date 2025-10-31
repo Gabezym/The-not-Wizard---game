@@ -1,14 +1,16 @@
-// Effects
-
-// Só os efeitos do inimigo
-if(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] > 0) {
+// Diminui alarmes e aplica efeitos por segundo
+if(fWithHasEffects(self)) {
 	
-	// Efeito do fogo
+	// Só os efeitos do inimigo
 	if(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] > 0) {
 	
-		fWithFireDamage(self);
-		effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE]--;
+		// Efeito do fogo
+		if(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] > 0) {
+	
+			fWithFireDamage(self);
+			effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE]--;
+		}
 	}
-}
 
-alarm[11] = CONSTANTS.SPD_GAME * 1;
+	alarm[11] = CONSTANTS.SPD_GAME * 1;
+}

@@ -30,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_potion_jump",
-    "path":"sprites/spr_potion_jump/spr_potion_jump.yy",
+    "name":"spr_potion_damage",
+    "path":"sprites/spr_potion_damage/spr_potion_damage.yy",
   },
   "spriteMaskId":null,
   "visible":true,

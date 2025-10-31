@@ -2,7 +2,7 @@
   "$GMProject":"v1",
   "%Name":"The (not)Wizard",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -73,7 +73,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2024.14.0.207",
   },
   "name":"The (not)Wizard",
   "resources":[
@@ -106,6 +106,8 @@
     {"id":{"name":"obj_p_g_default","path":"objects/obj_p_g_default/obj_p_g_default.yy",},},
     {"id":{"name":"obj_p_g_generic","path":"objects/obj_p_g_generic/obj_p_g_generic.yy",},},
     {"id":{"name":"obj_p_g_plant_blue","path":"objects/obj_p_g_plant_blue/obj_p_g_plant_blue.yy",},},
+    {"id":{"name":"obj_p_g_plant_red","path":"objects/obj_p_g_plant_red/obj_p_g_plant_red.yy",},},
+    {"id":{"name":"obj_p_g_potion_jump_1","path":"objects/obj_p_g_potion_jump_1/obj_p_g_potion_jump_1.yy",},},
     {"id":{"name":"obj_p_g_potion_jump","path":"objects/obj_p_g_potion_jump/obj_p_g_potion_jump.yy",},},
     {"id":{"name":"obj_p_g_weapon","path":"objects/obj_p_g_weapon/obj_p_g_weapon.yy",},},
     {"id":{"name":"obj_pickable","path":"objects/obj_pickable/obj_pickable.yy",},},
@@ -127,6 +129,7 @@
     {"id":{"name":"obj_spawn_p_generic_1","path":"objects/obj_spawn_p_generic_1/obj_spawn_p_generic_1.yy",},},
     {"id":{"name":"obj_spawn_p_generic","path":"objects/obj_spawn_p_generic/obj_spawn_p_generic.yy",},},
     {"id":{"name":"obj_spawn_p_plant_blue","path":"objects/obj_spawn_p_plant_blue/obj_spawn_p_plant_blue.yy",},},
+    {"id":{"name":"obj_spawn_p_plant_red","path":"objects/obj_spawn_p_plant_red/obj_spawn_p_plant_red.yy",},},
     {"id":{"name":"obj_spawn_p_weapon","path":"objects/obj_spawn_p_weapon/obj_spawn_p_weapon.yy",},},
     {"id":{"name":"obj_static_liquid_default","path":"objects/obj_static_liquid_default/obj_static_liquid_default.yy",},},
     {"id":{"name":"obj_weapon","path":"objects/obj_weapon/obj_weapon.yy",},},
@@ -158,6 +161,7 @@
     {"id":{"name":"spr_craftingUI_base","path":"sprites/spr_craftingUI_base/spr_craftingUI_base.yy",},},
     {"id":{"name":"spr_craftingUI_done","path":"sprites/spr_craftingUI_done/spr_craftingUI_done.yy",},},
     {"id":{"name":"spr_effect_big_jump","path":"sprites/spr_effect_big_jump/spr_effect_big_jump.yy",},},
+    {"id":{"name":"spr_effect_more_damage","path":"sprites/spr_effect_more_damage/spr_effect_more_damage.yy",},},
     {"id":{"name":"spr_enemy_generic","path":"sprites/spr_enemy_generic/spr_enemy_generic.yy",},},
     {"id":{"name":"spr_enemy_life","path":"sprites/spr_enemy_life/spr_enemy_life.yy",},},
     {"id":{"name":"spr_fill_bottle_acid","path":"sprites/spr_fill_bottle_acid/spr_fill_bottle_acid.yy",},},
@@ -180,8 +184,10 @@
     {"id":{"name":"spr_noone","path":"sprites/spr_noone/spr_noone.yy",},},
     {"id":{"name":"spr_pixel","path":"sprites/spr_pixel/spr_pixel.yy",},},
     {"id":{"name":"spr_plant_blue","path":"sprites/spr_plant_blue/spr_plant_blue.yy",},},
+    {"id":{"name":"spr_plant_red","path":"sprites/spr_plant_red/spr_plant_red.yy",},},
     {"id":{"name":"spr_plate_effect","path":"sprites/spr_plate_effect/spr_plate_effect.yy",},},
     {"id":{"name":"spr_plate_info","path":"sprites/spr_plate_info/spr_plate_info.yy",},},
+    {"id":{"name":"spr_potion_damage","path":"sprites/spr_potion_damage/spr_potion_damage.yy",},},
     {"id":{"name":"spr_potion_jump","path":"sprites/spr_potion_jump/spr_potion_jump.yy",},},
     {"id":{"name":"spr_static_liquid","path":"sprites/spr_static_liquid/spr_static_liquid.yy",},},
     {"id":{"name":"spr_UI_Estamina_Full","path":"sprites/spr_UI_Estamina_Full/spr_UI_Estamina_Full.yy",},},

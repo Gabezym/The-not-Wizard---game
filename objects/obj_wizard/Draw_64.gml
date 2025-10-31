@@ -161,7 +161,7 @@ if(fWithHasEffects(self) || slow < 1) {
 			// Novas linhas de efeitos
 			if((_posLine != 0) && (_posLine % _numPerLine == 0)) {
 				
-				_yBegin += _heiSpr;
+				_yBegin += _heiSpr*1.5;
 				_posLine = 0;
 				_numPerLine = 0;
 			}

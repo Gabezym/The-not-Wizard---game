@@ -7,7 +7,7 @@ if (_isAttacking ) {
 	
 	if(_haveStamina) {
 		
-		fSpawnAttackObject(xPlusAttack, cooldownInput, damage);
+		fSpawnAttackObject(xPlusAttack, cooldownInput, damage * obj_wizard.efMoreDamage);
 		obj_wizard.estamina-=estaminaDrain;
 	}
 	else {

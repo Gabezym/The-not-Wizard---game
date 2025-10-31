@@ -251,7 +251,18 @@ function fGetStatusCraftingPotion(_liquid, _ingredient) {
 					_effect	= EFFCTS.BIG_JUMP;
 				break;
 			}
-	}
+		}
+		
+		else if(_liquid == LIQUIDS_ID.BLOOD) {
+			
+			switch(_ingredient) {
+				
+				case ITEMS_ID.PLANT_RED: 		
+				
+					_effect	= EFFCTS.MORE_DAMAGE;
+				break;
+			}
+		}
 	
 	return _effect
 }
@@ -591,7 +602,7 @@ function fWithEffectsPlayer(_instance) {
  
 		// Efeito Big jump
 		fWithStepEfBigJump(self);
-
+		fWithStepEfMoreDamage(self);
 	}
 }
 

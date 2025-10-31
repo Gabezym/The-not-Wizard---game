@@ -27,31 +27,36 @@ enum EFFCTS_TYPE {
 
 #region Efeitos 
 
-var _sizeEffects = 4
+var _sizeEffects = 5
 enum EFFCTS
 {
 	NOTHING = 0,
 	WATER = 1,
 	FIRE = 2,
 	BIG_JUMP = 3, 
+	MORE_DAMAGE = 4,
 }
 
 effectsData = array_create(_sizeEffects);
 effectsData[EFFCTS.NOTHING] = {
 
-	spritePotion: spr_potion_jump
+	spritePotion: spr_potion_damage
 }
 effectsData[EFFCTS.WATER] = {
 
-	spritePotion: spr_potion_jump
+	spritePotion: spr_potion_damage
 }
 effectsData[EFFCTS.FIRE] = {
 
-	spritePotion: spr_potion_jump
+	spritePotion: spr_potion_damage
 }
 effectsData[EFFCTS.BIG_JUMP] = {
 
 	spritePotion: spr_potion_jump
+}
+effectsData[EFFCTS.MORE_DAMAGE] = {
+
+	spritePotion: spr_potion_damage
 }
 
 #endregion
@@ -62,11 +67,12 @@ effectsData[EFFCTS.BIG_JUMP] = {
 // alem de poder mostrar o sprite e descrição
 // Assim: effectsAlarm = array_create(global.lenAlarmEffects, 0);
 
-global.lenAlarmEffects = 2;
+global.lenAlarmEffects = 3;
 enum EFFECTS_ALARMS {
 
 	ALARM_FIRE = 0,
-	ALARM_BIG_JUMP = 1
+	ALARM_BIG_JUMP = 1,
+	ALARM_MORE_DAMAGE=  2, 
 }
 
 infoEffects = array_create(global.lenAlarmEffects);
@@ -80,7 +86,11 @@ infoEffects[EFFECTS_ALARMS.ALARM_BIG_JUMP] = {
 	sprite: spr_effect_big_jump,
 	description: "Seu pulo está mais alto."
 }
+infoEffects[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = {
 
+	sprite: spr_effect_more_damage,
+	description: "Dano aumentado."
+}
 #endregion
 
 #endregion
@@ -98,7 +108,7 @@ enum ITEMS_TYPE
 }
 
 // Sempre alterar
-var _sizeItemsId = 7;
+var _sizeItemsId = 8;
 enum ITEMS_ID
 {	
 	NOTHING = 0,
@@ -108,6 +118,7 @@ enum ITEMS_ID
 	EMPTY_BOTTLE = 4,
 	PLANT_BLUE = 5,
 	POTION = 6,
+	PLANT_RED = 7
 }
 
 // Tem as informações dos items sem ação, os ingredientes(todos sao um mesmo item com info diferente)
@@ -146,6 +157,13 @@ itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	heal: 2,
 	effect: EFFCTS.NOTHING
 }
+itemsNoActionData[ITEMS_ID.PLANT_RED] = {
+	
+	canUse: true,
+	xPlus: 15,
+	heal: -5,
+	effect: EFFCTS.NOTHING
+}	
 #endregion
 
 
@@ -180,21 +198,28 @@ itemsData[ITEMS_ID.GENERIC] = {
 	sprite: spr_item_generic,
 	type: ITEMS_TYPE.NO_ACTION,
 	typeData: obj_itemNoAction,
-	maxAmount: 15
+	maxAmount: 5
 };
 itemsData[ITEMS_ID.EMPTY_BOTTLE] = {
 
 	sprite: spr_bottle_empty,
 	type: ITEMS_TYPE.NO_ACTION,
 	typeData: obj_itemNoAction,
-	maxAmount: 5
+	maxAmount: 3
 };
 itemsData[ITEMS_ID.PLANT_BLUE] = {
 
 	sprite: spr_plant_blue,
 	type: ITEMS_TYPE.NO_ACTION,
 	typeData: obj_itemNoAction,
-	maxAmount: 15
+	maxAmount: 5
+};
+itemsData[ITEMS_ID.PLANT_RED] = {
+
+	sprite: spr_plant_red,
+	type: ITEMS_TYPE.NO_ACTION,
+	typeData: obj_itemNoAction,
+	maxAmount: 5
 };
 
 // Tools

@@ -1,12 +1,5 @@
-- Criar báu
+- Melhorar inimigos
+- Sistema de dialogo
+- Sistema de toxicade tipo tw3
 
-- Melhorar IA do inimigos
-- Os inimigos nao conseguem pular se estiverem descendo uma escada só se tiverem subindo
-- Fazer sistema de dialogo
-
-- Effcts ta inacabado no wizard
-- Acabar Crafting, n da pra craftar ainda, só botar os itens no lugar la
-
-
-
-fiz novo item, poções. Um item pra todas as futuras poções do jogo.
+Ingrdiente + poção + efeito novo -> aumentar dano

@@ -27,6 +27,12 @@ function fWithEffects(_instance, _effect) {
 					effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] = valMyAlarmEfBigJump;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				break;
+				
+				case EFFCTS.MORE_DAMAGE:
+			
+					effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = valMyAlarmEfMoreDamage;
+					alarm[11] = CONSTANTS.SPD_GAME * 1;
+				break;
 		}
 	}
 }
@@ -172,6 +178,39 @@ function fWithStepEfBigJump(_instance) {
 		else {
 
 			efBigJump = 1;
+		}
+	}
+}
+
+#endregion
+
+#region Efeito More Damage
+
+// Use no create
+function fWithCreateEfMoreDamage(_instance) {
+
+	with(_instance) {
+	
+		valMyAlarmEfMoreDamage = 15;
+
+		valEfMoreDamage = 3;
+		efMoreDamage = 1;
+	}
+}
+
+// Use no step
+function fWithStepEfMoreDamage(_instance) {
+
+	with(_instance) {
+		
+		// Efeito more damage
+		if(effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] > 0) {
+
+			efMoreDamage = valEfMoreDamage;
+		} 
+		else {
+
+			efMoreDamage = 1;
 		}
 	}
 }

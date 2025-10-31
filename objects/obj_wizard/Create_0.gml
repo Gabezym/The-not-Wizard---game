@@ -200,3 +200,4 @@ effectsAlarm = array_create(global.lenAlarmEffects, 0);
 
 fWithCreateEfBigJump(self);
 fWithCreateFire(self);
+fWithCreateEfMoreDamage(self);
