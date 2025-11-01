@@ -53,12 +53,16 @@ keyMoveOneItem = vk_control;
 maxLife = 100;
 life = maxLife;
 
+recoilXDmg = 0;
+recoilYDmg = 0;
+alarmDmg = 5;
+
+#region Valores Movimentação XY
+
 // Valores XY
 hval = 0;
 vval = 0;
 jumpVal = 0;	// Armazema pulo Pressionado(vezes q ocorreu)
-
-#region Valores Movimentação
 
 spdVal = 5
 spd = spdVal;
@@ -67,6 +71,9 @@ spdJump = spdJumpVal;
 maxJumpVal = 15; // Maximo q pode pressionar o pulo
 grav = 1;
 slow = 1;
+
+// Pra n da pra ficar pulando pressionando infinitamente
+canJump = true;
 
 #endregion
 
@@ -80,6 +87,8 @@ estJump = 1.5;	// Dreno de estamina por pulo
 
 #endregion
 
+#region Escala e sprite de Colisão
+
 xScaleVal = 2;		// Valor pra mudar o lado
 xScale = xScaleVal;	// Inverte o sprite ou nao
 image_yscale = xScaleVal;
@@ -88,12 +97,15 @@ image_xscale = xScaleVal;
 sprCollision = spr_wizard_collision;	// Sprite da colisao
 mask_index = sprCollision;				// Colisao
 
+#endregion
+
 // Colisão de interação
 objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
 // Qual instancia da array de objetos interagiveis sera usado
 indexAI = 0;
 
 #region Bool
+
 isDead = false;
 isJumping = false
 isFalling = false;
@@ -105,7 +117,6 @@ isInputPressedItem = false;	// Se deu um click de input pro item em mão
 isInputItem2 = false;		// Se ta mandando um input pro item em mãos(secundario)
 inJumpAnimation = false;
 isUpdateInvetory = false;
-isInLadder = false;		// Se ta subindo uma escada
 
 #endregion
 
@@ -159,6 +170,7 @@ newInventory = undefined;
 #endregion
 
 #region Crafting
+
 isCrafting = false;
 crafting = array_create(2, 0);	// Onde vao ficar os objetos no crafting
 craftIndexItem1 = -1;	// Armazena Id do item colocado no primeiro slot
@@ -193,11 +205,14 @@ interactionObjects = [];
 coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
 cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
+cooldownDamage = CONSTANTS.SPD_GAME*1.5;
 
+#region Effects Vars
 
-// Effects Vars
 effectsAlarm = array_create(global.lenAlarmEffects, 0);
 
 fWithCreateEfBigJump(self);
 fWithCreateFire(self);
 fWithCreateEfMoreDamage(self);
+
+#endregion

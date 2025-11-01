@@ -15,7 +15,7 @@ xScale = fXscale(hval, xScaleVal, xScale);
 var _inGround = place_meeting(x,y+1, obj_r_collision);
 
 // O sprite q tem q ta
-var _spriteState = fChangeSprite(hval, inJumpAnimation, xScale, _inGround, isInLadder);
+var _spriteState = fChangeSprite(hval, inJumpAnimation, xScale, _inGround);
 // Muda só se for diferente
 if(sprite_index != _spriteState) {
 	
@@ -26,12 +26,16 @@ if(sprite_index != _spriteState) {
 
 #endregion
 
+// Colisão XY 
+fWithCollisionPlayer(self);
 
 // built-in variables
 image_xscale = xScale;
-y+=vval;
-x+=hval;
+y+= vval + recoilYDmg;
+x+=hval + recoilXDmg;
 
+// Reseta recoil do dano 
+if(recoilXDmg != 0 || recoilYDmg != 0 ) fWithResetRecoilDmg(self);
 
 // Organiza a array dos followObjects
 fWithFollowObjects(self);

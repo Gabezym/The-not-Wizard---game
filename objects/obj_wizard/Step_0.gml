@@ -17,6 +17,9 @@ leftClickPressed	= mouse_check_button_pressed(mouseLeftClick);
 rightClick			= mouse_check_button_pressed(mouseRightClick)
 rightClickPressed	= mouse_check_button_pressed(mouseRightClick);
 
+
+if(keyboard_check_released(keyJump) && canJump == false) canJump = true;
+
 #region Inventario Keys + CraftingKeys + escape
 
 // Abre e fecha o inventario
@@ -43,13 +46,26 @@ slot5	= keyboard_check_pressed(keySlot5);
 
 #endregion
 
-isInLadder = place_meeting(x, y+spd+15, obj_collision_ladder);
-
 // Se ficar preso
 fStuck(self);
 
-// Movimentação
-fWithMovementHvalVval(self);
+
+// Se n tomou dano -> movimentação
+if(recoilXDmg == 0 && recoilYDmg == 0) {
+	
+	// Movimentação
+	fWithMovementHvalVval(self);
+}
+// Reseta vars
+else {
+
+	isInInventory = false;
+	isCrafting = false;
+	craftIndexItem1 = -1;
+	craftIndexItem2 = -1;
+	hval = 0;
+	vval = 0;
+}
 
 // Estamina
 fWithEstamina(self);
@@ -62,10 +78,6 @@ fWithSpawParticleFire(self);
 
 // Efeitos
 fWithEffectsPlayer(self);
-
-
-// Colisão XY 
-fWithCollisionPlayer(self);
 
 // Crafting
 fWithCraftingPotions(self);

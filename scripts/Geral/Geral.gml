@@ -47,7 +47,7 @@ function fResetSlow(instance) {
 	
 	return _slow;
 }
-
+	
 function fStuck(_instance) {
 
 	with(_instance) {

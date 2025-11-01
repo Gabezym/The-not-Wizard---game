@@ -1,1 +1,1 @@
-// Cooldown Estamina 
+/// @description Cooldown Estamina  

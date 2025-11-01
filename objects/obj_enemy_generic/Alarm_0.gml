@@ -1,4 +1,4 @@
-// /----/ INTERVALOS ALEATORIOS DE PULOS /----------------------------/
+/// @description Intervalo pulos
 
 // Se tiver no chao
 if (inGround) {

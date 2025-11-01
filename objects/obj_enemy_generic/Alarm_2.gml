@@ -1,3 +1,3 @@
-// /----/ TIMER VIEW INIMIGO PLAYER  /----------------------------/
+/// @description Timer view enemy
 
 fEnemySearchTarget(self);

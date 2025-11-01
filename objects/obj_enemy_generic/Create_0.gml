@@ -1,10 +1,11 @@
 // Geral 
 lifeVal = 100;
 life = lifeVal;
-
-// Quase fixo
 spd= 3;
-jump = 15;	// Vai ser multiplicado pelo vertMoveVal
+jump = 15;
+damage = 20;
+
+
 slow = 1;
 
 grav = 0.6; 

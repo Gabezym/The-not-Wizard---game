@@ -1,1 +1,1 @@
-// Cooldown de interaçao
+/// @description Cooldown de interaçao

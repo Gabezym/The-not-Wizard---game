@@ -1,4 +1,4 @@
-// Diminui alarmes e aplica efeitos por segundo
+/// @description Alarme Efeitos
 if(fWithHasEffects(self)) {
 	
 	// Efeito do fogo

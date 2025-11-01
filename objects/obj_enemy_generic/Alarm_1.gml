@@ -1,1 +1,1 @@
-//  /----/ COOLDOWN ENTRE COLISAO DOS INIMIGOS /----------------------------/
+/// @description Cooldown colisão inimigos

@@ -25,6 +25,8 @@ if(place_meeting(x, y + vval, obj_r_collision)) {
 	}
 	
 	else vval = 0;
+	
+	alarm[alarmCooldownPick] = 0;
 }
 
 y+=vval;
@@ -39,6 +41,8 @@ if(place_meeting(x +hval, y, obj_r_collision)) {
 	
 	hval = -hval * 0.75;
 	valAngl = -valAngl;
+	
+	alarm[alarmCooldownPick] = 0;
 }	
 
 x+=hval;
@@ -71,6 +75,5 @@ if(hval != 0) {
 	
 	angl -= _val;
 }
-
 
 fColletPickableItem(self, obj_wizard);

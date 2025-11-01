@@ -143,7 +143,7 @@ function fXscale(hval, xScaleVal, xScale) {
 
 // -- Aprovado \[T]/
 // Retorna a posiçao da array de sprites 
-function fChangeSprite(hval, jump, xScale, _inGround, _inLadder) {
+function fChangeSprite(hval, jump, xScale, _inGround) {
 	
 	var _scl = sign(xScale);
 
@@ -157,7 +157,7 @@ function fChangeSprite(hval, jump, xScale, _inGround, _inLadder) {
 	// Left sprites
 	else			_sprites = _sprRight;
 	
-	if((_inGround || _inLadder) && jump == false) {
+	if((_inGround) && jump == false) {
 		
 		// Walk 
 		if ((hval != 0)) return _sprites[1];
@@ -302,6 +302,43 @@ function fWithCollectPotion(_instance, _effect) {
 
 #endregion
 
+
+// Reseta o recoil do damage 
+function fWithResetRecoilDmg(instance) {
+
+	with(instance) {
+		
+		var _recoilX = recoilXDmg;
+		var _recoilY = recoilYDmg;
+		
+		var _reduction = 0
+		
+		if(_recoilY != 0) {
+			
+			if(!place_meeting(x, y+1, obj_r_collision)) {
+				
+				recoilYDmg += grav; 
+			}
+		}
+		if(_recoilX != 0) {
+			
+			var _sinX = sign(_recoilX) * -1;
+			_reduction = 0.1 * _sinX;
+			
+			// Se é positivo ou negativo
+			var _check = false;
+			if(_recoilX > 0)	_check = (_recoilX + _reduction > 0);
+			else				_check = (_recoilX + _reduction < 0);
+			
+			// Se ainda da pra reduzir
+			if (_check) _recoilX += _reduction;
+			else _recoilX = 0;
+			
+			recoilXDmg = _recoilX; 
+		}	
+	}
+}
+
 #endregion
 
 
@@ -326,17 +363,16 @@ function fWithMovementHvalVval(_instance) {
 		hval = (right - left) * spd * slow;
 
 		// Vars + inJumpAnimation
-		if (inGround || isInLadder) {
+		if (inGround) {
 
 			jumpVal = 0;	// Da pra da o pulo pressionado
 			isFirstJump = true;
 			isFalling = false;
 			alarm[1] = coyoteJumpTimeVal;	// O timer n desce enquanto ta no chao, coyote jump
-	
+			
 			// Só reseta a animação de pulo se NÃO estiver apertando jump
 		    if (!jump) inJumpAnimation = false;
 		}
-		else isFirstJump = false;
 
 		#region Vars pro Pulo + inJumpAnimation
 
@@ -351,23 +387,22 @@ function fWithMovementHvalVval(_instance) {
 		if (jump) {
 	
 			// To no chão
-			if (inGround || isCoyoteJump) {
+			if ((inGround || isCoyoteJump) && canJump) {
 		
 				isFalling = false;
 				isJumping = true;
 				isFirstJump = false;
 				inJumpAnimation = true;
+				canJump = false;
 			}
-			// N to no chão
-			else {
-		
-				// TemMaisPuloPress ou DeuPrimeiroPulo
-				if ((jumpVal < maxJumpVal) && (isFirstJump == false)) {
+			// N to no chão e TemMaisPuloPress ou DeuPrimeiroPulo
+			else if ((jumpVal < maxJumpVal) && (isFirstJump == false)) {
 	
 					isJumping = true;
 					jumpVal++;
-				}	
 			}
+			
+			else isJumping = false;
 		}
 		else {
 	
@@ -402,7 +437,6 @@ function fWithMovementHvalVval(_instance) {
 		// Vval caindo
 		if (isFalling) vval +=grav;
 
-
 	}
 }
 
@@ -410,29 +444,21 @@ function fWithMovementHvalVval(_instance) {
 function fWithCollisionPlayer(_instance) {
 	
 	with(_instance) {
-	
+		
+		var _moveH = hval + recoilXDmg;
+		var _moveY = vval + recoilYDmg;
+		
 		// Y
-		// Descer escada 
-		if (!(place_meeting(x + hval, y, obj_collision_ladder)) && isInLadder && (vval >= 0)) {
-	
-			y = y div 1;
-	
-			while !place_meeting(x, y+1, obj_collision_ladder) {
-		
-				y+=1;		
-			}
-		}
-
 		// Colisão Y + reset jumpVal +  reset isFirstjump
-		if(place_meeting(x, y + vval, obj_r_collision)) {
+		if(place_meeting(x, y + _moveY, obj_r_collision)) {
 	
-			var isColGround = sign(vval);
+			var isColGround = sign(_moveY);
 	
 			y = y div 1;
 	
-			while (!place_meeting(x, y+sign(vval), obj_r_collision)) {
+			while (!place_meeting(x, y+sign(_moveY), obj_r_collision)) {
 		
-				y+=sign(vval);
+				y+=sign(_moveY);
 			}
 	
 			// Se for uma colição com o chão
@@ -449,39 +475,22 @@ function fWithCollisionPlayer(_instance) {
 			// Se colidiu de alguma forma, n ta mais na animacao de pular
 			inJumpAnimation = false;
 			vval = 0;
+			recoilYDmg = 0;
 		}
 
 		// X
-		// Subir escada
-		if place_meeting(x + hval, y, obj_collision_ladder) {
-	
-			x = x div 1
-			y = y div 1
-	
-			while !place_meeting(x + sign(hval), y, obj_collision_ladder) {
-	
-				x += sign(hval);
-			}
-	
-			// Soma o spd pra cima, assim fazendo com que ele suba a escada
-			if(!place_meeting(x, y-spd*slow, obj_r_collision)) y-=spd*slow;
-			else {
-			
-				while (!place_meeting(x, y-1 , obj_r_collision)) y-=1;
-			}
-		}
-
 		// +vval pq ainda n somou, ele soma só no final
-		if(place_meeting(x +hval, y+vval, obj_r_collision)) {
+		if(place_meeting(x +_moveH, y+_moveY, obj_r_collision)) {
 
 			x = x div 1;
 	
-			while(!place_meeting(x+sign(hval), y+vval, obj_r_collision)) {
+			while(!place_meeting(x+sign(_moveH), y+_moveY, obj_r_collision)) {
 		
-				x+=sign(hval);
+				x+=sign(_moveH);
 			}
 	
 			hval = 0;
+			recoilXDmg = 0;
 		}
 	}
 } 

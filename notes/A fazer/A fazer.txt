@@ -2,4 +2,4 @@
 - Sistema de dialogo
 - Sistema de toxicade tipo tw3
 
-Ingrdiente + poção + efeito novo -> aumentar dano
+dano inimigo + ajuste throw + descrição de alguns alarmes

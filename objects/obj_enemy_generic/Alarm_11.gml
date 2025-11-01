@@ -1,4 +1,4 @@
-// Diminui alarmes e aplica efeitos por segundo
+/// @description Alarmes efeitos
 if(fWithHasEffects(self)) {
 	
 	// Só os efeitos do inimigo

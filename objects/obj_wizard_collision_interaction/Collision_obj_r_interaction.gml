@@ -1,9 +1,25 @@
 var _id = other.id;
 
+
 with(character) {
 
 	var _alreadyStored = false;
 	var	_arrLen = array_length(interactionObjects);
+	
+	
+	#region Cooldown Pickable
+	
+	var _noCooldown = true;
+	var _isPickable = ((object_is_ancestor(_id.object_index, obj_pickable)) || (_id.object_index == obj_pickable));
+	
+	if(_isPickable) {
+	
+		var _noCooldownCheck = (_id.alarm[_id.alarmCooldownPick] <= 0);
+		
+		_noCooldown = _noCooldownCheck
+	}
+	
+	#endregion
 	
 	#region FILL BOTLE 
 	
@@ -15,7 +31,7 @@ with(character) {
 	#endregion
 	
 	// Se der pra interagir	
-	if(_fill_bottle_check) {
+	if(_fill_bottle_check && _noCooldown) {
 		
 		// Checa se ja armazenou esse objeto
 		for(var _i = 0; _i < _arrLen; _i++) {

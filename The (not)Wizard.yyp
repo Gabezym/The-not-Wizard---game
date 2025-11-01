@@ -85,7 +85,6 @@
     {"id":{"name":"obj_bottle","path":"objects/obj_bottle/obj_bottle.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_collision_block","path":"objects/obj_collision_block/obj_collision_block.yy",},},
-    {"id":{"name":"obj_collision_ladder","path":"objects/obj_collision_ladder/obj_collision_ladder.yy",},},
     {"id":{"name":"obj_config","path":"objects/obj_config/obj_config.yy",},},
     {"id":{"name":"obj_crafting_table","path":"objects/obj_crafting_table/obj_crafting_table.yy",},},
     {"id":{"name":"obj_enemy_generic","path":"objects/obj_enemy_generic/obj_enemy_generic.yy",},},
