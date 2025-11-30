@@ -3,7 +3,7 @@
 
 #region Efeitos 
 
-// Aplica efeitos 
+// Aplica efeitos (alarme)
 function fWithEffects(_instance, _effect) {
 
 	with(_instance) {
@@ -37,7 +37,7 @@ function fWithEffects(_instance, _effect) {
 	}
 }
 
-// Retorna se tem algum efeito 
+// Retorna se tem algum efeito (boolean) 
 function fWithHasEffects(_instance) {
 
 	with(_instance) {

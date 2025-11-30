@@ -608,35 +608,8 @@ function fWithInvetoryMouse(_instance) {
 							// Slot n é pra crafting
 							if(_canIteract) {
 								
-								var _sameStatus = (inventory[_y][_x].itemStatus == slotStrClick.itemStatus);
-								var _sameItem = (inventory[_y][_x].itemId == slotStrClick.itemId);
-								var _sameItemOrNoItem = ((inventory[_y][_x] == clearSlot) || _sameItem);
-								var _moveJustOneItem = (moveOneItem && _sameItemOrNoItem && (slotStrClick.itemAmount > 1));
-		
-								if(_moveJustOneItem) {
-							
-									var _strOne = {
-
-										isFull: true,
-										itemId: slotStrClick.itemId,
-										itemStatus: slotStrClick.itemStatus,
-										itemAmount:	inventory[_y][_x].itemAmount+1
-									}
-									var _strMinusOne = {
-
-										isFull: true,
-										itemId: slotStrClick.itemId,
-										itemStatus: slotStrClick.itemStatus,
-										itemAmount:	slotStrClick.itemAmount-1
-									}
+								newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x], false);
 								
-									newInventory = fGetInventoryChangeSlotMouse(slotClick, _strOne, _inSLot, inventory, _strMinusOne, true);
-								}
-								else {
-								
-									newInventory = fGetInventoryChangeSlotMouse(slotClick, slotStrClick, _inSLot, inventory, inventory[_y][_x], false);
-								}
-							
 								fWithSetNewInventory(self);
 							}
 							

@@ -1,6 +1,5 @@
 var _id = other.id;
 
-
 with(character) {
 
 	var _alreadyStored = false;

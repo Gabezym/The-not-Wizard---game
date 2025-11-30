@@ -1,3 +1,36 @@
+// Vida
+maxLife = 100;
+life = maxLife;
+
+// Toxicity
+toxicityLevel = 0;			// Nivel atual
+toxicityValLevel = 0;		// Valor atual do nivel
+toxicityMaxValLevel = 100;	// Maximo de toxicidade por nivel
+
+// Dano(inimigo -> player)
+recoilXDmg = 0;
+recoilYDmg = 0;
+alarmDmg = 5;
+
+
+// Colisão de interação
+objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
+// Qual instancia da array de objetos interagiveis sera usado
+indexAI = 0;
+
+
+// Array
+followObjects = [];	
+interactionObjects = [];
+
+
+// Time
+coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
+cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
+cooldownEstamina =	CONSTANTS.SPD_GAME*1;
+cooldownDamage = CONSTANTS.SPD_GAME*1.5;
+
+
 #region Comandos 
 
 escape = 0;
@@ -14,7 +47,6 @@ right	= 0;
 left	= 0;
 
 inputInventory = 0;
-moveOneItem = 0;
 
 interact = 0;
 changeIndex = 0;
@@ -26,6 +58,7 @@ slot4	= 0;
 slot5	= 0;
 
 #endregion
+
 #region	Keybinds
 
 keyEscape = vk_escape;
@@ -46,16 +79,7 @@ keySlot3= ord("3");
 keySlot4 = ord("4");
 keySlot5 = ord("5");
 
-keyMoveOneItem = vk_control;
-
 #endregion
-
-maxLife = 100;
-life = maxLife;
-
-recoilXDmg = 0;
-recoilYDmg = 0;
-alarmDmg = 5;
 
 #region Valores Movimentação XY
 
@@ -99,11 +123,6 @@ mask_index = sprCollision;				// Colisao
 
 #endregion
 
-// Colisão de interação
-objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
-// Qual instancia da array de objetos interagiveis sera usado
-indexAI = 0;
-
 #region Bool
 
 isDead = false;
@@ -122,7 +141,10 @@ isUpdateInvetory = false;
 
 #region Inventario
 
-inventory = array_create(6);	// Colunas
+var _YSize = 2;
+var _XSixe = 5;
+
+inventory = array_create(_YSize);	// Colunas
 totalSlots = 0;
 clearSlot = {
 		
@@ -135,8 +157,7 @@ clearSlot = {
 
 for(var _y = 0; _y < array_length(inventory); _y++) {
 
-	var _xSize = 5;
-	inventory[_y] = array_create(_xSize)	// Linhas
+	inventory[_y] = array_create(_XSixe)	// Linhas
 	
 	// array_length(inventory[_y]) retorna a array da coluna _y
 	for(var _x = 0; _x < array_length(inventory[_y]); _x++) {
@@ -196,16 +217,6 @@ craftVarB2	= craftVarDefX + 144	+32;
 craftVarB3	= craftVarDefX + 271	+32;
 
 #endregion
-
-// Array
-followObjects = [];	
-interactionObjects = [];
-
-// Time
-coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
-cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
-cooldownEstamina =	CONSTANTS.SPD_GAME*1;
-cooldownDamage = CONSTANTS.SPD_GAME*1.5;
 
 #region Effects Vars
 

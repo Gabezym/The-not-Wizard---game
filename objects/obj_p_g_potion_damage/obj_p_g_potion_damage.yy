@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_spawn_p_generic_1",
+  "%Name":"obj_p_g_potion_damage",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_spawn_p_generic_1",
+  "name":"obj_p_g_potion_damage",
   "overriddenProperties":[],
   "parent":{
     "name":"Potions",
-    "path":"folders/Objects/Items/Pickable/Spawn/Potions.yy",
+    "path":"folders/Objects/Items/Pickable/Ground/Potions.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_p_g_default",
+    "path":"objects/obj_p_g_default/obj_p_g_default.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -29,10 +32,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_potion_damage",
-    "path":"sprites/spr_potion_damage/spr_potion_damage.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

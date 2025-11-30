@@ -81,10 +81,10 @@ function fUseItem(idItem, whoUseItem) {
 		
 		var _effect = EFFCTS.NOTHING;
 		
-		if(idItem == ITEMS_ID.POTION) {
-		
+		if(idItem == ITEMS_ID.POTION) {	
+			
+			// O efeito das poções está no status do item, não no dataBase
 			_effect = itemSelectedStruct.itemStatus.effectId;
-
 		}
 		else {
 			
@@ -93,7 +93,10 @@ function fUseItem(idItem, whoUseItem) {
 			_effect = _infos.effect;
 		}	
 		
-		fWithEffects(self, _effect);
+		fWithEffects(self, _effect);			// Aplica efeito
+		
+		var _toxicity = obj_config.effectsData[_effect].toxicity;
+		fWithToxicityIncrease(self, _toxicity);	// Aumenta a toxicidade	
 	}
 	
 	 return fRemoveOneItemSlotInventory(inventory, selectedSlot);
@@ -271,11 +274,10 @@ function fGetStatusCraftingPotion(_liquid, _ingredient) {
 function fWithCollectPotion(_instance, _effect) {
 
 	with(_instance) {
-	
+		
 		var _status = {
 				
 			effectId: _effect, 
-			effectType: EFFCTS_TYPE.STATUS
 		}
 		var _potionStr = {
 				
@@ -336,6 +338,21 @@ function fWithResetRecoilDmg(instance) {
 			
 			recoilXDmg = _recoilX; 
 		}	
+	}
+}
+
+// Aumenta a toxicidade 
+function fWithToxicityIncrease(_instance, _toxicity) {
+
+	with(_instance) {
+		
+		toxicityValLevel += _toxicity;
+		
+		if(toxicityValLevel >=  toxicityMaxValLevel) {
+			
+			toxicityLevel++;
+			toxicityValLevel = 0;
+		}
 	}
 }
 

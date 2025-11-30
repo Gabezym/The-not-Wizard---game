@@ -1,5 +1,7 @@
 - Melhorar inimigos
 - Sistema de dialogo
-- Sistema de toxicade tipo tw3
+- Terminar? Sistema de toxicade
 
-dano inimigo + ajuste throw + descrição de alguns alarmes
+! Inimigo ficou com slow infinito, após agua, voltou ao normal (tava pulando baixinho)
+
+Sistema Toxicidade, removi a ação mover só um item, reduzi inventario, mexi com database dos efeitos e como funciona.

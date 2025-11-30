@@ -8,7 +8,6 @@ jump			= keyboard_check(keyJump);
 inputInventory	= keyboard_check_pressed(keyInventory);
 interact		= keyboard_check_pressed(keyInteract);
 changeIndex		= keyboard_check_pressed(keyChangeIndex);
-moveOneItem		= keyboard_check(keyMoveOneItem);
 
 leftClick			= mouse_check_button(mouseLeftClick);
 leftClickReleased	= mouse_check_button_released(mouseLeftClick);

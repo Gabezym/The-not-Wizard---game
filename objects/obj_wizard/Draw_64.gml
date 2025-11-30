@@ -195,6 +195,8 @@ if(fWithHasEffects(self) || slow < 1) {
 }	
 #endregion
 
-
+// Teste Toxicidade
+draw_text(_UI_LifeXVal *4.9, _UI_LifeYVal-15, "Level toxicidade: " + string(toxicityLevel));
+draw_text(_UI_LifeXVal *5.1, _UI_LifeYVal, "Porcentagem toxicidade: " + string(toxicityValLevel));
 }
 #endregion

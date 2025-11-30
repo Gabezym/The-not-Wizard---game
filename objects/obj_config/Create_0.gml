@@ -17,12 +17,14 @@ enum DIR
 
 #region Effects
 
+// Tipo do efeito (pra organizar melhor)
 enum EFFCTS_TYPE {
 	
-	STATUS = 0,
-	RESISTANCE = 1,
-	CONDITIONS = 2,
-	SPECIAL = 3
+	NOONE = 0,
+	STATUS = 1,			// Altera status (poção)
+	RESISTANCE = 2,		// Aumenta resistencia de algum dano (poção)
+	CONDITIONS = 3,		// Aplica alguma condição diversa
+	SPECIAL = 4			// Transformações (poção)
 }
 
 #region Efeitos 
@@ -35,33 +37,54 @@ enum EFFCTS
 	FIRE = 2,
 	BIG_JUMP = 3, 
 	MORE_DAMAGE = 4,
+	MORE_TOXICITY = 5,
 }
+
+#region Database dos effects 
 
 effectsData = array_create(_sizeEffects);
 effectsData[EFFCTS.NOTHING] = {
 
-	spritePotion: spr_potion_damage
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.NOONE
 }
 effectsData[EFFCTS.WATER] = {
 
-	spritePotion: spr_potion_damage
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.NOONE
 }
 effectsData[EFFCTS.FIRE] = {
 
-	spritePotion: spr_potion_damage
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.CONDITIONS
 }
 effectsData[EFFCTS.BIG_JUMP] = {
 
-	spritePotion: spr_potion_jump
+	spritePotion: spr_potion_jump,
+	toxicity: 10,
+	effectType: EFFCTS_TYPE.STATUS
 }
 effectsData[EFFCTS.MORE_DAMAGE] = {
 
-	spritePotion: spr_potion_damage
+	spritePotion: spr_potion_damage,
+	toxicity: 15,
+	effectType: EFFCTS_TYPE.STATUS
+}
+effectsData[EFFCTS.MORE_TOXICITY] = {	// Apenas aumenta a toxicidade
+
+	spritePotion: spr_potion_damage,
+	toxicity: 15,
+	effectType: EFFCTS_TYPE.NOONE
 }
 
 #endregion
 
-#region Efeitos que possuem duração
+#endregion
+
+#region Efeitos que possuem duração (leia descrição abaixo)
 
 // Isso é pra organizar todos os efeitos em um só alarme
 // alem de poder mostrar o sprite e descrição
@@ -74,6 +97,9 @@ enum EFFECTS_ALARMS {
 	ALARM_BIG_JUMP = 1,
 	ALARM_MORE_DAMAGE=  2, 
 }
+
+// Essas são as informações de HUD sobre os efeitos
+#region Database
 
 infoEffects = array_create(global.lenAlarmEffects);
 infoEffects[EFFECTS_ALARMS.ALARM_FIRE] = {
@@ -91,6 +117,9 @@ infoEffects[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = {
 	sprite: spr_effect_more_damage,
 	description: "Dano aumentado."
 }
+	
+#endregion
+	
 #endregion
 
 #endregion
@@ -140,8 +169,8 @@ itemsNoActionData[ITEMS_ID.GENERIC] = {
 	
 	canUse: true,
 	xPlus: 15,
-	heal: 10,
-	effect: EFFCTS.NOTHING
+	heal: 15,
+	effect: EFFCTS.MORE_TOXICITY
 }
 itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	
