@@ -28,17 +28,23 @@ mask_index = sprite_index;
 
 #endregion
 
-#region Fisica
+#region Fisica + hit
 
 grav = 0.3;
 hval = _valHval;
 vval = _valVval;
-angl = _angl;
+angl = (_id != ITEMS_ID.WEAPON)? 0 : obj_mouse.mouseAnglePlayer;
 
-valAngl = _valHval
-spdAngl = 0.85*_valHval;
-spdMinAngl = 0.2*_valHval;
-cooldownAngl = CONSTANTS.SPD_GAME * 0.1;
+scale = 1;	// Xscale
+if(hval < 0) scale = -1;
+
+sideAngl = sign(_valHval);	// Lado do giro
+spdAngl = 0.85 * abs(hval);	// Velocidade do giro
+ 
+// Dano
+life = 3;
+isHit = false;	// Se recebeu dano
+side = 0;		// Lado que recebeu dano
 
 #endregion
 

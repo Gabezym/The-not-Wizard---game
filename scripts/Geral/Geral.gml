@@ -28,7 +28,7 @@ function fDrawHitBox(halfWid, halfHei, instance) {
 	}
 }
 
-function fResetSlow(instance) {
+function fResetSlow(instance, inWater) {
 
 	var _slow
 
@@ -36,7 +36,9 @@ function fResetSlow(instance) {
 		
 		_slow = slow;
 		
-		if((slow != 1) && !(place_meeting(x, y, obj_r_liquid)) && ((hval != 0) || ( vval != 0))) {
+		var _inWaterOrNoLiquid = (!(place_meeting(x, y, obj_r_liquid) || inWater));
+		
+		if((slow != 1) && (_inWaterOrNoLiquid) && ((hval != 0) || ( vval != 0))) {
 			
 			var _reductionSlow = 0.002;
 			

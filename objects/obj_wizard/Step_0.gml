@@ -70,7 +70,7 @@ else {
 fWithEstamina(self);
 
 // Slow padrão 
-slow = fResetSlow(self);
+slow = fResetSlow(self, false);
 
 // Particulas de fogo
 fWithSpawParticleFire(self);

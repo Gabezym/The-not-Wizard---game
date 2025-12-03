@@ -277,7 +277,7 @@ function fWithCollectPotion(_instance, _effect) {
 		
 		var _status = {
 				
-			effectId: _effect, 
+			effectId: _effect
 		}
 		var _potionStr = {
 				
@@ -578,37 +578,55 @@ function fWithFollowObjects(_ins) {
 				if(instance_exists(_instance)) {
 		
 					with(_instance) {
+										
+						// Se não for o objeto do ataque
+						if(_instance.object_index != obj_attack) {
+							
+							#region Vars
+							var _dis = 5 + ((_sprWid div 2 + xPlus)); // xPlus é o espaço adicional d cada objeto
+							var _ang = obj_mouse.mouseAnglePlayer;
+							var _x = other.x + other.hval;	 
+							var _y = other.y + other.vval;
 				
-						#region Vars
-				
-						var _dis = 5 + ((_sprWid div 2 + xPlus)); // xPlus é o espaço adicional d cada objeto
-						var _ang = obj_mouse.mouseAnglePlayer;
-						var _x = other.x + other.hval;	 
-						var _y = other.y + other.vval;
-				
-						var _lenX = lengthdir_x(_dis, _ang);
-						var _lenY = lengthdir_y(_dis, _ang);
+							var _lenX = lengthdir_x(_dis, _ang);
+							var _lenY = lengthdir_y(_dis, _ang);
 								
-						#endregion
+							#endregion
 				
-						// Posição XY
-						var _newX = _x + _lenX;
-						var _newY = _y + _lenY;
+							// Posição XY
+							var _newX = _x + _lenX;
+							var _newY = _y + _lenY;
 				
-						// Xscale
-						var _scl = sign(other.xScale);
-						if(mouse_x > _x)		_scl =  1;
-						else if	(mouse_x < _x)	_scl = -1;
+							// Xscale
+							var _scl = sign(other.xScale);
+							if(mouse_x > _x)		_scl =  1;
+							else if	(mouse_x < _x)	_scl = -1;
 				
-						// Alpha
-						var _alpha = 1;
-						// Se ta no inventario o item some
-						if(other.isInInventory) _alpha = 0;
+							// Alpha
+							var _alpha = 1;
+							// Se ta no inventario o item some
+							if(other.isInInventory) _alpha = 0;
 				
-						x = _newX;
-						y = _newY;
-						image_alpha = _alpha
-						image_xscale = _scl;
+							// Altera as variaveis
+							x = _newX;
+							y = _newY;
+							image_alpha = _alpha
+							if(_instance.object_index != obj_weapon) {
+								image_xscale = _scl;
+							}
+							else {
+								
+								image_yscale = _scl
+								image_angle = obj_mouse.mouseAnglePlayer;
+							}
+								
+						
+						}
+						else {
+							
+							x += other.hval;
+							y += other.vval;
+						}
 					}
 				}
 		

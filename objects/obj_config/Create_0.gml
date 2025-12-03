@@ -156,13 +156,20 @@ enum ITEMS_ID
 
 itemsNoActionData = array_create(_sizeItemsId);
 
+var _spawnNothing = {
+
+	item: ITEMS_ID.NOTHING,
+	itemAmount: 0
+};
+
 itemsNoActionData[ITEMS_ID.POTION] = {
 	
 	canUse: true,
 	xPlus: 15,
 	heal: 0,
 	// Em poções o efeito é aplicado pelo status
-	effect: EFFCTS.NOTHING
+	effect: EFFCTS.NOTHING,
+	spawnDeath: _spawnNothing
 }
 
 itemsNoActionData[ITEMS_ID.GENERIC] = {
@@ -170,28 +177,35 @@ itemsNoActionData[ITEMS_ID.GENERIC] = {
 	canUse: true,
 	xPlus: 15,
 	heal: 15,
-	effect: EFFCTS.MORE_TOXICITY
+	effect: EFFCTS.MORE_TOXICITY,
+	spawnDeath: _spawnNothing
 }
 itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	
 	canUse: false,
 	xPlus: 20,
 	heal: 0,
-	effect: EFFCTS.NOTHING
+	effect: EFFCTS.NOTHING,
+	spawnDeath: _spawnNothing
 }
 itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	
 	canUse: true,
 	xPlus: 15,
 	heal: 2,
-	effect: EFFCTS.NOTHING
+	effect: EFFCTS.NOTHING,
+	spawnDeath: {
+			item: ITEMS_ID.GENERIC,
+			itemAmount: 3
+	}
 }
 itemsNoActionData[ITEMS_ID.PLANT_RED] = {
 	
 	canUse: true,
 	xPlus: 15,
 	heal: -5,
-	effect: EFFCTS.NOTHING
+	effect: EFFCTS.NOTHING,
+	spawnDeath: _spawnNothing
 }	
 #endregion
 
@@ -210,7 +224,6 @@ itemsData[ITEMS_ID.NOTHING] = {
 	type: ITEMS_TYPE.NO_TYPE,
 	typeData: obj_noone,
 	maxAmount: 0
-
 };
 	
 // No action
@@ -294,7 +307,7 @@ liquidsData[LIQUIDS_ID.WATER] = {
 	spriteBottle: spr_bottle_water,
 	color: make_color_rgb(33, 182, 239),
 	amount: 5,
-	maxLiquidAmount: 100,
+	maxLiquidAmount: 200,
 	damage: 0,
 	slow: 1, 
 	effect: EFFCTS.WATER,
@@ -304,7 +317,7 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	spriteBottle: spr_bottle_blood,
 	color: make_color_rgb(102, 7, 9),
 	amount: 5,
-	maxLiquidAmount: 200,
+	maxLiquidAmount: 250,
 	damage: 0,
 	slow: 0.6, 
 	effect: EFFCTS.NOTHING,

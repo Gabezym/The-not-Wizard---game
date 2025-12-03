@@ -49,7 +49,7 @@ else {
 	// ATUALIZA oq ta acontecendo com vval -> -1 pula.
 	vertMoveVal = fEnemyActionVval(vval);
 
-	fResetSlow(self);
+	slow = fResetSlow(self, false);
 
 	fWithSpawParticleFire(self);
 }

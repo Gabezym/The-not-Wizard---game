@@ -1,12 +1,13 @@
-// Pq uma struct?
-var _struct = {
-
-	hitVal: damage
-};
-
 var _id = other.id;
 var _len = array_length(alreadyAttacked);
 var _isAlreadyAttacked = false;
+var _side = 0;
+
+if (instance_exists(obj_wizard)) {
+
+	if(obj_wizard.x < _id.x)	_side = 1;
+	else						_side = -1;
+}
 
 // Checa se ja foi atingido
 for (var _i = 0; _i < _len; _i++) {
@@ -23,5 +24,5 @@ if (_isAlreadyAttacked == false) {
 	
 	array_insert(alreadyAttacked, _len, _id);
 	other.isHit = true;
-	other.hitStruct = _struct;
+	other.side = _side;
 }

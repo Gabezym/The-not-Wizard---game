@@ -22,15 +22,15 @@ function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 
 	with(obj_wizard) {
 
-			var _scl = instanceInHands.image_xscale; 
 			var _x = instanceInHands.x;
 			var _y = instanceInHands.y;
+			var _angl = obj_mouse.mouseAnglePlayer;
 
 			var _struct = {
 	
-				xScale: _scl,
 				xPlus: xPlusAttack,
-				damage: valDamage
+				damage: valDamage,
+				angle: _angl
 			}
 
 			var _id = instance_create_layer(_x, _y, "ScenarioFront", obj_attack, _struct);
@@ -141,7 +141,6 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 		_gravVal : varGravVal,
 		_grav : varGravVal,
 		_spr: _sprr,
-		_angl: choose(-15, -10, -5, 0, 5, 10, 15),
 		_valHval	: hval,
 		_valVval	: vval,
 		status: _status,

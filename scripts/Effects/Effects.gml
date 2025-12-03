@@ -18,8 +18,9 @@ function fWithEffects(_instance, _effect) {
 				
 				break;
 				case EFFCTS.WATER: 
-				
+					
 					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = 0;
+					slow = fResetSlow(self, true);
 				break;
 			
 				case EFFCTS.BIG_JUMP:

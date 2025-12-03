@@ -1,4 +1,4 @@
-draw_sprite_ext(spr, 1, x, y, 1, 1, angl, c_white, 1);
+draw_sprite_ext(spr, 1, x, y, scale, 1, angl, c_white, 1);
 
 fDrawHitBox(colW/2, colH/2, self);
 

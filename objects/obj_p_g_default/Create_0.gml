@@ -11,7 +11,6 @@ else _spr = obj_config.itemsData[_id].sprite;
 _gravVal = 0.4;
 _grav = 0.4;
 _spd = 0;
-_angl = 1;
 _valHval = 0;	// Valor usado
 _valVval = 0;	// Valor usado
 

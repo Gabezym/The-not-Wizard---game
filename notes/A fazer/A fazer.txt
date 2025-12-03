@@ -1,7 +1,18 @@
-- Melhorar inimigos
-- Sistema de dialogo
-- Terminar? Sistema de toxicade
+Principal(mecanicas) {
 
-! Inimigo ficou com slow infinito, após agua, voltou ao normal (tava pulando baixinho)
+	- Sistema de dialogo;
+	- Sistema de caderno;
+	- Npcs/quest;
+	- Inimigos e boss fight;
+	- Sistema de toxicade;
+	- Efeitos e itens;
+	- Plataformas diversas;
+}
 
-Sistema Toxicidade, removi a ação mover só um item, reduzi inventario, mexi com database dos efeitos e como funciona.
+
+Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra checar se ta legal jogar.
+- 1 mini boss tbm.
+- Mecânica de quebar e queimar alguns itens pra fazer itens novos.
+
+
+contato agua e sangue, dano em itens, spaw de itens ao quebrar item original, angulo arma e ataque/correções.

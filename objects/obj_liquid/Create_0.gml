@@ -9,9 +9,9 @@ colDown = false;
 
 fallingSlow = false;	// Se colidiu com o teto e ta caidno lent
 
-var _id = obj_config.liquidsData[liquidId];
+var _str = obj_config.liquidsData[liquidId];
 
-color		= _id.color;
+color		= _str.color;
 scaleMax	= 1;
 scale		= scaleMax / 5;
 scaleVal	= 0.2;

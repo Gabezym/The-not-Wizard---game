@@ -40,7 +40,7 @@ if(place_meeting(x +hval, y, obj_r_collision)) {
 	}
 	
 	hval = -hval * 0.75;
-	valAngl = -valAngl;
+	sideAngl = -sideAngl;	// Inverte lado do giro
 	
 	alarm[alarmCooldownPick] = 0;
 }	
@@ -48,6 +48,51 @@ if(place_meeting(x +hval, y, obj_r_collision)) {
 x+=hval;
 
 #endregion
+
+if(isHit) {
+	
+	// Fisica pra arremessar pra um lado
+	_valHval = 5*side;
+	_valVval = -3;
+	
+	hval = _valHval;
+	vval = _valVval;
+	sideAngl = sign(_valHval);	// Lado do giro
+	spdAngl = 0.85 * abs(hval);	// Velocidade do giro
+ 
+ 
+	// Dano
+	life--;
+	isHit = false;	
+	side = 0;
+}
+
+if(life<=0) {
+
+	// Se nao for uma ferramenta
+	if(obj_config.itemsData[_id].type == ITEMS_TYPE.NO_ACTION) {
+		
+		var _noItem = ITEMS_ID.NOTHING;
+		var _item = obj_config.itemsNoActionData[_id].spawnDeath.item;
+		var _amount = obj_config.itemsNoActionData[_id].spawnDeath.itemAmount;
+	
+		if(_item != _noItem) {
+	
+			var _xSide = choose(-1, 1);
+		
+			for(var _i = 0; _i < _amount; _i++) {
+			
+				var _hval = choose(3,4,5)*_xSide;
+				var _vval = choose(-3,-2,-1);
+			
+				fSpawnItem(x, y, _item, 0.4, _hval, _vval, undefined, 1);
+			
+				_xSide*=-1;
+			}
+		}
+	}
+	instance_destroy();
+}
 
 // Zera o hval
 if(hval != 0) {
@@ -58,7 +103,7 @@ if(hval != 0) {
 				
 		hval -= sign(hval)/10;
 		
-		_val = (spdAngl * (valAngl / _valHval));
+		_val = (spdAngl * sideAngl); 
 		
 	}
 	else {
@@ -69,7 +114,7 @@ if(hval != 0) {
 		}
 		else {
 		
-			_val = (spdAngl * (valAngl / _valHval));
+			_val = (spdAngl * sideAngl * 0.7); 
 		}
 	}
 	
