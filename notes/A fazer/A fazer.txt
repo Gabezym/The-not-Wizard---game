@@ -13,6 +13,3 @@ Principal(mecanicas) {
 Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra checar se ta legal jogar.
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
-
-
-contato agua e sangue, dano em itens, spaw de itens ao quebrar item original, angulo arma e ataque/correções.

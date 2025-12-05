@@ -19,7 +19,7 @@ if (_isAttacking ) {
 }
 	
 // Se clicou com o botao direito, joga o item
-if(_isThrowing) {
+/*if(_isThrowing) {
 		
 		with(obj_wizard) {
 			

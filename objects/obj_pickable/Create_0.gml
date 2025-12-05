@@ -8,6 +8,13 @@ event_inherited();
 alarmCooldownPick = 1;
 alarm[alarmCooldownPick] = CONSTANTS.SPD_GAME * 0.25;
 
+// Cooldown ante de poder dar dano no item
+alarmCooldownDmg = 0;
+alarm[alarmCooldownDmg] = CONSTANTS.SPD_GAME * 0.25;
+
+// Se foi coletado
+isInteracted = false;
+
 #region Sprite
 
 // Mesmo objeto, diferentes sprite.
@@ -25,6 +32,11 @@ else _spr = obj_config.itemsData[_id].sprite;
 
 sprite_index = _spr;
 mask_index = sprite_index;
+
+// Sprite do draw
+spr = sprite_index;
+colH = sprite_get_height(sprite_index);
+colW = sprite_get_width(sprite_index);
 
 #endregion
 
@@ -47,14 +59,6 @@ isHit = false;	// Se recebeu dano
 side = 0;		// Lado que recebeu dano
 
 #endregion
-
-// Sprite do draw
-spr = sprite_index;
-colH = sprite_get_height(sprite_index);
-colW = sprite_get_width(sprite_index);
-
-// Se foi coletado
-isInteracted = false;
 
 itemData = {
 	

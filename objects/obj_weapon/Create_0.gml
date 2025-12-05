@@ -6,4 +6,4 @@ cooldownInput = 0.3 * CONSTANTS.SPD_GAME;
 
 damage = 15;
 
-estaminaDrain = 15;
+estaminaDrain = 10;

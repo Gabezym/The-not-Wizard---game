@@ -503,28 +503,33 @@ function fWithDropItemInventoryOpen(_instance, _slotDrop,  _dropAll) {
 	with(_instance){
 
 		var _x, _y, _scl;
+		var _strItem = fGetSlotInventory(inventory, _slotDrop);
 		
-		if(selectedSlot != _slotDrop) {
+		// N pode dropar a faca
+		if(_strItem.itemId != ITEMS_ID.WEAPON) {
+		
+			if(selectedSlot != _slotDrop) {
 						
-			var _xplus = choose(5,6,7,8,9,10);
-			var _yplus = choose(-5, -2, 0, 2, 5);
+				var _xplus = choose(5,6,7,8,9,10);
+				var _yplus = choose(-5, -2, 0, 2, 5);
 			
-			_x = (x + (_xplus * xScale));
-			_y = (y + _yplus);
-			_scl = xScale;
-		}
-		else {
+				_x = (x + (_xplus * xScale));
+				_y = (y + _yplus);
+				_scl = xScale;
+			}
+			else {
 			
-			_x = instanceInHands.x;	
-			_y = instanceInHands.y;
-			_scl = instanceInHands.image_xscale;
+				_x = instanceInHands.x;	
+				_y = instanceInHands.y;
+				_scl = instanceInHands.image_xscale;
+			}
+						
+			isUpdateInvetory = true;
+			if(_dropAll)	newInventory = fDropAllItems(inventory, _slotDrop, _x, _y, xScale);
+			else			newInventory = fDropItem(inventory, _slotDrop, _x, _y, xScale);	
+			fWithSetNewInventory(self);
 		}
-						
-		isUpdateInvetory = true;
-		if(_dropAll)	newInventory = fDropAllItems(inventory, _slotDrop, _x, _y, xScale);
-		else			newInventory = fDropItem(inventory, _slotDrop, _x, _y, xScale);	
-		fWithSetNewInventory(self);
-						
+			
 		// Reseta as vars do click no slot do mouse
 		slotClick = -1;
 		slotStrClick = undefined;

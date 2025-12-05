@@ -213,7 +213,7 @@ function fWithInteractedObjects(_instance) {
 					if(instance_exists(other.interactionObjects[_z])) {
 						
 						// N tiver mais colidindo, tira da array
-						if(place_empty(x, y, other.interactionObjects[_z])) { 
+						if(!place_meeting(x, y, other.interactionObjects[_z])) { 
 					
 							// N esta mais colidindo nem interagindo
 							other.interactionObjects[_z].colliding = false;

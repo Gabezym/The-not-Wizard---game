@@ -165,7 +165,7 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 // Colisão de liquidos com characters
 // Intensidade 0: bottle liquid
 // Intensidade 1: static liquid
-function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensity) {
+function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensity, _alarmLiquid) {
 
 	with(_instanceCall) {
 	
@@ -181,18 +181,19 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				var _effect = _status.effect;
 		
 				var _outOfCooldown = false;
-				if(_instensity == 0)	_outOfCooldown = (alarm[3] <= 0);
-				else					_outOfCooldown = (alarm[3] <= CONSTANTS.SPD_GAME * 0.1);
+				if(_instensity == 0)	_outOfCooldown = (alarm[_alarmLiquid] <= 0);
+				else					_outOfCooldown = (alarm[_alarmLiquid] <= CONSTANTS.SPD_GAME * 0.1);
 				
 				var _areMoving = (hval != 0 || vval != 0);
-				var _damegeForMoving = (_areMoving && (alarm[3] <= cooldownDamageLiquid/2));
+				var _damegeForMoving = (_areMoving && (alarm[_alarmLiquid] <= cooldownDamageLiquid/2));
+				var _slowForMovinh = (_areMoving && (alarm[_alarmLiquid] <= cooldownDamageLiquid/2));
 			
 				// Damage + cooldown 
 				if(_outOfCooldown || _damegeForMoving ) {
 		
 					life-= _dmg;
 
-					alarm[3] = cooldownDamageLiquid;
+					alarm[_alarmLiquid] = cooldownDamageLiquid;
 				}
 				
 				var _slowVal = 0.02;	

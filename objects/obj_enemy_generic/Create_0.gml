@@ -28,6 +28,9 @@ vval = 0;
 sideMoveVal = choose(DIR.LEFT, DIR.RIGHT);	// Usado no hval e pra saber oq ta rolando
 vertMoveVal = 0;							// Usado no pulo e pra saber oq ta rolando
 
+// Alarm Id
+alarmLiquid = 3;
+
 // Alarms
 alarm[0] = cooldownActions
 alarm[2] = cooldownViewPlayerNotView;

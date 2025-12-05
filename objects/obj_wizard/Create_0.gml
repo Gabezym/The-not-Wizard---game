@@ -18,6 +18,8 @@ objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_inte
 // Qual instancia da array de objetos interagiveis sera usado
 indexAI = 0;
 
+// Alarm Id
+alarmLiquid = 3;
 
 // Array
 followObjects = [];	
