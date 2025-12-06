@@ -1,4 +1,4 @@
-// Pq uma struct?
+// Pq uma struct? Pra poder da mais de um efeito no futuro(eu acho)
 var _struct = {
 
 	hitVal: damage

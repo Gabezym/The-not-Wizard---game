@@ -47,37 +47,43 @@ effectsData[EFFCTS.NOTHING] = {
 
 	spritePotion: spr_potion_damage,
 	toxicity: 0,
-	effectType: EFFCTS_TYPE.NOONE
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0
 }
 effectsData[EFFCTS.WATER] = {
 
 	spritePotion: spr_potion_damage,
 	toxicity: 0,
-	effectType: EFFCTS_TYPE.NOONE
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0
 }
 effectsData[EFFCTS.FIRE] = {
 
 	spritePotion: spr_potion_damage,
 	toxicity: 0,
-	effectType: EFFCTS_TYPE.CONDITIONS
+	effectType: EFFCTS_TYPE.CONDITIONS,
+	duration: 5
 }
 effectsData[EFFCTS.BIG_JUMP] = {
 
 	spritePotion: spr_potion_jump,
 	toxicity: 10,
-	effectType: EFFCTS_TYPE.STATUS
+	effectType: EFFCTS_TYPE.STATUS,
+	duration: 25
 }
 effectsData[EFFCTS.MORE_DAMAGE] = {
 
 	spritePotion: spr_potion_damage,
 	toxicity: 15,
-	effectType: EFFCTS_TYPE.STATUS
+	effectType: EFFCTS_TYPE.STATUS,
+	duration: 25
 }
 effectsData[EFFCTS.MORE_TOXICITY] = {	// Apenas aumenta a toxicidade
 
 	spritePotion: spr_potion_damage,
 	toxicity: 15,
-	effectType: EFFCTS_TYPE.NOONE
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0
 }
 
 #endregion
@@ -141,7 +147,7 @@ var _sizeItemsId = 8;
 enum ITEMS_ID
 {	
 	NOTHING = 0,
-	GENERIC = 1,
+	PLANT_HEAL = 1,
 	BOTTLE	= 2,
 	WEAPON = 3, 
 	EMPTY_BOTTLE = 4,
@@ -172,11 +178,11 @@ itemsNoActionData[ITEMS_ID.POTION] = {
 	spawnDeath: _spawnNothing
 }
 
-itemsNoActionData[ITEMS_ID.GENERIC] = {
+itemsNoActionData[ITEMS_ID.PLANT_HEAL] = {
 	
 	canUse: true,
 	xPlus: 15,
-	heal: 15,
+	heal: 40,
 	effect: EFFCTS.MORE_TOXICITY,
 	spawnDeath: _spawnNothing
 }
@@ -195,7 +201,7 @@ itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	heal: 2,
 	effect: EFFCTS.NOTHING,
 	spawnDeath: {
-			item: ITEMS_ID.GENERIC,
+			item: ITEMS_ID.PLANT_HEAL,
 			itemAmount: 3
 	}
 }
@@ -235,7 +241,7 @@ itemsData[ITEMS_ID.POTION] = {
 	typeData: obj_itemNoAction,
 	maxAmount: 1
 };
-itemsData[ITEMS_ID.GENERIC] = {
+itemsData[ITEMS_ID.PLANT_HEAL] = {
 
 	sprite: spr_item_generic,
 	type: ITEMS_TYPE.NO_ACTION,

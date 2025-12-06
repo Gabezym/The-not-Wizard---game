@@ -5,6 +5,8 @@ function fEnemyGetDamage(instance) {
 	
 		life -=hitStruct.hitVal;
 		isHit = false;
+		
+		fShakeScreenPower(0);
 	}
 }
 

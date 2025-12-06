@@ -13,3 +13,7 @@ Principal(mecanicas) {
 Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra checar se ta legal jogar.
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
+
+!! Inverter item ao girar perssonagem
+
+Fiz uma shake screen pra dano, corrigi como os efeitos são checados, aumentei cura, 

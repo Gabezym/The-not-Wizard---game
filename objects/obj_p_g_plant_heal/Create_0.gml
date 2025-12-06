@@ -1,4 +1,4 @@
-_id = ITEMS_ID.GENERIC;
+_id = ITEMS_ID.PLANT_HEAL;
 status = undefined;
 
 // Inherit the parent event

@@ -642,11 +642,16 @@ function fWithFollowObjects(_ins) {
 // Sistema dos efeitos
 function fWithEffectsPlayer(_instance) {
 
-	if(fWithHasEffects(self)) {
+	if(fWithHasEffects(_instance)) {
+		
+		// Fogo
+		fWithStepEfFire(_instance)
  
-		// Efeito Big jump
-		fWithStepEfBigJump(self);
-		fWithStepEfMoreDamage(self);
+		// Pulo Alto
+		fWithStepEfBigJump(_instance);
+		
+		// Mais dano
+		fWithStepEfMoreDamage(_instance);
 	}
 }
 
@@ -763,6 +768,25 @@ function fWithCraftingPotions(_instance) {
 				}
 			}
 		}
+	}
+}
+
+// Sistema de dano inimigo ao player
+function fWithPlayerDmg(_instance, _dmg, _sideRecoil) {
+
+	with(_instance) {
+	
+		// Dano
+		life -= _dmg;
+	
+		// Recoil do dano
+		recoilXDmg = (other.spd*3 * _sideRecoil);
+		recoilYDmg = (-other.jump/2);
+
+		// Cooldown dano
+		alarm[alarmDmg] = cooldownDamage;
+		
+		fShakeScreenPower(2);
 	}
 }
 

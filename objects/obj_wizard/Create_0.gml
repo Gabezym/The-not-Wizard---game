@@ -222,7 +222,12 @@ craftVarB3	= craftVarDefX + 271	+32;
 
 #region Effects Vars
 
+// Alarme de duração dos efeitos
 effectsAlarm = array_create(global.lenAlarmEffects, 0);
+
+// Se esta com o efeito 
+effectsBoolean = array_create(global.lenAlarmEffects, false);
+
 
 fWithCreateEfBigJump(self);
 fWithCreateFire(self);

@@ -162,6 +162,9 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 
 #endregion
 
+
+#region Liquid
+
 // Colisão de liquidos com characters
 // Intensidade 0: bottle liquid
 // Intensidade 1: static liquid
@@ -173,6 +176,8 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 	
 			with(_instanceCol) {
 				
+				#region Vars
+
 				var cooldownDamageLiquid = CONSTANTS.SPD_GAME*0.15;
 				
 				var _status = obj_config.liquidsData[other.liquidId];
@@ -187,13 +192,20 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				var _areMoving = (hval != 0 || vval != 0);
 				var _damegeForMoving = (_areMoving && (alarm[_alarmLiquid] <= cooldownDamageLiquid/2));
 				var _slowForMovinh = (_areMoving && (alarm[_alarmLiquid] <= cooldownDamageLiquid/2));
-			
+				
+				#endregion
+				
 				// Damage + cooldown 
 				if(_outOfCooldown || _damegeForMoving ) {
 		
 					life-= _dmg;
-
 					alarm[_alarmLiquid] = cooldownDamageLiquid;
+					
+					// Shake Screen
+					if(_instanceCol.object_index == obj_wizard && _dmg > 0) {
+						
+						fShakeScreenPower(_instensity);
+					}
 				}
 				
 				var _slowVal = 0.02;	
@@ -255,3 +267,5 @@ function fFillBottle(_instance, _liquidId, _canInteract) {
 	
 	}
 } 
+
+#endregion

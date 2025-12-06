@@ -1,4 +1,4 @@
-instance = obj_p_g_generic;
+instance = obj_p_g_plant_heal;
 str = {amount: 5};
 
 instance_create_layer(x, y, "Objects", instance, str);

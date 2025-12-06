@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_spawn_p_generic",
+  "%Name":"obj_p_g_plant_heal",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_spawn_p_generic",
+  "name":"obj_p_g_plant_heal",
   "overriddenProperties":[],
   "parent":{
     "name":"Ingredients",
-    "path":"folders/Objects/Items/Pickable/Spawn/Ingredients.yy",
+    "path":"folders/Objects/Items/Pickable/Ground/Ingredients.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_p_g_default",
+    "path":"objects/obj_p_g_default/obj_p_g_default.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -29,10 +32,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_item_generic",
-    "path":"sprites/spr_item_generic/spr_item_generic.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

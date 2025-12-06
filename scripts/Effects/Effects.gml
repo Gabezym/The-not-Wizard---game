@@ -12,8 +12,9 @@ function fWithEffects(_instance, _effect) {
 		
 				case EFFCTS.NOTHING: break;
 				case EFFCTS.FIRE:
-			
-					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = valMyAlarmFire;
+				
+					effectsBoolean[EFFECTS_ALARMS.ALARM_FIRE] = true;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = obj_config.effectsData[EFFCTS.FIRE].duration;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				
 				break;
@@ -24,14 +25,16 @@ function fWithEffects(_instance, _effect) {
 				break;
 			
 				case EFFCTS.BIG_JUMP:
-			
-					effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] = valMyAlarmEfBigJump;
+					
+					effectsBoolean[EFFECTS_ALARMS.ALARM_BIG_JUMP] = true;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] = obj_config.effectsData[EFFCTS.BIG_JUMP].duration;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				break;
 				
 				case EFFCTS.MORE_DAMAGE:
-			
-					effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = valMyAlarmEfMoreDamage;
+				
+					effectsBoolean[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = true;
+					effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = obj_config.effectsData[EFFCTS.MORE_DAMAGE].duration;
 					alarm[11] = CONSTANTS.SPD_GAME * 1;
 				break;
 		}
@@ -43,14 +46,15 @@ function fWithHasEffects(_instance) {
 
 	with(_instance) {
 		
-		for(var _i = 0; _i < array_length(effectsAlarm); _i++) {
+		for(var _i = 0; _i < array_length(effectsBoolean); _i++) {
 		
-			if(effectsAlarm[_i] > 0) return true;
+			if(effectsBoolean[_i] == true) return true;
 		}
 		
 		return false;
 	}
 }
+
 
 #region Fogo 
 
@@ -90,12 +94,14 @@ function fWithFireDamage(_instance) {
 
 	with(_instance) {
 	
-	
 		life-=fireDamage;
+		
+		// Shake no player
+		if(_instance.object_index == obj_wizard) fShakeScreenPower(1);
 	}
 }	
 	
-// No Step
+// No Step (particula)
 function fWithSpawParticleFire(_instance) { 
 	
 	with(_instance) { 
@@ -112,13 +118,26 @@ function fWithSpawParticleFire(_instance) {
 	} 
 }
 
+// Use no Step 
+function fWithStepEfFire(_intance) {
+
+	with(_intance) {
+	
+		var _effect = EFFECTS_ALARMS.ALARM_FIRE;
+		
+		if((effectsBoolean[_effect] = true) && (effectsAlarm[_effect] <= 0)) {
+
+			effectsBoolean[_effect] = false;
+		}
+	}
+}
+
 // No Create
 function fWithCreateFire(_instance){
 	
 	with(_instance) {
 
 		cooldownFireDamage = CONSTANTS.SPD_GAME* 0.5;
-		valMyAlarmFire = 5;
 
 		fireDamage = 5;
 
@@ -160,8 +179,6 @@ function fWithCreateEfBigJump(_instance) {
 
 	with(_instance) {
 	
-		valMyAlarmEfBigJump = 15;
-
 		valEfBigJump = 1.3;
 		efBigJump = 1;
 	}
@@ -171,14 +188,17 @@ function fWithStepEfBigJump(_instance) {
 
 	with(_instance) {
 		
+		var _effect = EFFECTS_ALARMS.ALARM_BIG_JUMP;
+		
 		// Efeito big jump
-		if(effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] > 0) {
+		if(effectsAlarm[_effect] > 0) {
 
 			efBigJump = valEfBigJump;
 		} 
-		else {
+		else if(effectsBoolean[_effect] = true) {
 
 			efBigJump = 1;
+			effectsBoolean[_effect] = false;
 		}
 	}
 }
@@ -192,8 +212,6 @@ function fWithCreateEfMoreDamage(_instance) {
 
 	with(_instance) {
 	
-		valMyAlarmEfMoreDamage = 15;
-
 		valEfMoreDamage = 3;
 		efMoreDamage = 1;
 	}
@@ -204,14 +222,17 @@ function fWithStepEfMoreDamage(_instance) {
 
 	with(_instance) {
 		
+		var _effect = EFFECTS_ALARMS.ALARM_MORE_DAMAGE;
+		
 		// Efeito more damage
-		if(effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] > 0) {
+		if(effectsAlarm[_effect] > 0) {
 
 			efMoreDamage = valEfMoreDamage;
 		} 
-		else {
+		else if(effectsBoolean[_effect] = true) {
 
 			efMoreDamage = 1;
+			effectsBoolean[_effect] = false;
 		}
 	}
 }
