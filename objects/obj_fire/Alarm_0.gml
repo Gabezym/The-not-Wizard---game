@@ -1,0 +1,2 @@
+/// @description Life
+life--;

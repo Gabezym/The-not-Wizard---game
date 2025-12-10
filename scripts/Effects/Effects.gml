@@ -55,39 +55,7 @@ function fWithHasEffects(_instance) {
 	}
 }
 
-
 #region Fogo 
-
-// Particula
-function fWithCreateParticleFire(_instance) { 
-
-	with(_instance) { 
-		
-		partSystemFire = part_system_create(); 
-		partTypeFire = part_type_create(); 
-		
-		part_type_sprite(partTypeFire, spr_pixel, false, false, false);
-		part_type_size(partTypeFire, 0.5, 1, -0.01, 0);
-		
-		
-		var _col1 = make_colour_hsv(0, 200, 200); 
-		var _col2 = make_colour_hsv(30, 200, 220); 
-		var _col3 = make_colour_hsv(50, 180, 240);
-
-		
-		part_type_scale(partTypeFire, 1, 1.9); 
-		
-		part_type_direction(partTypeFire, 75, 105, 0, 0);
-		part_type_speed(partTypeFire, 1.5, 2.5, 0, 0);
-		
-		part_type_color3(partTypeFire, _col1, _col2, _col3); 
-		part_type_alpha1(partTypeFire, 0.4); 
-	
-		part_type_life(partTypeFire, 40, 60);
-		
-		partEmitterFire = part_emitter_create(partSystemFire); 
-	} 
-}
 
 // No Alarme 11
 function fWithFireDamage(_instance) {
@@ -101,8 +69,8 @@ function fWithFireDamage(_instance) {
 	}
 }	
 	
-// No Step (particula)
-function fWithSpawParticleFire(_instance) { 
+// Particula
+function fWithSpawParticleFire(_instance, _amount) { 
 	
 	with(_instance) { 
 		
@@ -111,10 +79,13 @@ function fWithSpawParticleFire(_instance) {
 		var _x1 = x - _spr_wid/2; var _x2 = x + _spr_wid/2; 
 		var _y1 = y - _spr_hei/2; var _y2 = y + _spr_hei/2; 
 		
-		// Posição 
-		part_emitter_region(partSystemFire, partEmitterFire, _x1, _x2, _y1, _y2, ps_shape_diamond, ps_distr_gaussian); 
-		// Junta tudo 
-		part_emitter_stream(partSystemFire, partEmitterFire, partTypeFire, 6*sign(effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE])); 
+		for(var _i = 0; _i < _amount; _i++) {
+		
+			var _x = random_range(_x1, _x2);
+			var _y = random_range(_y1, _y2);
+			
+			instance_create_layer(_x, _y, "Objects", obj_fire);
+		}
 	} 
 }
 
@@ -125,7 +96,12 @@ function fWithStepEfFire(_intance) {
 	
 		var _effect = EFFECTS_ALARMS.ALARM_FIRE;
 		
-		if((effectsBoolean[_effect] = true) && (effectsAlarm[_effect] <= 0)) {
+		if(effectsAlarm[_effect] > 0) {
+
+			// Particulas de fogo
+			fWithSpawParticleFire(self, 4);
+		} 
+		else if(effectsBoolean[_effect] = true) {
 
 			effectsBoolean[_effect] = false;
 		}
@@ -140,33 +116,6 @@ function fWithCreateFire(_instance){
 		cooldownFireDamage = CONSTANTS.SPD_GAME* 0.5;
 
 		fireDamage = 5;
-
-		partSystemFire = 0;
-		partTypeFire = 0;
-		partEmitterFire = 0;
-
-		fWithCreateParticleFire(self);
-	}
-}
-
-function fWithDeleteFire(_instance) {
-
-	with(_instance) {
-	
-		if (partSystemFire != noone) {
-    
-		    // Destroi o emissor
-		    part_emitter_destroy(partSystemFire, partEmitterFire);
-		    partEmitterFire = noone;
-    
-		    // Destroi o tipo
-		    part_type_destroy(partTypeFire);
-		    partTypeFire = noone;
-    
-		    // Destroi o sistema
-		    part_system_destroy(partSystemFire);
-		    partSystemFire = noone;
-		}
 	}
 }
 

@@ -49,5 +49,6 @@ hitStruct = {
 
 // Effects Vars
 effectsAlarm = array_create(global.lenAlarmEffects, 0); // N usara todos os efeitos
+effectsBoolean = array_create(global.lenAlarmEffects, 0);
 	
 fWithCreateFire(self);

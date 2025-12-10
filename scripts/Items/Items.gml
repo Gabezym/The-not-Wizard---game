@@ -3,16 +3,14 @@
 // Checa se ta colidinodo com uma caixa de colisao(uso no spawn)
 function fIsColliding(_posX, _posY, wid, hei, obj) {
 	
-	var val	= 5;
-		
 	var valHY = hei div 2;
 	var valHX = wid div 2;
 	
-	var valIY = _posY-(valHY)-val;
-	var valIX = _posX-(wid div 2)-val;
+	var valIY = _posY-(valHY);
+	var valIX = _posX-(wid div 2);
 
-	var valFY = _posY+(valHY)+val;
-	var valFX = _posX+(valHX)+val;
+	var valFY = _posY+(valHY);
+	var valFX = _posX+(valHX);
 
 	return collision_rectangle(valIX, valIY, valFX, valFY, obj, 0, 1) != noone;
 }
@@ -124,7 +122,7 @@ function fSpawnLiquid(_xVal, _yVal, varLiquidId, varGravVal, varSpd, varAngleTo,
 			
 		if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
 		
-			instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
+			instance_create_layer(_spawnX, _spawnY, "Objects", obj_liquid, _structLiquid)
 		}
 	}
 }
@@ -147,8 +145,8 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 		amount: _amount
 	}
 	
-	var _widColSpr = sprite_get_width(_sprr)+5;
-	var _heiColSpr = sprite_get_height(_sprr)+5;
+	var _widColSpr = sprite_get_width(_sprr);
+	var _heiColSpr = sprite_get_height(_sprr);
 		
 	if(!fIsColliding(_x, _y, _widColSpr, _heiColSpr, obj_r_collision)) {
 		

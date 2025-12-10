@@ -175,7 +175,8 @@ itemsNoActionData[ITEMS_ID.POTION] = {
 	heal: 0,
 	// Em poções o efeito é aplicado pelo status
 	effect: EFFCTS.NOTHING,
-	spawnDeath: _spawnNothing
+	spawnDeath: _spawnNothing,
+	spawnFireDeath: _spawnNothing
 }
 
 itemsNoActionData[ITEMS_ID.PLANT_HEAL] = {
@@ -184,7 +185,8 @@ itemsNoActionData[ITEMS_ID.PLANT_HEAL] = {
 	xPlus: 15,
 	heal: 40,
 	effect: EFFCTS.MORE_TOXICITY,
-	spawnDeath: _spawnNothing
+	spawnDeath: _spawnNothing,
+	spawnFireDeath: _spawnNothing
 }
 itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	
@@ -192,7 +194,8 @@ itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	xPlus: 20,
 	heal: 0,
 	effect: EFFCTS.NOTHING,
-	spawnDeath: _spawnNothing
+	spawnDeath: _spawnNothing,
+	spawnFireDeath: _spawnNothing
 }
 itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	
@@ -203,7 +206,8 @@ itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	spawnDeath: {
 			item: ITEMS_ID.PLANT_HEAL,
 			itemAmount: 3
-	}
+	},
+	spawnFireDeath: _spawnNothing
 }
 itemsNoActionData[ITEMS_ID.PLANT_RED] = {
 	
@@ -211,7 +215,11 @@ itemsNoActionData[ITEMS_ID.PLANT_RED] = {
 	xPlus: 15,
 	heal: -5,
 	effect: EFFCTS.NOTHING,
-	spawnDeath: _spawnNothing
+	spawnDeath: _spawnNothing,
+	spawnFireDeath: {
+			item: ITEMS_ID.PLANT_BLUE,
+			itemAmount: 3
+	}
 }	
 #endregion
 
@@ -355,5 +363,5 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 
 
 // Define a velocida dos frames do jogo
-game_set_speed(60, gamespeed_fps);
+game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);
 window_set_fullscreen(true);

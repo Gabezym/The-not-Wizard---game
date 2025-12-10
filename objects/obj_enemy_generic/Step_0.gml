@@ -4,7 +4,6 @@ inGround = place_meeting(x, y +1, obj_r_collision);
  // Checa se morreu 
 if(isDead) { 
 	
-	fWithDeleteFire(self);
 	instance_destroy();
 }
 else {
@@ -25,6 +24,12 @@ else {
 
 	// Se ficar preso
 	fStuck(self);
+
+	// Efeitos
+	if(fWithHasEffects(self)) {
+	
+		fWithStepEfFire(self);
+	}
 
 	#region VVAL e HVAL
 
@@ -50,6 +55,4 @@ else {
 	vertMoveVal = fEnemyActionVval(vval);
 
 	slow = fResetSlow(self, false);
-
-	fWithSpawParticleFire(self);
 }

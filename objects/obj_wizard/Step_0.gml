@@ -72,9 +72,6 @@ fWithEstamina(self);
 // Slow padrão 
 slow = fResetSlow(self, false);
 
-// Particulas de fogo
-fWithSpawParticleFire(self);
-
 // Efeitos
 fWithEffectsPlayer(self);
 
@@ -100,8 +97,6 @@ if(_lenIA != 0) {
 	if(instance_exists(interactionObjects[indexAI])) {
 		
 		var _objInter = interactionObjects[indexAI];
-			
-		interactionObjects[indexAI].colliding = true;
 	
 		// Manda input pro objeto
 		if(interact) {

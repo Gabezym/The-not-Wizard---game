@@ -1,20 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_mouse",
+  "%Name":"obj_fire",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_mouse",
+  "name":"obj_fire",
   "overriddenProperties":[],
   "parent":{
-    "name":"General",
-    "path":"folders/Objects/General.yy",
+    "name":"Particles",
+    "path":"folders/Objects/Particles.yy",
   },
   "parentObjectId":null,
-  "persistent":true,
+  "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
@@ -31,7 +31,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_fire",
+    "path":"sprites/spr_fire/spr_fire.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

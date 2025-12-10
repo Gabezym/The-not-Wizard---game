@@ -15,6 +15,10 @@ alarm[alarmCooldownDmg] = CONSTANTS.SPD_GAME * 0.25;
 // Se foi coletado
 isInteracted = false;
 
+// Fogo
+inFire = false;
+cooldownFire = CONSTANTS.SPD_GAME * 1;
+
 #region Sprite
 
 // Mesmo objeto, diferentes sprite.
@@ -55,8 +59,10 @@ spdAngl = 0.85 * abs(hval);	// Velocidade do giro
  
 // Dano
 life = 3;
-isHit = false;	// Se recebeu dano
-side = 0;		// Lado que recebeu dano
+isHit = false;			// Se recebeu dano
+side = 0;				// Lado que recebeu dano
+deathByFire = false;	// Se morreu por fogo
+dropDeath = false		// Se ja dropou os itens 
 
 #endregion
 

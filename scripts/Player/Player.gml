@@ -212,8 +212,19 @@ function fWithInteractedObjects(_instance) {
 				
 					if(instance_exists(other.interactionObjects[_z])) {
 						
-						// N tiver mais colidindo, tira da array
-						if(!place_meeting(x, y, other.interactionObjects[_z])) { 
+						#region Pickable Vars
+						
+						var _id = other.interactionObjects[_z].id;
+						var _isPickable = ((object_is_ancestor(_id.object_index, obj_pickable)) || (_id.object_index == obj_pickable));
+						var _isAlive = true;
+						if(_isPickable) _isAlive = (_id.life > 0);
+						
+						#endregion
+						
+						var _isColliding = place_meeting(x, y, other.interactionObjects[_z]);
+						
+						// N tiver mais colidindo ou n estiver mais vivo
+						if(!_isColliding || !_isAlive) { 
 					
 							// N esta mais colidindo nem interagindo
 							other.interactionObjects[_z].colliding = false;

@@ -15,5 +15,6 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
 !! Inverter item ao girar perssonagem
+!! Fazer delta -> Mudar sistema que depende de fps
 
-Fiz uma shake screen pra dano, corrigi como os efeitos são checados, aumentei cura, 
+Sistema de itens pegarem fogo e droparem outros itens se queimarem, troquei sistema antigo de particulas de fogo por um novo.
