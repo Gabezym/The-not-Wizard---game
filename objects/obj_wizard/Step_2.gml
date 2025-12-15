@@ -32,7 +32,7 @@ fWithCollisionPlayer(self);
 // built-in variables
 image_xscale = xScale;
 y+= vval + recoilYDmg;
-x+=hval + recoilXDmg;
+x+= hval + recoilXDmg;
 
 // Reseta recoil do dano 
 if(recoilXDmg != 0 || recoilYDmg != 0 ) fWithResetRecoilDmg(self);

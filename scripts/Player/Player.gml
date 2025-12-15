@@ -115,9 +115,9 @@ function fCoyoteJump(cjTime, vval) {
 
 // -- Aprovado \[T]/
 // Retorna se da pra mandar input pro objeto
-function fIsInputItem(input, alarmCooldown, isInInventory, itemSelected) {
+function fIsInputItem(input, alarmCooldown, isStop, itemSelected) {
 	
-	if(input && alarmCooldown <=0 && isInInventory == false) { 
+	if(input && alarmCooldown <=0 && isStop == false) { 
 
 		var _type = obj_config.itemsData[itemSelected].type;
 
@@ -376,11 +376,14 @@ function fWithToxicityIncrease(_instance, _toxicity) {
 function fWithMovementHvalVval(_instance) {
 	
 	with(_instance){
-
+		
+		// Evita de pular infinitamente segurando o botão
+		if(keyboard_check_released(keyJump) && canJump == false) canJump = true;
+	
 		var inGround = place_meeting(x,y+1, obj_r_collision);
 		
 		// Fica parado se tiver no inventario
-		if(isInInventory) {
+		if(stopCondition) {
 
 			right = 0;
 			left = 0;
@@ -392,7 +395,7 @@ function fWithMovementHvalVval(_instance) {
 
 		// Vars + inJumpAnimation
 		if (inGround) {
-
+			
 			jumpVal = 0;	// Da pra da o pulo pressionado
 			isFirstJump = true;
 			isFalling = false;
@@ -552,17 +555,15 @@ function fWithEstamina(_instance) {
 	
 		if(estamina != maxEstamina) {
 	
-			// Velocidade lenta
-			if(estamina == 0 ) {
-
+			// Velocidade
+			if(estamina <= 0 ) {
+	
+				estamina = 0
 				spd = spdVal/2;
-				spdJump = spdJumpVal / 2;
+				spdJump = spdJumpVal/2;
 			}
-			// Velocidade normal
-			else if(estamina < 0 ) estamina = 0;
-			
 			else {
-
+				
 				spd = spdVal;
 				spdJump = spdJumpVal;
 			}
@@ -594,10 +595,10 @@ function fWithFollowObjects(_ins) {
 						if(_instance.object_index != obj_attack) {
 							
 							#region Vars
-							var _dis = 5 + ((_sprWid div 2 + xPlus)); // xPlus é o espaço adicional d cada objeto
+							var _dis =((_sprWid div 2 + xPlus)); // xPlus é o espaço adicional d cada objeto
 							var _ang = obj_mouse.mouseAnglePlayer;
 							var _x = other.x + other.hval;	 
-							var _y = other.y + other.vval;
+							var _y = other.y + other.vval - 15;
 				
 							var _lenX = lengthdir_x(_dis, _ang);
 							var _lenY = lengthdir_y(_dis, _ang);

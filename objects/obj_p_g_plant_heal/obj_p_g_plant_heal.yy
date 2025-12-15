@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Ingredients",
-    "path":"folders/Objects/Items/Pickable/Ground/Ingredients.yy",
+    "path":"folders/Objects/Items/Pickable/Spawn Items/Ingredients.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",
@@ -32,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_item_generic",
+    "path":"sprites/spr_item_generic/spr_item_generic.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

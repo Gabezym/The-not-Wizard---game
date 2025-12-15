@@ -8,8 +8,8 @@
   "name":"obj_p_g_default",
   "overriddenProperties":[],
   "parent":{
-    "name":"Ground",
-    "path":"folders/Objects/Items/Pickable/Ground.yy",
+    "name":"Spawn Items",
+    "path":"folders/Objects/Items/Pickable/Spawn Items.yy",
   },
   "parentObjectId":{
     "name":"obj_pickable",

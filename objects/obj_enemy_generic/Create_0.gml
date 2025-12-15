@@ -1,3 +1,13 @@
+directions = {
+	
+	right: 1,
+	left: -1,
+	none: 0,
+	jump: -1,
+	fall: 1
+}
+// ORGANIZAR
+
 // Geral 
 lifeVal = 100;
 life = lifeVal;
@@ -25,7 +35,7 @@ cooldownViewPlayerInView = 1 * CONSTANTS.SPD_GAME;	// Tempo entre checagens se v
 hval = 0;
 vval = 0;
 
-sideMoveVal = choose(DIR.LEFT, DIR.RIGHT);	// Usado no hval e pra saber oq ta rolando
+sideMoveVal = choose(directions.left, directions.right);	// Usado no hval e pra saber oq ta rolando
 vertMoveVal = 0;							// Usado no pulo e pra saber oq ta rolando
 
 // Alarm Id

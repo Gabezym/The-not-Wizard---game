@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Potions",
-    "path":"folders/Objects/Items/Pickable/Ground/Potions.yy",
+    "path":"folders/Objects/Items/Pickable/Spawn Items/Potions.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",
@@ -32,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_potion_damage",
+    "path":"sprites/spr_potion_damage/spr_potion_damage.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

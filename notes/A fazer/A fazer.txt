@@ -1,11 +1,11 @@
 Principal(mecanicas) {
 
 	- Sistema de dialogo;
-	- Sistema de caderno;
+	- Sistema de caderno(ultimo);
 	- Npcs/quest;
 	- Inimigos e boss fight;
-	- Sistema de toxicade;
-	- Efeitos e itens;
+	- Sistema de toxicade(aplicação);
+	- Efeitos e itens(fazer mais);
 	- Plataformas diversas;
 }
 
@@ -14,7 +14,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-!! Inverter item ao girar perssonagem
-!! Fazer delta -> Mudar sistema que depende de fps
-
-Sistema de itens pegarem fogo e droparem outros itens se queimarem, troquei sistema antigo de particulas de fogo por um novo.
+Comecei mecanica de texto, fiz placas, cooldown interação, arrumei bugs e corrigi spawn de itens como objetos

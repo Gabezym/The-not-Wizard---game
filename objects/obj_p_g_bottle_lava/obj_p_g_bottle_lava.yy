@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Bottles",
-    "path":"folders/Objects/Items/Pickable/Ground/Bottles.yy",
+    "path":"folders/Objects/Items/Pickable/Spawn Items/Tools/Bottles.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",
@@ -32,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_bottle_lava",
+    "path":"sprites/spr_bottle_lava/spr_bottle_lava.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

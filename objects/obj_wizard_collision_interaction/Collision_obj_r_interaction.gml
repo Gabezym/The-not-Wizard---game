@@ -1,33 +1,28 @@
 var _id = other.id;
 var _isPickable = ((object_is_ancestor(_id.object_index, obj_pickable)) || (_id.object_index == obj_pickable));
 var _isAlive = true;
-
-if(_isPickable)  {
+var _outOfCooldown = true;
+// Se for um objeto
+if(_isPickable) {
 	
+	// Se o objeto ainda esta com vida
 	_isAlive = (_id.life > 0);
+	
+	// Se o objeto não esta no cooldown de interação
+	_outOfCooldown = (_id.alarm[_id.alarmCooldownPick] <= 0);
 }
 
-if(_isAlive) {
-	
-	other.colliding = true; 
-	with(character) {
 
+if(_isAlive &&_outOfCooldown) {
+	
+	with(character) {
+	
+		// Esta colidindo com o player
+		_id.colliding = true; 
+		
 		var _alreadyStored = false;
 		var	_arrLen = array_length(interactionObjects);
 		var _indexAi = indexAI;
-	
-		#region Cooldown Pickable
-	
-		var _noCooldown = true;
-
-		if(_isPickable) {
-	
-			var _noCooldownCheck = (_id.alarm[_id.alarmCooldownPick] <= 0);
-		
-			_noCooldown = _noCooldownCheck
-		}
-	
-		#endregion
 	
 		#region FILL BOTLE 
 	
@@ -39,7 +34,7 @@ if(_isAlive) {
 		#endregion
 	
 		// Se der pra interagir	
-		if(_fill_bottle_check && _noCooldown) {
+		if(_fill_bottle_check) {
 		
 			var _indexCol = -1;
 			var _indexNotColliding = false;
@@ -71,7 +66,7 @@ if(_isAlive) {
 			}
 
 			// Ta colidindo com o player, colidiu depois que os outros, ainda n é o index
-			var _haveNewIndex = (_indexCol != -1 && (_indexAi < _indexCol || _indexNotColliding == true) && _indexAi != _indexCol);
+			var _haveNewIndex = (_indexCol != -1 && (_indexAi < _indexCol || _indexNotColliding == true && _indexCol != -1) && _indexAi != _indexCol);
 			var _playerNotStop = (hval != 0 || vval != 0);
 		
 			if(_haveNewIndex && _playerNotStop) indexAI = _indexCol;

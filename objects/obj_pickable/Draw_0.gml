@@ -16,7 +16,7 @@ if(life > 0) {
 
 		draw_text_ext_transformed(_x, _y, itemData.itemAmount, 20, 100, 1, 1, 1);
 
-		draw_set_halign(fa_center);
+		draw_set_halign(-1);
 
 		draw_set_font(-1);
 	}

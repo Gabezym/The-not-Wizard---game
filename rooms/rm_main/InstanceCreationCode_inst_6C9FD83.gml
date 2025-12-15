@@ -1,0 +1,4 @@
+str = {
+	text : ["Laboratório abaixo."]
+}
+	

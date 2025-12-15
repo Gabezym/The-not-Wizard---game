@@ -1,6 +1,5 @@
 _id = ITEMS_ID.BOTTLE;
 
-
 var _liquidId = LIQUIDS_ID.ACID;
 var _liquidAmount = obj_config.liquidsData[_liquidId].maxLiquidAmount;
 

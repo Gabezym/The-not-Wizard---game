@@ -1,3 +1,6 @@
+// Tem que refazer tudo depois //
+// --------------------------- //
+
 // Oque acontece quando isHit == true 
 function fEnemyGetDamage(instance) {
 	
@@ -27,7 +30,7 @@ function fEnemyColisionVH(instance) {
 				y+=sign(vval);
 			}
 	
-			vertMoveVal = DIR.NONE	
+			vertMoveVal = directions.none;	
 			vval = 0;
 		}
 		y +=vval;
@@ -80,27 +83,26 @@ function fEnemySearchTarget(instance) {
 		var _leftDis = x-_dis;
 		var _rightDis = x+_dis;
 		var _ydis = y - (vDisView*_grid);
-
 		// View Y
 		for(var _y = _ydis; _y <= y; _y+=_grid) {
 			
 			// View X
 			for(var _i=_leftDis; _i < _rightDis; _i+=_grid) {
 
-				if(!place_empty(_i, _y, obj_wizard)) {
+				if(instance_exists(obj_wizard) && (!place_empty(_i, _y, obj_wizard))) {
 			
 					isPlayerInView = true
 			
 					// Ta na direira
-					if(_i > x)	sideMoveVal = DIR.RIGHT;
-					else		sideMoveVal = DIR.LEFT;
+					if(_i > x)	sideMoveVal = directions.right;
+					else		sideMoveVal = directions.left;
 				
 					var _jumpTime = irandom_range(1, 2) * CONSTANTS.SPD_GAME;
-				
-					if(_y < y) alarm[0] = _jumpTime // Seta um pulo
-				
+					
+					// Tem que refazer tudo depois
+					if(obj_wizard.y+(sprite_get_height(obj_wizard.sprite_index)) < y) alarm[0] = _jumpTime; // Seta um pulo			
+					
 					show_debug_message("T vi");
-			
 					alarm[2] = cooldownViewPlayerInView;
 			
 					exit;
@@ -116,7 +118,7 @@ function fEnemySearchTarget(instance) {
 // Retorna oq ta acontecendo com o vval -> pro enemy. Nsei se valeu a pena =/
 function fEnemyActionVval(vval) {
 	
-	if (vval < 0) return DIR.JUMP;
-	else if (vval > 0) return DIR.FALL; 
-	else return DIR.NONE;
+	if (vval < 0) return directions.jump;
+	else if (vval > 0) return directions.fall; 
+	else return directions.none;
 }

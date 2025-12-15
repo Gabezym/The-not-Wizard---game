@@ -6,15 +6,6 @@ enum CONSTANTS
 	GRID = 32
 }
 
-enum DIR
-{
-	RIGHT = 1,
-	LEFT = -1,
-	NONE = 0,
-	JUMP = -1,
-	FALL = 1
-}
-
 #region Effects
 
 // Tipo do efeito (pra organizar melhor)
@@ -133,7 +124,6 @@ infoEffects[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = {
 
 #region ITEMS
 
-// Sempre alterar
 var _sizeItemsType = 3;
 enum ITEMS_TYPE
 {
@@ -142,7 +132,6 @@ enum ITEMS_TYPE
 	TOOLS = 2
 }
 
-// Sempre alterar
 var _sizeItemsId = 8;
 enum ITEMS_ID
 {	
@@ -158,7 +147,7 @@ enum ITEMS_ID
 
 // Tem as informações dos items sem ação, os ingredientes(todos sao um mesmo item com info diferente)
 // Por isso precisa de uma struct propria
-#region Struct dos itens NoAction
+#region Dados dos itens NoAction
 
 itemsNoActionData = array_create(_sizeItemsId);
 
@@ -224,7 +213,7 @@ itemsNoActionData[ITEMS_ID.PLANT_RED] = {
 #endregion
 
 
-#region Array com struct dos itens pro ! INVENTARIO ! 
+#region Dados dos itens pro INVENTARIO 
 
 /* Obs:
 
@@ -236,7 +225,7 @@ itemsData[ITEMS_ID.NOTHING] = {
 
 	sprite: spr_noone,
 	type: ITEMS_TYPE.NO_TYPE,
-	typeData: obj_noone,
+	typeData: noone,
 	maxAmount: 0
 };
 	
@@ -333,7 +322,7 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	amount: 5,
 	maxLiquidAmount: 250,
 	damage: 0,
-	slow: 0.6, 
+	slow: 0.8, 
 	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.ACID] = {
@@ -361,6 +350,9 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 
 #endregion
 
+// Se esta em dialogo
+global.in_text = false;
+#macro inText global.in_text
 
 // Define a velocida dos frames do jogo
 game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);

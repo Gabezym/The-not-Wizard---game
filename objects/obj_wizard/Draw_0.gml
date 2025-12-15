@@ -18,7 +18,8 @@ if(_lenIA != 0) {
 			var _y = _yy - (_hei div 2) - 35;
 				
 			var _spr = spr_key_E;
-		
+			
+			
 			draw_sprite_ext(_spr, 1, _x, _y, 0.5, 0.5, 0, c_white, 1);
 		}
 	}

@@ -1,4 +1,4 @@
-canInteract = colliding 
+canInteract = colliding;
 
 if(interacted) {
 	

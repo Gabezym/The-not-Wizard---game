@@ -14,6 +14,8 @@ _spd = 0;
 _valHval = 0;	// Valor usado
 _valVval = 0;	// Valor usado
 
+// Quantidade de itens
+amount = obj_config.itemsData[_id].maxAmount;
 
 // Inherit the parent event
 event_inherited();

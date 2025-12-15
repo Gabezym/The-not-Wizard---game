@@ -2,6 +2,10 @@
 maxLife = 100;
 life = maxLife;
 
+// Condição
+stopCondition = false;
+
+
 // Toxicity
 toxicityLevel = 0;			// Nivel atual
 toxicityValLevel = 0;		// Valor atual do nivel
@@ -20,6 +24,8 @@ indexAI = 0;
 
 // Alarm Id
 alarmLiquid = 3;
+alarmInt = 2;
+
 
 // Array
 followObjects = [];	
@@ -109,7 +115,7 @@ maxEstamina = 100;
 estamina = maxEstamina;
 regeneracaoEstaminaVal = 2;
 regeneracaoEstamina = regeneracaoEstaminaVal;
-estJump = 1.5;	// Dreno de estamina por pulo
+estJump = 1.2;	// Dreno de estamina por pulo
 
 #endregion
 
@@ -124,7 +130,7 @@ sprCollision = spr_wizard_collision;	// Sprite da colisao
 mask_index = sprCollision;				// Colisao
 
 #endregion
-
+ 
 #region Bool
 
 isDead = false;

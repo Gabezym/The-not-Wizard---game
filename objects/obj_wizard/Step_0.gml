@@ -1,3 +1,5 @@
+stopCondition = (isInInventory || inText);
+
 #region Keybinds
 
 escape			= keyboard_check_pressed(keyEscape);
@@ -16,15 +18,65 @@ leftClickPressed	= mouse_check_button_pressed(mouseLeftClick);
 rightClick			= mouse_check_button_pressed(mouseRightClick)
 rightClickPressed	= mouse_check_button_pressed(mouseRightClick);
 
+interact = (stopCondition || alarm[alarmInt] > 0 ? false : interact);
+changeIndex = (stopCondition? false : changeIndex);
+inputInventory = (inText? false: inputInventory);
 
-if(keyboard_check_released(keyJump) && canJump == false) canJump = true;
+// Cooldown entre interações
+alarm[alarmInt] = (interact? cooldownInteraction : alarm[alarmInt]);
+
+#region Inputs com condições
+
+#region Input + index (interagiveis scenario)
+
+var _lenIA = array_length(interactionObjects);
+if(_lenIA != 0) {
+	
+	// Muda qual objeto esta interagindo
+	if(changeIndex) {
+		
+		if(indexAI+1 >= _lenIA) indexAI = 0;
+		else					indexAI++;
+	}
+	
+	if(instance_exists(interactionObjects[indexAI])) {
+		
+		var _objInter = interactionObjects[indexAI];
+	
+		// Manda input pro objeto
+		if(interact) {
+
+			interactionObjects[indexAI].interacted = true;
+		}
+	}
+}
+else {
+	
+	indexAI = 0;
+}
+
+#endregion
+
+#region Input pro objeto na mão
+
+var _id = fGetSlotInventory(inventory, selectedSlot).itemId;
+
+isInputItem			= fIsInputItem(leftClick, alarm[0], stopCondition, _id);
+isInputPressedItem	= fIsInputItem(leftClickPressed, 0, stopCondition, _id);
+isInputItem2		= fIsInputItem(rightClick, alarm[0], stopCondition, _id);
+
+#endregion
+
+#endregion
 
 #region Inventario Keys + CraftingKeys + escape
 
 // Abre e fecha o inventario
 isInInventory = fInputOnOff(inputInventory, isInInventory);
+
 // Se ta craftando, abre o inventario
 if(isCrafting) isInInventory = true;
+
 // Sai de tudo
 if(escape) {
 
@@ -33,7 +85,6 @@ if(escape) {
 	craftIndexItem1 = -1;
 	craftIndexItem2 = -1;
 }
-
 
 slot1	= keyboard_check_pressed(keySlot1);
 slot2	= keyboard_check_pressed(keySlot2);
@@ -47,7 +98,6 @@ slot5	= keyboard_check_pressed(keySlot5);
 
 // Se ficar preso
 fStuck(self);
-
 
 // Se n tomou dano -> movimentação
 if(recoilXDmg == 0 && recoilYDmg == 0) {
@@ -80,41 +130,3 @@ fWithCraftingPotions(self);
 
 // Inventario
 fWithInventory(self);
-
-#region Inputs com condições
-
-// Input Interaçao + index interação
-var _lenIA = array_length(interactionObjects);
-if(_lenIA != 0) {
-	
-	// Muda qual objeto esta interagindo
-	if(changeIndex) {
-		
-		if(indexAI+1 >= _lenIA) indexAI = 0;
-		else					indexAI++;
-	}
-	
-	if(instance_exists(interactionObjects[indexAI])) {
-		
-		var _objInter = interactionObjects[indexAI];
-	
-		// Manda input pro objeto
-		if(interact) {
-
-			interactionObjects[indexAI].interacted = true;
-		}
-	}
-}
-else {
-	
-	indexAI = 0;
-}
-
-// Input pro objeto inventario
-var _id = fGetSlotInventory(inventory, selectedSlot).itemId;
-
-isInputItem			= fIsInputItem(leftClick, alarm[0], isInInventory, _id);
-isInputPressedItem	= fIsInputItem(leftClickPressed, 0, isInInventory, _id);
-isInputItem2		= fIsInputItem(rightClick, alarm[0], isInInventory, _id);
-
-#endregion

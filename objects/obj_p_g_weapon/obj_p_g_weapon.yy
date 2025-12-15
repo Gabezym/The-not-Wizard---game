@@ -8,8 +8,8 @@
   "name":"obj_p_g_weapon",
   "overriddenProperties":[],
   "parent":{
-    "name":"Ground",
-    "path":"folders/Objects/Items/Pickable/Ground.yy",
+    "name":"Tools",
+    "path":"folders/Objects/Items/Pickable/Spawn Items/Tools.yy",
   },
   "parentObjectId":{
     "name":"obj_p_g_default",
@@ -32,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_weapon",
+    "path":"sprites/spr_weapon/spr_weapon.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
