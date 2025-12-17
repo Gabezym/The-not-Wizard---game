@@ -8,6 +8,4 @@ spd = 6;
 
 isThrowing = false;
 
-xPlus = 20;
-
 cooldownInput = 0.1 * CONSTANTS.SPD_GAME;

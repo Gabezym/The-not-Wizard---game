@@ -160,7 +160,6 @@ var _spawnNothing = {
 itemsNoActionData[ITEMS_ID.POTION] = {
 	
 	canUse: true,
-	xPlus: 15,
 	heal: 0,
 	// Em poções o efeito é aplicado pelo status
 	effect: EFFCTS.NOTHING,
@@ -171,7 +170,6 @@ itemsNoActionData[ITEMS_ID.POTION] = {
 itemsNoActionData[ITEMS_ID.PLANT_HEAL] = {
 	
 	canUse: true,
-	xPlus: 15,
 	heal: 40,
 	effect: EFFCTS.MORE_TOXICITY,
 	spawnDeath: _spawnNothing,
@@ -180,7 +178,6 @@ itemsNoActionData[ITEMS_ID.PLANT_HEAL] = {
 itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 	
 	canUse: false,
-	xPlus: 20,
 	heal: 0,
 	effect: EFFCTS.NOTHING,
 	spawnDeath: _spawnNothing,
@@ -189,7 +186,6 @@ itemsNoActionData[ITEMS_ID.EMPTY_BOTTLE] = {
 itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 	
 	canUse: true,
-	xPlus: 15,
 	heal: 2,
 	effect: EFFCTS.NOTHING,
 	spawnDeath: {
@@ -201,7 +197,6 @@ itemsNoActionData[ITEMS_ID.PLANT_BLUE] = {
 itemsNoActionData[ITEMS_ID.PLANT_RED] = {
 	
 	canUse: true,
-	xPlus: 15,
 	heal: -5,
 	effect: EFFCTS.NOTHING,
 	spawnDeath: _spawnNothing,

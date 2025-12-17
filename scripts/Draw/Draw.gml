@@ -1,3 +1,28 @@
+#region Encurtar codigo
+
+function fWithDrawItems(instance, side) {
+
+	with(instance) {
+		
+		var _lenArrF = array_length(followObjects); 
+		if(_lenArrF > 0) {
+
+			// De tras pra frente
+			for(var _i = _lenArrF-1; _i >=0; _i-- ) {
+		
+				var _instance = followObjects[_i];
+		
+				if(instance_exists(_instance)) {
+		
+					draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale*side, _instance.image_yscale, _instance.image_angle, c_white, _instance.image_alpha);
+				}
+			}
+		}
+	}
+}
+
+#endregion
+
 function fDrawInventory(_instance) {
 
 	with(_instance)	{
@@ -159,6 +184,39 @@ function fDrawInventory(_instance) {
 				
 				_inSLot++;	// Atualiza o slot atual
 			}
+		}
+	}
+}
+
+function fDrawCharacterAndItems(_instance) {
+
+	with(_instance) {
+	
+		var _isLookingToLeft = (sign(xScale) < 0);
+		var _aX = x+armX;
+		var _aY = y+armY;
+		var _ang = point_direction(_aX, _aY, mouse_x, mouse_y) + 90;
+		
+		var _haveItemInHands = (itemSelectedStruct != clearSlot);
+		
+		// Na esquerda, atras do sprite
+		if((_isLookingToLeft == true) && stopCondition == false && _haveItemInHands) { 
+	
+			// Desenha Arm
+			draw_sprite_ext(spr_wizard_arm, 1, _aX, _aY, -xScaleVal, xScaleVal, _ang, c_white, 1);
+			
+			fWithDrawItems(_instance, -1);
+		}
+
+		draw_self();
+
+		// Na direita, na frente do sprite
+		if((_isLookingToLeft == false) && stopCondition == false && _haveItemInHands) {
+			
+			// Desenha Arm
+			draw_sprite_ext(spr_wizard_arm, 1, _aX, _aY, xScaleVal, xScaleVal, _ang, c_white, 1);
+		
+			fWithDrawItems(_instance, 1)
 		}
 	}
 }

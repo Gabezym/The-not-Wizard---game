@@ -1,4 +1,3 @@
-// Status
 // Life
 if(life > maxLife) life = maxLife;
 else if(life <= 0) { 
@@ -8,7 +7,8 @@ else if(life <= 0) {
 }
 
 // Muda a variavel da image_xscale
-xScale = fXscale(hval, xScaleVal, xScale);
+var _haveItemInHands = (itemSelectedStruct != clearSlot);
+xScale = fXscale(hval, xScaleVal, xScale, obj_mouse.mouseAnglePlayer, _haveItemInHands, stopCondition);
 
 #region Sprites
 
@@ -37,8 +37,9 @@ x+= hval + recoilXDmg;
 // Reseta recoil do dano 
 if(recoilXDmg != 0 || recoilYDmg != 0 ) fWithResetRecoilDmg(self);
 
-// Organiza a array dos followObjects
+// Organiza a array dos followObjects e suas posições
 fWithFollowObjects(self);
 
 // Organiza a array dos interactObjects
 fWithInteractedObjects(self);
+

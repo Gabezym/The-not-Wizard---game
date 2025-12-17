@@ -5,6 +5,9 @@ life = maxLife;
 // Condição
 stopCondition = false;
 
+// Arm posição
+armX = -3;
+armY = -26;
 
 // Toxicity
 toxicityLevel = 0;			// Nivel atual

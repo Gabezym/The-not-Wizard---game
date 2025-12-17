@@ -14,4 +14,7 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Comecei mecanica de texto, fiz placas, cooldown interação, arrumei bugs e corrigi spawn de itens como objetos
+Fiz braço pro player, item são desenhados no player, organizei funções, e fisica de arremessar.
+
+
+Arrumar spawn do obj_attack

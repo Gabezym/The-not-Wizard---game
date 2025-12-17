@@ -23,7 +23,7 @@
   ],
   "name":"spr_weapon",
   "nineSlice":null,
-  "origin":4,
+  "origin":3,
   "parent":{
     "name":"items",
     "path":"folders/Sprites/items.yy",
@@ -77,7 +77,7 @@
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":13,
+    "xorigin":0,
     "yorigin":7,
   },
   "swatchColours":[

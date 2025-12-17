@@ -15,8 +15,8 @@ if(follow != noone) {
 	yTo = follow.y;
 }
 
-x = lerp(x, xTo, 0.05);
-y = lerp(y, yTo, 0.05);
+x = lerp(x, xTo, 0.15);
+y = lerp(y, yTo, 0.15);
 
 fWithCameraZoom(self);
 

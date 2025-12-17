@@ -1,4 +1,4 @@
-draw_self();
+fDrawCharacterAndItems(self);
 
 // Icone Interação
 var _lenIA = array_length(interactionObjects);
