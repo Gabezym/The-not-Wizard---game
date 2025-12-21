@@ -9,7 +9,7 @@ directions = {
 // ORGANIZAR
 
 // Geral 
-lifeVal = 100;
+lifeVal = 50;
 life = lifeVal;
 spd= 3;
 jump = 15;

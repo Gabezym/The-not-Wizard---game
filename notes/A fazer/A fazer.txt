@@ -14,7 +14,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Fiz braço pro player, item são desenhados no player, organizei funções, e fisica de arremessar.
-
-
-Arrumar spawn do obj_attack
+Botei limite pra camera e organizei seu código, mexei em alguns status, fiz novo icone pro mouse.

@@ -317,7 +317,7 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	amount: 5,
 	maxLiquidAmount: 250,
 	damage: 0,
-	slow: 0.8, 
+	slow: 0.6, 
 	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.ACID] = {

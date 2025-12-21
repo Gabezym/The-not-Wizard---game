@@ -47,9 +47,9 @@
     {"$GMFolder":"","%Name":"Character","folderPath":"folders/Sprites/Character.yy","name":"Character","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"enemy","folderPath":"folders/Sprites/Character/enemy.yy","name":"enemy","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"player","folderPath":"folders/Sprites/Character/player.yy","name":"player","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"RightNoArm","folderPath":"folders/Sprites/Character/player/RightNoArm.yy","name":"RightNoArm","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Left","folderPath":"folders/Sprites/Character/player/Left.yy","name":"Left","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Right","folderPath":"folders/Sprites/Character/player/Right.yy","name":"Right","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"RightNoArm","folderPath":"folders/Sprites/Character/player/RightNoArm.yy","name":"RightNoArm","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"items","folderPath":"folders/Sprites/items.yy","name":"items","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Bottles","folderPath":"folders/Sprites/items/Bottles.yy","name":"Bottles","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Ingredients","folderPath":"folders/Sprites/items/Ingredients.yy","name":"Ingredients","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -75,7 +75,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.2.212",
+    "IDEVersion":"2024.14.2.213",
   },
   "name":"The (not)Wizard",
   "resources":[
@@ -137,6 +137,7 @@
     {"id":{"name":"Inventory","path":"scripts/Inventory/Inventory.yy",},},
     {"id":{"name":"Items","path":"scripts/Items/Items.yy",},},
     {"id":{"name":"Player","path":"scripts/Player/Player.yy",},},
+    {"id":{"name":"shd_damage","path":"shaders/shd_damage/shd_damage.yy",},},
     {"id":{"name":"spr_attack","path":"sprites/spr_attack/spr_attack.yy",},},
     {"id":{"name":"spr_background_effect","path":"sprites/spr_background_effect/spr_background_effect.yy",},},
     {"id":{"name":"spr_backGround","path":"sprites/spr_backGround/spr_backGround.yy",},},

@@ -736,7 +736,7 @@ function fUseItem(idItem, whoUseItem) {
 										
 								#region Vars
 							
-									var _dis = ((sprite_get_height(spr_wizard_arm) * 2) - 8); // xPlus é o espaço adicional d cada objeto
+									var _dis = other.disToHand;
 									var _valX = other.x + other.armX;
 									var _valY = other.y + other.armY;
 							
@@ -765,29 +765,28 @@ function fUseItem(idItem, whoUseItem) {
 									if(other.isInInventory) _alpha = 0;
 				
 									#endregion
-							
-								image_alpha = _alpha;
-								image_angle = _ang;
-
-								var _isWeaponOrAttack = (	(_instance.object_index == obj_weapon) ||
-															(_instance.object_index == obj_attack));
-								// Escala
-								if(_isWeaponOrAttack == false) {
-							
-									image_yscale = _scl;
-								}
-								else {
-							
-									image_xscale = _scl;
-									image_yscale = _scl;
-								}
 								
-								// X e Y
+								// Built-in variables
 								if(_instance.object_index != obj_attack) {
 									
 									x = _newX;
 									y = _newY;
-								}
+									image_alpha = _alpha;
+									image_angle = _ang;
+
+									var _isWeapon = (_instance.object_index == obj_weapon);									
+									// Escala
+									if(_isWeapon == false) {
+							
+										image_yscale = _scl;
+									}
+									else {
+							
+										image_xscale = _scl;
+										image_yscale = _scl;
+									}					
+									
+								}							
 								else {
 							
 									x += other.hval;

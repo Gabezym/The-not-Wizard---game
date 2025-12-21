@@ -20,13 +20,15 @@ function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 
 	with(obj_wizard) {
 
-			var _x = instanceInHands.x;
-			var _y = instanceInHands.y;
-			var _angl = obj_mouse.mouseAnglePlayer;
-
+			var _valX = x+armX;
+			var _valY = y+armY;
+			var _angl = point_direction(_valX, _valY, mouse_x, mouse_y);
+			
+			var _x = _valX + lengthdir_x(disToHand + xPlusAttack, _angl);
+			var _y = _valY + lengthdir_y(disToHand + xPlusAttack, _angl);
+			
 			var _struct = {
-	
-				xPlus: xPlusAttack,
+
 				damage: valDamage,
 				angle: _angl
 			}
@@ -45,7 +47,7 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 	with(instance) {
 		
 		var _xVal = x;
-		var _yVal = y;
+		var _yVal = y - 3;
 		var _anglVal = 5;
 		var _amount = obj_config.liquidsData[varLiquidId].amount;
 		
@@ -77,7 +79,7 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 			
 			if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
 		
-				instance_create_layer(_spawnX, _spawnY, layer, obj_liquid, _structLiquid)
+				instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
 				// Coldown entre Inputs
 				obj_wizard.alarm[0] = cooldown;
 				
@@ -122,7 +124,7 @@ function fSpawnLiquid(_xVal, _yVal, varLiquidId, varGravVal, varSpd, varAngleTo,
 			
 		if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
 		
-			instance_create_layer(_spawnX, _spawnY, "Objects", obj_liquid, _structLiquid)
+			instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
 		}
 	}
 }
@@ -180,12 +182,21 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				
 				var _status = obj_config.liquidsData[other.liquidId];
 				var _dmg = _status.damage;
-				var _slow = _status.slow;
 				var _effect = _status.effect;
 		
 				var _outOfCooldown = false;
-				if(_instensity == 0)	_outOfCooldown = (alarm[_alarmLiquid] <= 0);
-				else					_outOfCooldown = (alarm[_alarmLiquid] <= CONSTANTS.SPD_GAME * 0.1);
+				var _slow = _status.slow;	// Slow padrão -> Maximo
+				
+				// Cooldow e slow diferente por intensidade
+				if(_instensity == 0) { 
+					
+					_outOfCooldown = (alarm[_alarmLiquid] <= 0);	// Cooldow maior
+					_slow =  (1  - ((1 - _slow) / 1.4));			// Slow menor
+				}				
+				else {
+					
+					_outOfCooldown = (alarm[_alarmLiquid] <= CONSTANTS.SPD_GAME * 0.1);	// Cooldown menor
+				}
 				
 				var _areMoving = (hval != 0 || vval != 0);
 				var _damegeForMoving = (_areMoving && (alarm[_alarmLiquid] <= cooldownDamageLiquid/2));

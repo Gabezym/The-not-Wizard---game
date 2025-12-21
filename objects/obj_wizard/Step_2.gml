@@ -1,4 +1,5 @@
-// Life
+#region Life
+
 if(life > maxLife) life = maxLife;
 else if(life <= 0) { 
 	
@@ -6,9 +7,14 @@ else if(life <= 0) {
 	isDead = true;
 }
 
-// Muda a variavel da image_xscale
+#endregion
+
+#region xScale
+
 var _haveItemInHands = (itemSelectedStruct != clearSlot);
 xScale = fXscale(hval, xScaleVal, xScale, obj_mouse.mouseAnglePlayer, _haveItemInHands, stopCondition);
+
+#endregion
 
 #region Sprites
 
@@ -26,10 +32,27 @@ if(sprite_index != _spriteState) {
 
 #endregion
 
+#region Shaders Damage 
+
+// Se vai aplicar ou não
+var _alarm = alarm[alarmDmg];	
+if(_alarm <= 0) shadersDmgCheck = false; 
+else {
+		
+	var _checkRest = (_alarm % shadersDmgCheckVal);
+	var _durationHit = 5;
+	var _isInRange = ((_checkRest == 0) || (_checkRest < _durationHit));
+	
+	if(_isInRange)	shadersDmgCheck = true;
+	else			shadersDmgCheck = false;
+} 
+
+#endregion
+
 // Colisão XY 
 fWithCollisionPlayer(self);
 
-// built-in variables
+// Built-in variables
 image_xscale = xScale;
 y+= vval + recoilYDmg;
 x+= hval + recoilXDmg;

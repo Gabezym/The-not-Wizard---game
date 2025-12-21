@@ -1,6 +1,12 @@
+// Shaders Dano
+if(shadersDmgCheck) shader_set(shd_damage);
+
 fDrawCharacterAndItems(self);
 
-// Icone Interação
+shader_reset();
+
+#region Icone Interação
+
 var _lenIA = array_length(interactionObjects);
 if(_lenIA != 0) {
 	
@@ -24,3 +30,5 @@ if(_lenIA != 0) {
 		}
 	}
 }
+	
+#endregion

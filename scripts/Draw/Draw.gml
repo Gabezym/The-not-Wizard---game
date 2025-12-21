@@ -13,8 +13,14 @@ function fWithDrawItems(instance, side) {
 				var _instance = followObjects[_i];
 		
 				if(instance_exists(_instance)) {
-		
-					draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale*side, _instance.image_yscale, _instance.image_angle, c_white, _instance.image_alpha);
+					
+					var _valSide = side;
+					
+					if(_instance.object_index != obj_attack) {
+					
+						draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale*side, _instance.image_yscale, _instance.image_angle, c_white, _instance.image_alpha);
+					}
+					else draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale, _instance.image_yscale*side, _instance.image_angle, c_white, _instance.image_alpha);
 				}
 			}
 		}
@@ -213,10 +219,10 @@ function fDrawCharacterAndItems(_instance) {
 		// Na direita, na frente do sprite
 		if((_isLookingToLeft == false) && stopCondition == false && _haveItemInHands) {
 			
+			fWithDrawItems(_instance, 1)
+			
 			// Desenha Arm
 			draw_sprite_ext(spr_wizard_arm, 1, _aX, _aY, xScaleVal, xScaleVal, _ang, c_white, 1);
-		
-			fWithDrawItems(_instance, 1)
 		}
 	}
 }

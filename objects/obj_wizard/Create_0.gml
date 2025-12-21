@@ -1,3 +1,9 @@
+// Time
+coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
+cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
+cooldownEstamina =	CONSTANTS.SPD_GAME*1;
+cooldownDamage = CONSTANTS.SPD_GAME*1.5;
+
 // Vida
 maxLife = 100;
 life = maxLife;
@@ -8,6 +14,7 @@ stopCondition = false;
 // Arm posição
 armX = -3;
 armY = -26;
+disToHand = ((sprite_get_height(spr_wizard_arm) * 2) - 8);
 
 // Toxicity
 toxicityLevel = 0;			// Nivel atual
@@ -19,6 +26,9 @@ recoilXDmg = 0;
 recoilYDmg = 0;
 alarmDmg = 5;
 
+timesShaderDmg = 5;			// Quantas vezes o efeito aparece
+shadersDmgCheckVal = cooldownDamage/timesShaderDmg;
+shadersDmgCheck = false;	// Booleano pra aplicar o shader
 
 // Colisão de interação
 objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
@@ -33,13 +43,6 @@ alarmInt = 2;
 // Array
 followObjects = [];	
 interactionObjects = [];
-
-
-// Time
-coyoteJumpTimeVal = CONSTANTS.SPD_GAME*0.1;
-cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
-cooldownEstamina =	CONSTANTS.SPD_GAME*1;
-cooldownDamage = CONSTANTS.SPD_GAME*1.5;
 
 
 #region Comandos 

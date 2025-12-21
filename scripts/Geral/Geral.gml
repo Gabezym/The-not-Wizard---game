@@ -97,32 +97,104 @@ function fDrawBoxText(_x, _y, _text, _font) {
 
 #region Camera
 
+#region Encurtar
+
 // Aplica o zoom na camera
 function fWithCameraZoom(_instance) {
 
 	with(_instance) {
 	
 		// Pega tamanho atual
-		viewWidth	= camera_get_view_width(view_camera[0]);
-		viewHeight	= camera_get_view_height(view_camera[0]);
+		viewWidth	= camera_get_view_width(view_camera[view]);
+		viewHeight	= camera_get_view_height(view_camera[view]);
 
 		// Calcula tamanho desejado pela escala
 		var desired_width = camWidth / zoomVal;
 		var desired_height = camHeight / zoomVal;
 
 		// Interpola para suavizar
-		viewWidth = lerp(viewWidth, desired_width, zoomSpd);
-		viewHeight = lerp(viewHeight, desired_height, zoomSpd);
-
-		// Aplica na câmera
-		camera_set_view_size(view_camera[0], viewWidth, viewHeight);
-
-		// Centraliza na camera
-		camera_set_view_pos(view_camera[0], x - (viewWidth*0.5), y -(viewHeight*0.5));
+		var _valWid = (lerp(viewWidth, desired_width, zoomSpd));
+		var _valHei = (lerp(viewHeight, desired_height, zoomSpd));
+			
+		// Check se o tamanho da view não é maior que a room
+		// View X
+		if(_valWid < room_width)	viewWidth	= _valWid;
+		else						viewWidth = room_width;
+		
+		// View Y
+		if(_valHei < room_height)	viewHeight	= _valHei;
+		else						viewHeight = room_height;
+		viewHeight	= _valHei;
 	}
 }
 
-// Power Shake Screen
+// Define novo valor pra mover a camera
+function fWithCameraMove(_instance) {
+
+	with(_instance) {
+	
+		// O que a camera deve seguir
+		if(follow != noone) {
+
+			xTo = follow.x;
+			yTo = follow.y;
+		}
+	
+		newX = (lerp(x, xTo, 0.15));
+		newY = (lerp(y, yTo, 0.15));
+
+		var _xGreater = (room_width < newX + viewWidth*0.5);
+		var _xLess = (0 > newX - viewWidth*0.5);
+
+		var _yGreater = (room_height < newY + viewHeight*0.5);
+		var _yLess = (0 > newY - viewHeight * 0.5);
+
+		// Limites camera X
+		if(_xGreater ||_xLess) {
+	
+			var _xGreaterVal = (room_width - (viewWidth*0.5));
+			var _xLessVal = (viewWidth*0.5);
+	
+			if(_xGreater)	newX = _xGreaterVal;
+			else			newX = _xLessVal;
+		}
+		// Limites camera Y
+		if(_yGreater || _yLess) {
+	
+	
+			var _yGreaterVal	= (room_height - (viewHeight * 0.5));
+			var _yLessVal		= (0 + viewHeight * 0.5);	
+	
+			if(_yGreater)	newY = _yGreaterVal;
+			else			newY = _yLessVal;
+		}
+	}
+}
+
+// Executa shake Screen 
+function fWithShakeScreen(_instance) {
+
+	with(_instance) {
+	
+		// Shake Screen
+		if(shakeVal != 0) {
+	
+			xView = irandom_range(-shakeVal, shakeVal);
+			yView = irandom_range(-shakeVal, shakeVal);
+	
+			shakeVal = lerp(shakeVal, 0, 0.05);
+		}
+		else if(xView != 0 || yView != 0) {
+
+			xView = 0;
+			yView = 0;
+		}
+	}
+}
+
+#endregion
+
+// Power Shake Screen -> Aplica na camera
 // 0 = shakeRealySmall
 // 1 = Small
 // 2 = Medium

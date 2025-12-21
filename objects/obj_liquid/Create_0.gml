@@ -13,7 +13,7 @@ var _str = obj_config.liquidsData[liquidId];
 
 color		= _str.color;
 scaleMax	= 1;
-scale		= scaleMax / 5;
+scale		= scaleMax / 4;
 scaleVal	= 0.2;
 
 sprite_index = spr_pixel;

@@ -6,7 +6,7 @@ fWithInputs(self);
 // Se ficar preso
 fStuck(self);
 
-// Se n tomou dano -> movimentação
+// Se n tem recoil de dano -> movimentação
 if(recoilXDmg == 0 && recoilYDmg == 0) {
 	
 	// Movimentação
