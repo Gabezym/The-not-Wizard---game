@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 nextIndex = keyboard_check_pressed(keyNextIndex);
 	
 if(nextIndex) {

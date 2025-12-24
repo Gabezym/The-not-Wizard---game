@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _isAttacking = obj_wizard.isInputItem;
 var _haveStamina = (obj_wizard.estamina >= estaminaDrain);
 var _isThrowing = obj_wizard.isInputItem2;

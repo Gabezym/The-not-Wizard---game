@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 #region Life
 
 if(life > maxLife) life = maxLife;
@@ -14,6 +16,8 @@ else if(life <= 0) {
 var _haveItemInHands = (itemSelectedStruct != clearSlot);
 xScale = fXscale(hval, xScaleVal, xScale, obj_mouse.mouseAnglePlayer, _haveItemInHands, stopCondition);
 
+
+
 #endregion
 
 #region Sprites
@@ -27,7 +31,7 @@ if(sprite_index != _spriteState) {
 	
 	sprite_index = _spriteState;
 	image_index   = 0;       // começa do frame inicial
-    image_speed   = 1;       // garante que vai animar
+	image_speed   = 1;       // garante que vai animar
 }
 
 #endregion
@@ -57,6 +61,15 @@ image_xscale = xScale;
 y+= vval + recoilYDmg;
 x+= hval + recoilXDmg;
 
+#region Arm draw
+
+armX = x+armXVal;
+armY = y+armYVal;
+
+armAngle = point_direction(armX, armY, mouse_x, mouse_y) + 90;
+
+#endregion
+
 // Reseta recoil do dano 
 if(recoilXDmg != 0 || recoilYDmg != 0 ) fWithResetRecoilDmg(self);
 
@@ -65,4 +78,3 @@ fWithFollowObjects(self);
 
 // Organiza a array dos interactObjects
 fWithInteractedObjects(self);
-

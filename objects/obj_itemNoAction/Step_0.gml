@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 with(obj_wizard) {
 	
 	

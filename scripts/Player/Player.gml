@@ -492,25 +492,30 @@ function fUseItem(idItem, whoUseItem) {
 				isInInventory = fInputOnOff(inputInventory, isInInventory);
 
 				// Se ta craftando, abre o inventario
-				if(isCrafting) isInInventory = true;
+				if(isCrafting) { 
+					
+					isInInventory = true;
+					
+					// Sai do crafting
+					if(inputInventory) {
 
-				// Sai de tudo
-				if(escape) {
-
-					isInInventory = false;
-					isCrafting = false;
-					craftIndexItem1 = -1;
-					craftIndexItem2 = -1;
+						isInInventory = false;
+						isCrafting = false;
+						craftIndexItem1 = -1;
+						craftIndexItem2 = -1;
+					}
 				}
 
 				#region Slots Inventario
 				
-				slot1	= keyboard_check_pressed(keySlot1);
-				slot2	= keyboard_check_pressed(keySlot2);
-				slot3	= keyboard_check_pressed(keySlot3);
-				slot4	= keyboard_check_pressed(keySlot4);
-				slot5	= keyboard_check_pressed(keySlot5);
+				if(inText == false) {
 				
+					slot1	= keyboard_check_pressed(keySlot1);
+					slot2	= keyboard_check_pressed(keySlot2);
+					slot3	= keyboard_check_pressed(keySlot3);
+					slot4	= keyboard_check_pressed(keySlot4);
+					slot5	= keyboard_check_pressed(keySlot5);
+				}
 				#endregion
 			}
 		}
@@ -737,8 +742,8 @@ function fUseItem(idItem, whoUseItem) {
 								#region Vars
 							
 									var _dis = other.disToHand;
-									var _valX = other.x + other.armX;
-									var _valY = other.y + other.armY;
+									var _valX = other.x + other.armXVal;
+									var _valY = other.y + other.armYVal;
 							
 									// Angulo
 									var _ang = point_direction(_valX, _valY, mouse_x, mouse_y);
@@ -755,8 +760,7 @@ function fUseItem(idItem, whoUseItem) {
 				
 									// Xscale
 									var _scl = sign(other.xScale);
-									if(mouse_x > _x)		_scl =  1;
-									else if	(mouse_x < _x)	_scl = -1;
+									
 				
 									// Alpha
 									var _alpha = 1;

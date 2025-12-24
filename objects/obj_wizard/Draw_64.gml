@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _viewWid = obj_camera.camWidth;
 var _viewHei = obj_camera.camHeight;
 
@@ -161,7 +163,7 @@ if(fWithHasEffects(self) || slow < 1) {
 			// Novas linhas de efeitos
 			if((_posLine != 0) && (_posLine % _numPerLine == 0)) {
 				
-				_yBegin += _heiSpr*1.5;
+				_yBegin += _heiSpr*2;
 				_posLine = 0;
 				_numPerLine = 0;
 			}
@@ -172,6 +174,10 @@ if(fWithHasEffects(self) || slow < 1) {
 			draw_sprite_ext(spr_background_effect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
 			draw_sprite_ext(_sprEffect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
 			draw_sprite_ext(spr_border_effect, 1, _xxx, _yBegin, 1, 1, 0, c_white, 1);
+			
+			// Duração
+			var _yText = (_yBegin +(_heiEffectSpr/2) + 5);
+			draw_text(_xxx-10, _yText, effectsAlarm[_i]);
 			
 			var _cx1 = _xxx - _widEffectSpr/2;
 			var _cx2 = _xxx + _widEffectSpr/2;

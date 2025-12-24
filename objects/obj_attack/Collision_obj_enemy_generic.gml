@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Pq uma struct? Pra poder da mais de um efeito no futuro(eu acho)
 var _struct = {
 

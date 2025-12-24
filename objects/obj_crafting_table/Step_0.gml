@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 canInteract = colliding;
 
 if(interacted) {

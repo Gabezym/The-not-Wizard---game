@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Vivo
 if(life > 0) {
 	
@@ -158,6 +160,3 @@ else {
 	
 	instance_destroy();
 }
-
-
-

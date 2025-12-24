@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _id = other.id;
 var _len = array_length(alreadyAttacked);
 var _isAlreadyAttacked = false;

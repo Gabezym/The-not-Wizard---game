@@ -31,56 +31,6 @@ enum EFFCTS
 	MORE_TOXICITY = 5,
 }
 
-#region Database dos effects 
-
-effectsData = array_create(_sizeEffects);
-effectsData[EFFCTS.NOTHING] = {
-
-	spritePotion: spr_potion_damage,
-	toxicity: 0,
-	effectType: EFFCTS_TYPE.NOONE,
-	duration: 0
-}
-effectsData[EFFCTS.WATER] = {
-
-	spritePotion: spr_potion_damage,
-	toxicity: 0,
-	effectType: EFFCTS_TYPE.NOONE,
-	duration: 0
-}
-effectsData[EFFCTS.FIRE] = {
-
-	spritePotion: spr_potion_damage,
-	toxicity: 0,
-	effectType: EFFCTS_TYPE.CONDITIONS,
-	duration: 5
-}
-effectsData[EFFCTS.BIG_JUMP] = {
-
-	spritePotion: spr_potion_jump,
-	toxicity: 10,
-	effectType: EFFCTS_TYPE.STATUS,
-	duration: 25
-}
-effectsData[EFFCTS.MORE_DAMAGE] = {
-
-	spritePotion: spr_potion_damage,
-	toxicity: 15,
-	effectType: EFFCTS_TYPE.STATUS,
-	duration: 25
-}
-effectsData[EFFCTS.MORE_TOXICITY] = {	// Apenas aumenta a toxicidade
-
-	spritePotion: spr_potion_damage,
-	toxicity: 15,
-	effectType: EFFCTS_TYPE.NOONE,
-	duration: 0
-}
-
-#endregion
-
-#endregion
-
 #region Efeitos que possuem duração (leia descrição abaixo)
 
 // Isso é pra organizar todos os efeitos em um só alarme
@@ -117,6 +67,62 @@ infoEffects[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = {
 	
 #endregion
 	
+#endregion
+
+#region Database dos effects 
+
+effectsData = array_create(_sizeEffects);
+effectsData[EFFCTS.NOTHING] = {
+
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0,
+	effectAlarm: -1
+}
+effectsData[EFFCTS.WATER] = {
+
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0,
+	effectAlarm: EFFECTS_ALARMS.ALARM_FIRE
+}
+effectsData[EFFCTS.FIRE] = {
+
+	spritePotion: spr_potion_damage,
+	toxicity: 0,
+	effectType: EFFCTS_TYPE.CONDITIONS,
+	duration: 5,
+	effectAlarm: EFFECTS_ALARMS.ALARM_FIRE
+}
+effectsData[EFFCTS.BIG_JUMP] = {
+
+	spritePotion: spr_potion_jump,
+	toxicity: 10,
+	effectType: EFFCTS_TYPE.STATUS,
+	duration: 25,
+	effectAlarm: EFFECTS_ALARMS.ALARM_BIG_JUMP
+}
+effectsData[EFFCTS.MORE_DAMAGE] = {
+
+	spritePotion: spr_potion_damage,
+	toxicity: 15,
+	effectType: EFFCTS_TYPE.STATUS,
+	duration: 25,
+	effectAlarm: EFFECTS_ALARMS.ALARM_MORE_DAMAGE
+}
+effectsData[EFFCTS.MORE_TOXICITY] = {	// Apenas aumenta a toxicidade
+
+	spritePotion: spr_potion_damage,
+	toxicity: 15,
+	effectType: EFFCTS_TYPE.NOONE,
+	duration: 0,
+	effectAlarm: -1
+}
+
+#endregion
+
 #endregion
 
 #endregion
@@ -345,10 +351,19 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 
 #endregion
 
+// Define a velocida dos frames do jogo
+game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);
+window_set_fullscreen(true);
+
 // Se esta em dialogo
 global.in_text = false;
 #macro inText global.in_text
 
-// Define a velocida dos frames do jogo
-game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);
-window_set_fullscreen(true);
+// Se o jogo esta em pause
+global.in_pause = false;
+#macro inPause global.in_pause
+
+// Se esta no menu
+global.in_menu = false;
+#macro inMenu global.in_menu
+

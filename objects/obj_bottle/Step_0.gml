@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _isUsing = obj_wizard.isInputItem;
 var _isThrowing = obj_wizard.isInputItem2;
 

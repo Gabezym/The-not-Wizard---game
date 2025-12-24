@@ -4,31 +4,32 @@ cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
 cooldownDamage = CONSTANTS.SPD_GAME*1.5;
 
+
 // Vida
 maxLife = 100;
 life = maxLife;
 
+
 // Condição
 stopCondition = false;
 
-// Arm posição
-armX = -3;
-armY = -26;
-disToHand = ((sprite_get_height(spr_wizard_arm) * 2) - 8);
 
 // Toxicity
 toxicityLevel = 0;			// Nivel atual
 toxicityValLevel = 0;		// Valor atual do nivel
 toxicityMaxValLevel = 100;	// Maximo de toxicidade por nivel
 
+
 // Dano(inimigo -> player)
 recoilXDmg = 0;
 recoilYDmg = 0;
 alarmDmg = 5;
 
+// Shader damage
 timesShaderDmg = 5;			// Quantas vezes o efeito aparece
 shadersDmgCheckVal = cooldownDamage/timesShaderDmg;
 shadersDmgCheck = false;	// Booleano pra aplicar o shader
+
 
 // Colisão de interação
 objColInteraction = instance_create_layer(x, y, layer, obj_wizard_collision_interaction, {character: id});
@@ -44,6 +45,17 @@ alarmInt = 2;
 followObjects = [];	
 interactionObjects = [];
 
+#region Arm 
+
+armXVal = -2;
+armYVal = -24;
+disToHand = ((sprite_get_height(spr_wizard_arm) * 2) - 8);
+
+armX = 0;
+armY = 0;
+armAngle = 0
+
+#endregion
 
 #region Comandos 
 

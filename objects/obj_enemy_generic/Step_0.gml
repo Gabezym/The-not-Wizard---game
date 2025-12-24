@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Ta no chao? Alarm[0]
 inGround = place_meeting(x, y +1, obj_r_collision);
 

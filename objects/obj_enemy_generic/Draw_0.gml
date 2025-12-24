@@ -1,5 +1,7 @@
 draw_self();
 
+if(inPause) exit;
+
 #region Barra de vida
  
 var _sprLife = spr_enemy_life;

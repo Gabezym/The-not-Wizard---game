@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _colDown = place_meeting(x,y+1, obj_r_collision);
 
 // Cai lento se bater no teto

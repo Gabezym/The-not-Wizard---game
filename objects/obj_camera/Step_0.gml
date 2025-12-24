@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Vars Camera Zoom
 fWithCameraZoom(self);
 

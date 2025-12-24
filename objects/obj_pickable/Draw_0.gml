@@ -1,9 +1,10 @@
 //fDrawHitBox(colW/2, colH/2, self);
-
 if(life > 0) {
 	
 	draw_sprite_ext(spr, 1, x, y, scale, 1, angl, c_white, 1);
-
+	
+	if(inPause) exit;
+	
 	// Amount
 	if(colliding) {
 

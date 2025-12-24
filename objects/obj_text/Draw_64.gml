@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 if(inText) {
 	
 	var _viewWid = obj_camera.camWidth;

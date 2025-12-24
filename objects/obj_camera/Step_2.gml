@@ -1,3 +1,4 @@
+if(inPause) exit;
 // Aplica posição camera
 x = newX;
 y = newY;

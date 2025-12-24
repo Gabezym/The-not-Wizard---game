@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 var _id = other.id;
 var _isPickable = ((object_is_ancestor(_id.object_index, obj_pickable)) || (_id.object_index == obj_pickable));
 var _isAlive = true;

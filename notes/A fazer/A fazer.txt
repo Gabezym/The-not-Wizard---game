@@ -14,4 +14,7 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Botei limite pra camera e organizei seu código, mexei em alguns status, fiz novo icone pro mouse.
+Arrumar pixel da blusa do wizard, ta um 1 pixel menor o sprite sem braço.
+Estamina ao dar pulo pequeno ta muito pequena
+
+Resolvi bug da scale dos items e de duração dos efeitos, fiz sistema de pause, otimizei código dos effects.

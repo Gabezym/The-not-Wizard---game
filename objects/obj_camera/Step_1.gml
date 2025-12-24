@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 #region Input Zoom
 
 if (keyboard_check(keyZoomIn) && (zoomVal < maxZoomVal))  {

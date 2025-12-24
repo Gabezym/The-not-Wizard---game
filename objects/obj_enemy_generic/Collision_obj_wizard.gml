@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Se n ta no cooldown de dano
 if(other.alarm[other.alarmDmg] <= 0) {
 	

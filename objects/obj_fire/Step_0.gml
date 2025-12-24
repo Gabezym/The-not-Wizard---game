@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 y+=grav;
 x+=spd
 

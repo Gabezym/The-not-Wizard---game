@@ -3,39 +3,54 @@
 
 #region Efeitos 
 
+// Aplica duração do efeito
+function fWithSetEffect(_instance, _ef) {
+
+	with(_instance) {
+		
+		var _alarm = obj_config.effectsData[_ef].effectAlarm;
+		var _duration = obj_config.effectsData[_ef].duration;
+		
+		effectsBoolean[_alarm] = true;
+		effectsAlarm[_alarm] = _duration;
+	}
+}
+
 // Aplica efeitos (alarme)
 function fWithEffects(_instance, _effect) {
 
 	with(_instance) {
-	
+		
+		
+		#macro PLAY_ALARM if(alarm[11] <= 0) alarm[11] = CONSTANTS.SPD_GAME * 1
+				
 		switch(_effect) {
 		
 				case EFFCTS.NOTHING: break;
-				case EFFCTS.FIRE:
 				
-					effectsBoolean[EFFECTS_ALARMS.ALARM_FIRE] = true;
-					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = obj_config.effectsData[EFFCTS.FIRE].duration;
-					alarm[11] = CONSTANTS.SPD_GAME * 1;
-				
-				break;
 				case EFFCTS.WATER: 
 					
-					effectsAlarm[EFFECTS_ALARMS.ALARM_FIRE] = 0;
+					fWithSetEffect(self, _effect);
 					slow = fResetSlow(self, true);
 				break;
-			
+				
+				case EFFCTS.FIRE:
+								
+					fWithSetEffect(self, _effect);
+					PLAY_ALARM;
+				
+				break;
+
 				case EFFCTS.BIG_JUMP:
 					
-					effectsBoolean[EFFECTS_ALARMS.ALARM_BIG_JUMP] = true;
-					effectsAlarm[EFFECTS_ALARMS.ALARM_BIG_JUMP] = obj_config.effectsData[EFFCTS.BIG_JUMP].duration;
-					alarm[11] = CONSTANTS.SPD_GAME * 1;
+					fWithSetEffect(self, _effect);
+					PLAY_ALARM;
 				break;
 				
 				case EFFCTS.MORE_DAMAGE:
 				
-					effectsBoolean[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = true;
-					effectsAlarm[EFFECTS_ALARMS.ALARM_MORE_DAMAGE] = obj_config.effectsData[EFFCTS.MORE_DAMAGE].duration;
-					alarm[11] = CONSTANTS.SPD_GAME * 1;
+					fWithSetEffect(self, _effect);
+					PLAY_ALARM;
 				break;
 		}
 	}

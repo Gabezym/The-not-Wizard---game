@@ -5,6 +5,8 @@ fDrawCharacterAndItems(self);
 
 shader_reset();
 
+if(inPause) exit;
+
 #region Icone Interação
 
 var _lenIA = array_length(interactionObjects);

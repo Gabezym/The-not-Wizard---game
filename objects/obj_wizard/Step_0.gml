@@ -1,4 +1,6 @@
-stopCondition = (isInInventory || inText);
+if(inPause) exit;
+
+stopCondition = (isInInventory || inText || inPause);
 
 // Inputs
 fWithInputs(self);
@@ -37,3 +39,4 @@ fWithCraftingPotions(self);
 
 // Inventario
 fWithInventory(self);
+

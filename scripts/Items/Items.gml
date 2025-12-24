@@ -20,8 +20,8 @@ function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 
 	with(obj_wizard) {
 
-			var _valX = x+armX;
-			var _valY = y+armY;
+			var _valX = x+armXVal;
+			var _valY = y+armYVal;
 			var _angl = point_direction(_valX, _valY, mouse_x, mouse_y);
 			
 			var _x = _valX + lengthdir_x(disToHand + xPlusAttack, _angl);
@@ -183,7 +183,8 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				var _status = obj_config.liquidsData[other.liquidId];
 				var _dmg = _status.damage;
 				var _effect = _status.effect;
-		
+				
+				var _slowVal = 0.3;			// O quao rapido fica lento
 				var _outOfCooldown = false;
 				var _slow = _status.slow;	// Slow padrão -> Maximo
 				
@@ -191,7 +192,8 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				if(_instensity == 0) { 
 					
 					_outOfCooldown = (alarm[_alarmLiquid] <= 0);	// Cooldow maior
-					_slow =  (1  - ((1 - _slow) / 1.4));			// Slow menor
+					_slowVal = 0.01;									// Mais lento o efeito se aplica
+					_slow =  (1  - ((1 - _slow) / 1.4));			// Slow maximo menor 
 				}				
 				else {
 					
@@ -216,9 +218,6 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 						fShakeScreenPower(_instensity);
 					}
 				}
-				
-				var _slowVal = 0.02;	
-				if(_instensity =! 0) _slowVal = 0.1;
 		
 				// Slow
 				if(_areMoving || _outOfCooldown) {

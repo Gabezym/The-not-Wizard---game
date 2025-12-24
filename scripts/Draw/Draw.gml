@@ -1,6 +1,6 @@
 #region Encurtar codigo
 
-function fWithDrawItems(instance, side) {
+function fWithDrawItems(instance) {
 
 	with(instance) {
 		
@@ -14,13 +14,25 @@ function fWithDrawItems(instance, side) {
 		
 				if(instance_exists(_instance)) {
 					
-					var _valSide = side;
+					#region Vars
 					
-					if(_instance.object_index != obj_attack) {
+					var _side = (sign(instance.xScale));
 					
-						draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale*side, _instance.image_yscale, _instance.image_angle, c_white, _instance.image_alpha);
-					}
-					else draw_sprite_ext(_instance.sprite_index, 1, _instance.x, _instance.y, _instance.image_xscale, _instance.image_yscale*side, _instance.image_angle, c_white, _instance.image_alpha);
+					var _spr = _instance.sprite_index;
+					var _x = _instance.x;
+					var _y = _instance.y;
+					var _angle = _instance.image_angle;
+					var _alpha = _instance.image_alpha;
+					var _xScl = _instance.image_xscale;
+					var _yScl = _instance.image_yscale;
+					
+					#endregion Vars
+					
+					if(_instance.object_index != obj_attack)	_xScl *=_side;
+
+					else										_yScl *=_side; 
+
+					draw_sprite_ext(_spr, 1, _x, _y, _xScl, _yScl, _angle, c_white, _alpha);
 				}
 			}
 		}
@@ -198,31 +210,27 @@ function fDrawCharacterAndItems(_instance) {
 
 	with(_instance) {
 	
-		var _isLookingToLeft = (sign(xScale) < 0);
-		var _aX = x+armX;
-		var _aY = y+armY;
-		var _ang = point_direction(_aX, _aY, mouse_x, mouse_y) + 90;
-		
+		var _sideLooking = (sign(xScale));
 		var _haveItemInHands = (itemSelectedStruct != clearSlot);
 		
 		// Na esquerda, atras do sprite
-		if((_isLookingToLeft == true) && stopCondition == false && _haveItemInHands) { 
+		if((_sideLooking == -1) && stopCondition == false && _haveItemInHands) { 
 	
 			// Desenha Arm
-			draw_sprite_ext(spr_wizard_arm, 1, _aX, _aY, -xScaleVal, xScaleVal, _ang, c_white, 1);
+			draw_sprite_ext(spr_wizard_arm, 1, armX, armY, -xScaleVal, xScaleVal, armAngle, c_white, 1);
 			
-			fWithDrawItems(_instance, -1);
+			fWithDrawItems(_instance);
 		}
 
 		draw_self();
 
 		// Na direita, na frente do sprite
-		if((_isLookingToLeft == false) && stopCondition == false && _haveItemInHands) {
+		if((_sideLooking == 1) && stopCondition == false && _haveItemInHands) {
 			
-			fWithDrawItems(_instance, 1)
+			fWithDrawItems(_instance)
 			
 			// Desenha Arm
-			draw_sprite_ext(spr_wizard_arm, 1, _aX, _aY, xScaleVal, xScaleVal, _ang, c_white, 1);
+			draw_sprite_ext(spr_wizard_arm, 1, armX, armY, xScaleVal, xScaleVal, armAngle, c_white, 1);
 		}
 	}
 }

@@ -210,3 +210,35 @@ function fShakeScreenPower(_power) {
 }
 
 #endregion
+
+function fSystemPauseGame(_instance) {
+
+	with(_instance) {
+	
+		if(inPause) exit;
+	}
+}
+
+function fPauseGame() {
+
+	with(all) {
+	
+		storeadSpd = image_speed;
+		image_speed = 0;
+		
+		pauseAlarmVal = array_create(12, 0);
+		
+		for(var _i = 0; _i < 12; _i++) {
+		
+			pauseAlarmVal[_i] = alarm[_i];
+		}
+	}
+}
+	
+function fUnpauseGame() {
+
+	with(all) {
+	
+		image_speed = storeadSpd;
+	}
+}

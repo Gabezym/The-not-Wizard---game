@@ -1,3 +1,5 @@
+if(inPause) exit;
+
 // Se pode interagir 
 canInteract =
     instance_exists(obj_wizard)
