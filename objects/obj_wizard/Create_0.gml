@@ -133,7 +133,7 @@ maxEstamina = 100;
 estamina = maxEstamina;
 regeneracaoEstaminaVal = 2;
 regeneracaoEstamina = regeneracaoEstaminaVal;
-estJump = 1.2;	// Dreno de estamina por pulo
+estJump = 10;	// Dreno de estamina por pulo
 
 #endregion
 
@@ -207,7 +207,7 @@ itemInHand = 0;		// Armazeana o id do item selecionado -> IMPORTANTE
 instanceInHands = noone;
 
 // Retorna a struct do INVENTARIO
-itemSelectedStruct = {}
+itemSelectedStruct = clearSlot;
 
 // Pro inventario do draw 
 slotStrClick = undefined;

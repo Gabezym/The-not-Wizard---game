@@ -253,10 +253,11 @@ function fUseItem(idItem, whoUseItem) {
 						
 							#endregion
 						
-							var _isColliding = place_meeting(x, y, other.interactionObjects[_z]);
-						
+							var _isColliding = place_meeting(x, y, _id);
+							var _canInteract = _id.canInteract;
+							
 							// N tiver mais colidindo ou n estiver mais vivo
-							if(!_isColliding || !_isAlive) { 
+							if(!_isColliding || !_isAlive || !_canInteract) { 
 					
 								// N esta mais colidindo nem interagindo
 								other.interactionObjects[_z].colliding = false;
@@ -352,35 +353,11 @@ function fUseItem(idItem, whoUseItem) {
 	function fWithResetRecoilDmg(instance) {
 
 		with(instance) {
-		
-			var _recoilX = recoilXDmg;
-			var _recoilY = recoilYDmg;
-		
-			var _reduction = 0
-		
-			if(_recoilY != 0) {
+
+			if(recoilXDmg != 0) recoilXDmg = lerp(recoilXDmg, 0, 0.08);
 			
-				if(!place_meeting(x, y+1, obj_r_collision)) {
-				
-					recoilYDmg += grav; 
-				}
-			}
-			if(_recoilX != 0) {
-			
-				var _sinX = sign(_recoilX) * -1;
-				_reduction = 0.1 * _sinX;
-			
-				// Se é positivo ou negativo
-				var _check = false;
-				if(_recoilX > 0)	_check = (_recoilX + _reduction > 0);
-				else				_check = (_recoilX + _reduction < 0);
-			
-				// Se ainda da pra reduzir
-				if (_check) _recoilX += _reduction;
-				else _recoilX = 0;
-			
-				recoilXDmg = _recoilX; 
-			}	
+			if(recoilYDmg < 1 && recoilYDmg > -1) recoilYDmg = 0;
+			if(recoilXDmg < 1 && recoilXDmg > -1) recoilXDmg = 0;
 		}
 	}
 
@@ -529,7 +506,7 @@ function fUseItem(idItem, whoUseItem) {
 				if(keyboard_check_released(keyJump) && canJump == false) canJump = true;
 	
 				var inGround = place_meeting(x,y+1, obj_r_collision);
-		
+			
 				// Fica parado se tiver no inventario
 				if(stopCondition) {
 
@@ -538,74 +515,53 @@ function fUseItem(idItem, whoUseItem) {
 					jump = 0;
 				}
 
-				// Hval Andando
-				hval = (right - left) * spd * slow;
-
-				// Vars + inJumpAnimation
-				if (inGround) {
-			
-					jumpVal = 0;	// Da pra da o pulo pressionado
-					isFirstJump = true;
-					isFalling = false;
-					alarm[1] = coyoteJumpTimeVal;	// O timer n desce enquanto ta no chao, coyote jump
-			
-					// Só reseta a animação de pulo se NÃO estiver apertando jump
-				    if (!jump) inJumpAnimation = false;
-				}
-
-				#region Vars pro Pulo + inJumpAnimation
-
 				// Ta na animacao de pulo
 				if(inJumpAnimation) {
 
 						var _lastFrame = floor(image_index) >= image_number - 1;
 						if(_lastFrame) inJumpAnimation = false;
 				}
-
-				// Cliquei o pulo, e agora?
-				if (jump) {
-	
-					// To no chão
-					if ((inGround || isCoyoteJump) && canJump) {
 		
-						isFalling = false;
+				// CoyoteJump
+				if(inGround) alarm[1] = coyoteJumpTimeVal;
+				isCoyoteJump = (alarm[1] > 0 && vval == 0)
+								
+				// Ground
+				if (isCoyoteJump) {
+			
+					#region Reseta Vars
+					
+					jumpVal = 0;	// Da pra da o pulo pressionado
+					isFirstJump = true;
+					isFalling = false;
+					isJumping = false;
+			
+					// Só reseta a animação de pulo se NÃO estiver apertando jump
+				    if (!jump) inJumpAnimation = false;
+			
+					#endregion
+				
+					// Pulo padrão
+					if (jump && canJump) {
+					
 						isJumping = true;
 						isFirstJump = false;
 						inJumpAnimation = true;
 						canJump = false;
 					}
-					// N to no chão e TemMaisPuloPress ou DeuPrimeiroPulo
-					else if ((jumpVal < maxJumpVal) && (isFirstJump == false)) {
+				}				
+				// Air
+				else {
+					
+					// Pulo pressionado
+					if (jump && (jumpVal < maxJumpVal) && (isFirstJump == false)) {
 	
 							isJumping = true;
 							jumpVal++;
 					}
-			
-					else isJumping = false;
-				}
-				else {
-	
-					isJumping = false;
-				}
-	
-				#endregion
-
-				// Vval Jump + estamina
-				if (isJumping) { 
-	
-					vval = (jump * spdJump) * slow * efBigJump;
-					estamina -= estJump;
-					alarm[4] = cooldownEstamina;
-				}
-
-				// CoyoteJump
-				isCoyoteJump = fCoyoteJump(alarm[1], vval);
-
-				// Codigo falling
-				if (!inGround)  {
-	
-					// N to pulando no ar,n tem pulo pressionado e n tem coyote jump
-					if (((!isJumping) || (jumpVal >= maxJumpVal)) && (isCoyoteJump == false)) {
+					
+					// Queda
+					else {
 		
 						isFalling = true;
 						isJumping = false;
@@ -613,9 +569,26 @@ function fUseItem(idItem, whoUseItem) {
 					}
 				}	
 
-				// Vval caindo
-				if (isFalling) vval +=grav;
+				// Vval Pulo
+				if (isJumping) { 
 
+					var _estDrain = (inGround ? estJump : estJump/10);
+	
+					vval = ((jump * spdJump + recoilYDmg) * slow * efBigJump);
+					estamina -= _estDrain;
+					alarm[4] = cooldownEstamina;
+				}
+				else if(recoilYDmg != 0) vval = recoilYDmg;
+
+				// Vval caindo
+				if (isFalling) {
+					
+					if(recoilYDmg != 0) recoilYDmg += grav;
+					vval += grav
+				}
+					
+				// Hval Andando
+				hval = (((right - left) * spd +  recoilXDmg) * slow);
 			}
 		}
 
@@ -950,7 +923,7 @@ function fUseItem(idItem, whoUseItem) {
 	
 				// Recoil do dano
 				recoilXDmg = (other.spd*3 * _sideRecoil);
-				recoilYDmg = (-other.jump/2);
+				recoilYDmg = (-other.jump*0.8);
 
 				// Cooldown dano
 				alarm[alarmDmg] = cooldownDamage;

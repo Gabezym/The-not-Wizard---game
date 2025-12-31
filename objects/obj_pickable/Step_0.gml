@@ -2,9 +2,13 @@ if(inPause) exit;
 
 // Vivo
 if(life > 0) {
-	
+		
 	var _colDown = place_meeting(x,y+1, obj_r_collision);
-	canInteract = colliding;	// A condição pra interagir é estar colidindo
+
+	var _isAlive = (life > 0);
+	var _outOfCooldown = (alarm[alarmCooldownPick] <= 0);
+	
+	canInteract = (_isAlive && _outOfCooldown);
 
 	#region Colisão XY + (x+=hval e y+=vval) + Grav
 

@@ -58,8 +58,8 @@ fWithCollisionPlayer(self);
 
 // Built-in variables
 image_xscale = xScale;
-y+= vval + recoilYDmg;
-x+= hval + recoilXDmg;
+y+= vval;
+x+= hval;
 
 #region Arm draw
 

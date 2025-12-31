@@ -17,4 +17,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 Arrumar pixel da blusa do wizard, ta um 1 pixel menor o sprite sem braço.
 Estamina ao dar pulo pequeno ta muito pequena
 
-Resolvi bug da scale dos items e de duração dos efeitos, fiz sistema de pause, otimizei código dos effects.
+Arrumei bug da array de interação, ajustei gasto de estamina no jump, ajustei codigo de movimentação

@@ -8,22 +8,17 @@ fWithInputs(self);
 // Se ficar preso
 fStuck(self);
 
-// Se n tem recoil de dano -> movimentação
-if(recoilXDmg == 0 && recoilYDmg == 0) {
+// Sai das abas ao tomar dano
+if(recoilXDmg != 0 || recoilYDmg != 0) {
 	
-	// Movimentação
-	fWithMovementHvalVval(self);
-}
-// Se tomou dano com recoil -> reseta vars
-else {
-
 	isInInventory = false;
 	isCrafting = false;
 	craftIndexItem1 = -1;
 	craftIndexItem2 = -1;
-	hval = 0;
-	vval = 0;
 }
+
+// Movimentação
+fWithMovementHvalVval(self);
 
 // Estamina
 fWithEstamina(self);
