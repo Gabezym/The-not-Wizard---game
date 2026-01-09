@@ -24,14 +24,19 @@ xScale = fXscale(hval, xScaleVal, xScale, obj_mouse.mouseAnglePlayer, _haveItemI
 
 var _inGround = place_meeting(x,y+1, obj_r_collision);
 
-// O sprite q tem q ta
-var _spriteState = fChangeSprite(hval, inJumpAnimation, xScale, _inGround);
+// Sprites
+var _strSprites = fChangeSprite(hval, inJumpAnimation, xScale, _inGround);
+
 // Muda só se for diferente
-if(sprite_index != _spriteState) {
+var _sameSprites = ((sprite_body == _strSprites.body) && (sprite_index == _strSprites.leg));
+if(_sameSprites == false) {
 	
-	sprite_index = _spriteState;
-	image_index   = 0;       // começa do frame inicial
-	image_speed   = 1;       // garante que vai animar
+	sprite_index	= _strSprites.leg;
+	sprite_body		= _strSprites.body;
+	
+	// começa do frame inicial
+	image_index = 0;
+	image_speed = 1;
 }
 
 #endregion

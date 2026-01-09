@@ -173,36 +173,56 @@ function fUseItem(idItem, whoUseItem) {
 	// -- Aprovado \[T]/
 	// Retorna a posiçao da array de sprites 
 	function fChangeSprite(hval, jump, xScale, _inGround) {
-	
-		var _scl = sign(xScale);
-
-		var _sprRight	= [spr_wizard_right, spr_wizard_walk_right, spr_wizard_fall_right, spr_wizard_jump_right];
-		var _sprRightNA	= [spr_wizard_right_noArm, spr_wizard_walk_right_noArm, spr_wizard_fall_right_noArm, spr_wizard_jump_right_noArm];	 
-		var _sprLeft	= [spr_wizard_left, spr_wizard_walk_left, spr_wizard_fall_left, spr_wizard_jump_left];
-
-	
-		var _haveItemInHands = (itemSelectedStruct != clearSlot);
-		var _sprites;
-	
-	
-		// Left sprites
-		if (_scl == -1)				_sprites = _sprLeft;
 		
-		// Right sprites No Arm
-		else if(_haveItemInHands == false || stopCondition)	_sprites = _sprRight;
-		else						_sprites = _sprRightNA;
+		// id sprites
+		var _idSprites = -1;
+		// Sprites originais
+		var _finalSprites = {
+			leg: sprite_index,
+			body: sprite_body
+		}
+		
+		#region Qual array de sprite
+		
+		var _scl = sign(xScale);
+		
+		// Leg sprites
+		var _spritesLeg;
+		if (_scl == -1)	_spritesLeg = spr_LeftLeg;
+		else			_spritesLeg = spr_rightLeg;
 	
+		// Body sprites
+		var _spritesBody;
+		var _haveItemInHands = (itemSelectedStruct != clearSlot);
+		if(_haveItemInHands && _scl == 1)	_spritesBody = spr_bodyNoArm;
+		else					_spritesBody = spr_bodyArm;
+	
+		#endregion
+	
+		#region Muda id da array
+		
 		if((_inGround) && jump == false) {
 		
 			// Walk 
-			if ((hval != 0)) return _sprites[1];
+			if ((hval != 0))	 _idSprites = 1;
 			// Idle
-			else				return _sprites[0];
+			else				_idSprites = 0;
 		}
 		// Fall
-		else if (jump == false)	return _sprites[2];
+		else if (jump == false)	_idSprites = 2;
 		// Jump
-		else			return _sprites[3];
+		else			_idSprites = 3;
+		
+		#endregion
+		
+		// Se mudou o sprite
+		if(_idSprites != -1) _finalSprites = {
+			
+			leg: _spritesLeg[_idSprites],
+			body: _spritesBody[_idSprites]
+		}
+	
+		return _finalSprites;
 	}
 
 	// Retorna novo valor da estamina
@@ -921,9 +941,12 @@ function fUseItem(idItem, whoUseItem) {
 				// Dano
 				life -= _dmg;
 	
+				var _xRecoilDmg = (spd*3 * _sideRecoil);
+				var _yRecoilDmg = (spdJumpVal*0.5);
+				
 				// Recoil do dano
-				recoilXDmg = (other.spd*3 * _sideRecoil);
-				recoilYDmg = (-other.jump*0.8);
+				recoilXDmg = _xRecoilDmg;
+				recoilYDmg = (_yRecoilDmg + vval > spdJumpVal) ? _yRecoilDmg : spdJumpVal - vval;
 
 				// Cooldown dano
 				alarm[alarmDmg] = cooldownDamage;

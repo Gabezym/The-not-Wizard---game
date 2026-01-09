@@ -40,22 +40,9 @@ indexAI = 0;
 alarmLiquid = 3;
 alarmInt = 2;
 
-
 // Array
 followObjects = [];	
 interactionObjects = [];
-
-#region Arm 
-
-armXVal = -2;
-armYVal = -24;
-disToHand = ((sprite_get_height(spr_wizard_arm) * 2) - 8);
-
-armX = 0;
-armY = 0;
-armAngle = 0
-
-#endregion
 
 #region Comandos 
 
@@ -107,6 +94,36 @@ keySlot5 = ord("5");
 
 #endregion
 
+#region Sprites, escala e colisão
+
+spr_bodyArm		= [spr_wizard_body_idle, spr_wizard_body_walk, spr_wizard_body_falling, spr_wizard_body_jump];
+spr_bodyNoArm	= [spr_wizard_body_noArm_idle, spr_wizard_body_noArm_walk, spr_wizard_body_noArm_falling, spr_wizard_body_noArm_jump];
+spr_rightLeg	= [spr_wizard_leg_right_idle, spr_wizard_leg_right_walk, spr_wizard_leg_right_falling, spr_wizard_leg_right_jump];
+spr_LeftLeg		= [spr_wizard_leg_left_idle, spr_wizard_leg_left_walk, spr_wizard_leg_left_falling, spr_wizard_leg_left_jump];
+
+sprite_body = 0;
+
+armXVal = -1;
+armYVal = -12;
+disToHand = (sprite_get_height(spr_wizard_arm) - 8);
+
+armX = 0;
+armY = 0;
+armAngle = 0
+
+// Escala
+xScaleVal = 1;		// Valor pra mudar o lado
+xScale = xScaleVal;	// Inverte o sprite ou nao
+image_yscale = xScaleVal;
+image_xscale = xScaleVal;
+
+// Sprite colisão
+sprCollision = spr_wizard_collision;	// Sprite da colisao
+mask_index = sprCollision;				// Colisao
+
+
+#endregion
+
 #region Valores Movimentação XY
 
 // Valores XY
@@ -116,7 +133,7 @@ jumpVal = 0;	// Armazema pulo Pressionado(vezes q ocorreu)
 
 spdVal = 5
 spd = spdVal;
-spdJumpVal = -12;
+spdJumpVal = -8;
 spdJump = spdJumpVal;
 maxJumpVal = 15; // Maximo q pode pressionar o pulo
 grav = 1;
@@ -137,19 +154,7 @@ estJump = 10;	// Dreno de estamina por pulo
 
 #endregion
 
-#region Escala e sprite de Colisão
-
-xScaleVal = 2;		// Valor pra mudar o lado
-xScale = xScaleVal;	// Inverte o sprite ou nao
-image_yscale = xScaleVal;
-image_xscale = xScaleVal;
-
-sprCollision = spr_wizard_collision;	// Sprite da colisao
-mask_index = sprCollision;				// Colisao
-
-#endregion
- 
-#region Bool
+#region Bool geral
 
 isDead = false;
 isJumping = false

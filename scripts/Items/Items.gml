@@ -152,7 +152,7 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 		
 	if(!fIsColliding(_x, _y, _widColSpr, _heiColSpr, obj_r_collision)) {
 		
-		instance_create_layer(_x, _y, "ScenarioFront", obj_pickable, _struct);
+		instance_create_layer(_x, _y, "Objects", obj_pickable, _struct);
 		return true;
 	}
 		

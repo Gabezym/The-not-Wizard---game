@@ -41,6 +41,15 @@ function fWithDrawItems(instance) {
 
 #endregion
 
+function fDrawCharacter(_instance) {
+
+	with(_instance) {
+		
+		draw_self();
+		draw_sprite_ext(sprite_body, image_index, x, y, image_xscale, image_yscale, image_angle, c_white, image_alpha);
+	}
+}
+
 function fDrawInventory(_instance) {
 
 	with(_instance)	{
@@ -222,7 +231,7 @@ function fDrawCharacterAndItems(_instance) {
 			fWithDrawItems(_instance);
 		}
 
-		draw_self();
+		fDrawCharacter(self);
 
 		// Na direita, na frente do sprite
 		if((_sideLooking == 1) && stopCondition == false && _haveItemInHands) {

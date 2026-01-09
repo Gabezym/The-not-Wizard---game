@@ -44,9 +44,9 @@ shakeRealySmall = 2;
 
 #region Zoom 
 
-maxZoomVal = 2;
-minZoomVal = 0.75;
-zoomVal = 1;
+maxZoomVal = 3;
+minZoomVal = 2;
+zoomVal = maxZoomVal;
 zoomSpd = 0.05;
 
 #endregion
