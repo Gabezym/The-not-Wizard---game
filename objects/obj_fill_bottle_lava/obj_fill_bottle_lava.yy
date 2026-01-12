@@ -37,5 +37,5 @@
     "path":"sprites/spr_fill_bottle_lava/spr_fill_bottle_lava.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

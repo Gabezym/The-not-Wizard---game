@@ -1,4 +1,4 @@
-#region Spawn
+#region Spawn things
 
 // Checa se ta colidinodo com uma caixa de colisao(uso no spawn)
 function fIsColliding(_posX, _posY, wid, hei, obj) {
@@ -16,7 +16,7 @@ function fIsColliding(_posX, _posY, wid, hei, obj) {
 }
 
 // Spawna o objeto do ataque se tiver o input
-function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
+function fSpawnAttackObject(xPlusAttack, valDamage) {
 
 	with(obj_wizard) {
 
@@ -27,17 +27,24 @@ function fSpawnAttackObject(xPlusAttack, cooldown, valDamage) {
 			var _x = _valX + lengthdir_x(disToHand + xPlusAttack, _angl);
 			var _y = _valY + lengthdir_y(disToHand + xPlusAttack, _angl);
 			
+			var _side = (sign(xScale));
+			
 			var _struct = {
 
 				damage: valDamage,
-				angle: _angl
+				angle: _angl,
+				yscale: _side
 			}
 
 			var _id = instance_create_layer(_x, _y, "ScenarioFront", obj_attack, _struct);
 	
 			array_insert(followObjects, array_length(followObjects), _id);
 	
-			alarm[0] = cooldown;
+			fWithChangeEstamina(self, estAttack);
+			
+			inAtackAnimation = true;
+			
+			alarm[0] = cooldownAtack;
 		}
 }
 
@@ -275,5 +282,54 @@ function fFillBottle(_instance, _liquidId, _canInteract) {
 	
 	}
 } 
+
+#endregion
+
+#region Systems
+
+// Sistema completo de jogar items
+function fWithThrowItem(_instance) {
+
+	with(_instance) {
+	
+		if(isThrowing) {
+						
+			// Force
+			if(input2 && (forceVal < forceValMax)) {
+				
+				if(forceVal+incForceVal < forceValMax) {
+		
+					forceVal += incForceVal;
+				}
+				else forceVal = forceValMax
+			}
+			// Throw
+			else {
+
+
+				with(obj_wizard) {
+
+					isUpdateInvetory = true;
+					
+					var _forceVal = other.forceVal;
+					
+					if(estamina <= 0) _forceVal /= 2;
+					
+					newInventory = fThrowItem(inventory, selectedSlot, other.x, other.y, _forceVal);
+					
+					fWithSetNewInventory(self);
+				}
+				
+				forceVal = forceValMin;
+				isThrowing = false;
+			}
+		}
+		
+		if(input2Pressed) {
+			
+			isThrowing = true;
+		}
+	}
+}
 
 #endregion

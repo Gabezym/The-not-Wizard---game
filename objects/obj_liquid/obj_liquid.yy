@@ -18,7 +18,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Bottle",
-    "path":"folders/Objects/Items/Tools/Bottle.yy",
+    "path":"folders/Objects/Items/ItemsInHand/Bottle.yy",
   },
   "parentObjectId":{
     "name":"obj_r_liquid",

@@ -50,12 +50,14 @@ function fDropAllItems(_inventory, _slot, _x, _y,  _spd) {
 // -- Aprovado \[T]/
 // Retorna o inventario com o slot a menos ou ele zerado e spawna o item
 // P: array, int, int, int
-function fThrowItem(_inventory, _slot, _x, _y) {
+function fThrowItem(_inventory, _slot, _x, _y, _force) {
+	
+	var _ranInt = random_range(-0.5, 0.5)
 	
 	var _strItem = fGetSlotInventory(_inventory, _slot);
 	var _id = _strItem.itemId;
 	var _grav = 0.4;
-	var _spd = 8;
+	var _spd = _force;
 	var _status = _strItem.itemStatus;
 	
 	var _ang = obj_mouse.mouseAnglePlayer;
@@ -73,13 +75,22 @@ function fThrowItem(_inventory, _slot, _x, _y) {
 		if(obj_wizard.vval != 0)	_vval  = random_range(_min, _max);
 	}
 	
-	var hval = lengthdir_x(_spd+_hval, _ang);	// Valor usado
-	var vval = lengthdir_y(_spd+_vval, _ang);	// Valor usado
+	var hval = lengthdir_x(_spd+_hval+_ranInt, _ang);	// Valor usado
+	var vval = lengthdir_y(_spd+_vval-_ranInt, _ang);	// Valor usado
 	
 	var _can = fSpawnItem(_x, _y, _id, _grav, hval, vval, _status, 1);
 	
 	// Se conseguiu spawnar o objeto, ele tira o objeto do inventario
-	if(_can)	return fRemoveOneItemSlotInventoryAndDelete(_inventory, _slot);
+	if(_can) {
+		
+		with(obj_wizard) {
+			
+			fWithChangeEstamina(self, estThrow);
+			alarm[0] = cooldownThrow;	
+		}
+		
+		return fRemoveOneItemSlotInventoryAndDelete(_inventory, _slot);
+	}
 	else		return _inventory;
 } 
 
@@ -108,10 +119,14 @@ function fUseItem(idItem, whoUseItem) {
 		
 		var _toxicity = obj_config.effectsData[_effect].toxicity;
 		fWithToxicityIncrease(self, _toxicity);	// Aumenta a toxicidade	
+		
+		alarm[0] = cooldownUseItem;
 	}
 	
 	 return fRemoveOneItemSlotInventory(inventory, selectedSlot);
 }
+	
+	
 
 #endregion
 
@@ -194,8 +209,9 @@ function fUseItem(idItem, whoUseItem) {
 		// Body sprites
 		var _spritesBody;
 		var _haveItemInHands = (itemSelectedStruct != clearSlot);
-		if(_haveItemInHands && _scl == 1)	_spritesBody = spr_bodyNoArm;
-		else					_spritesBody = spr_bodyArm;
+		
+		if(_haveItemInHands && _scl == 1 && stopCondition == false) _spritesBody = spr_bodyNoArm;
+		else _spritesBody = spr_bodyArm;
 	
 		#endregion
 	
@@ -216,10 +232,13 @@ function fUseItem(idItem, whoUseItem) {
 		#endregion
 		
 		// Se mudou o sprite
-		if(_idSprites != -1) _finalSprites = {
+		if(_idSprites != -1) { 
+
+			_finalSprites = {
 			
-			leg: _spritesLeg[_idSprites],
-			body: _spritesBody[_idSprites]
+				leg: _spritesLeg[_idSprites],
+				body: _spritesBody[_idSprites]
+			}
 		}
 	
 		return _finalSprites;
@@ -453,7 +472,7 @@ function fUseItem(idItem, whoUseItem) {
 				leftClickReleased	= mouse_check_button_released(mouseLeftClick);
 				leftClickPressed	= mouse_check_button_pressed(mouseLeftClick);
 
-				rightClick			= mouse_check_button_pressed(mouseRightClick)
+				rightClick			= mouse_check_button(mouseRightClick)
 				rightClickPressed	= mouse_check_button_pressed(mouseRightClick);
 
 				#endregion
@@ -480,8 +499,9 @@ function fUseItem(idItem, whoUseItem) {
 				
 				var _id = fGetSlotInventory(inventory, selectedSlot).itemId;
 				isInputItem			= fIsInputItem(leftClick, alarm[0], stopCondition, _id);
-				isInputPressedItem	= fIsInputItem(leftClickPressed, 0, stopCondition, _id);
+				isInputPressedItem	= fIsInputItem(leftClickPressed, alarm[0], stopCondition, _id);
 				isInputItem2		= fIsInputItem(rightClick, alarm[0], stopCondition, _id);
+				isInputPressedItem2	= fIsInputItem(rightClickPressed, alarm[0], stopCondition, _id);
 
 				#endregion
 
@@ -592,11 +612,7 @@ function fUseItem(idItem, whoUseItem) {
 				// Vval Pulo
 				if (isJumping) { 
 
-					var _estDrain = (inGround ? estJump : estJump/10);
-	
-					vval = ((jump * spdJump + recoilYDmg) * slow * efBigJump);
-					estamina -= _estDrain;
-					alarm[4] = cooldownEstamina;
+					vval = ((jump * spdJump + recoilYDmg) * slow * efBigJump);				
 				}
 				else if(recoilYDmg != 0) vval = recoilYDmg;
 
@@ -684,6 +700,9 @@ function fUseItem(idItem, whoUseItem) {
 				itemSelectedStruct = fGetSlotInventory(inventory, selectedSlot);
 				itemInHand = itemSelectedStruct.itemId;
 
+				// Info do ultimo objeto na mão
+				lastItemSelectedStruct = fGetSlotInventory(inventory, lastSelectedSlot);
+		
 				// Cria e destroi os items
 				fWithChangeInstanceHands(self);
 			}
@@ -955,4 +974,14 @@ function fUseItem(idItem, whoUseItem) {
 			}
 		}
 
+		// Sistema pra tirar estamina do player
+		function fWithChangeEstamina(_instance, _reduction) {
+
+			with(_instance) {
+	
+				estamina -= _reduction;
+				alarm[4] = cooldownEstamina;
+			}
+		}
+		
 #endregion

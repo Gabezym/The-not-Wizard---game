@@ -1,10 +1,9 @@
 xScale = 1;	
 
 lifeTime = CONSTANTS.SPD_GAME*0.05;
-
-alarm[0] = lifeTime;
+image_yscale = yscale;
 image_angle = angle;
-sprite_index = spr_attack;
+image_speed = 1;
 
 alreadyAttacked = [];
 

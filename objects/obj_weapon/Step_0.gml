@@ -1,32 +1,13 @@
-if(inPause) exit;
-
-var _isAttacking = obj_wizard.isInputItem;
-var _haveStamina = (obj_wizard.estamina >= estaminaDrain);
-var _isThrowing = obj_wizard.isInputItem2;
+// Inherit the parent event
+event_inherited();
 
 // Se clicou com o botao esquerdo, ataca com o item
-if (_isAttacking ) {
+if (input1Pressed) {
 	
-	if(_haveStamina) {
-		
-		fSpawnAttackObject(xPlusAttack, cooldownInput, damage * obj_wizard.efMoreDamage);
-		obj_wizard.estamina-=estaminaDrain;
-	}
-	else {
+	var _haveStamina = (obj_wizard.estamina > 0);
+	var _dmg = damage;
 	
-		fSpawnAttackObject(xPlusAttack, cooldownInput, damage / 2);
-		obj_wizard.estamina=0;
-	}
-	obj_wizard.alarm[4] = obj_wizard.cooldownEstamina;
+	if(_haveStamina == false) _dmg = damage/2;
+	
+	fSpawnAttackObject(xPlusAttack, _dmg);
 }
-	
-// Se clicou com o botao direito, joga o item
-/*if(_isThrowing) {
-		
-		with(obj_wizard) {
-			
-			isUpdateInvetory = true;
-			newInventory = fThrowItem(inventory, selectedSlot, other.x, other.y);
-			fWithSetNewInventory(self)
-		}
-	}	

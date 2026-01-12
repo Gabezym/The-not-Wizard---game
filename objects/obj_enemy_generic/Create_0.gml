@@ -11,8 +11,8 @@ directions = {
 // Geral 
 lifeVal = 50;
 life = lifeVal;
-spd= 3;
-jump = 15;
+spd= 2;
+jump = 8;
 damage = 20;
 
 

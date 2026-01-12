@@ -10,9 +10,12 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Weapon",
-    "path":"folders/Objects/Items/Tools/Weapon.yy",
+    "path":"folders/Objects/Items/ItemsInHand/Weapon.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_item_inHand",
+    "path":"objects/obj_item_inHand/obj_item_inHand.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

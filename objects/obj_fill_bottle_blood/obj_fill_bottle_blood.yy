@@ -37,5 +37,5 @@
     "path":"sprites/spr_fill_bottle_blood/spr_fill_bottle_blood.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

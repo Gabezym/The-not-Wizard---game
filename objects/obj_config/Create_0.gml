@@ -353,7 +353,7 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 
 // Define a velocida dos frames do jogo
 game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);
-window_set_fullscreen(true);
+window_set_fullscreen(false);
 
 // Se esta em dialogo
 global.in_text = false;

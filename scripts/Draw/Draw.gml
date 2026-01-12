@@ -28,11 +28,12 @@ function fWithDrawItems(instance) {
 					
 					#endregion Vars
 					
-					if(_instance.object_index != obj_attack)	_xScl *=_side;
-
-					else										_yScl *=_side; 
-
-					draw_sprite_ext(_spr, 1, _x, _y, _xScl, _yScl, _angle, c_white, _alpha);
+					if(_instance.object_index != obj_attack) {
+						
+						_xScl *=_side;
+						
+						draw_sprite_ext(_spr, 1, _x, _y, _xScl, _yScl, _angle, c_white, _alpha);
+					}
 				}
 			}
 		}
@@ -222,8 +223,10 @@ function fDrawCharacterAndItems(_instance) {
 		var _sideLooking = (sign(xScale));
 		var _haveItemInHands = (itemSelectedStruct != clearSlot);
 		
+		var _canDrawArm = (stopCondition == false && _haveItemInHands);
+		
 		// Na esquerda, atras do sprite
-		if((_sideLooking == -1) && stopCondition == false && _haveItemInHands) { 
+		if((_sideLooking == -1) && _canDrawArm) { 
 	
 			// Desenha Arm
 			draw_sprite_ext(spr_wizard_arm, 1, armX, armY, -xScaleVal, xScaleVal, armAngle, c_white, 1);
@@ -234,7 +237,7 @@ function fDrawCharacterAndItems(_instance) {
 		fDrawCharacter(self);
 
 		// Na direita, na frente do sprite
-		if((_sideLooking == 1) && stopCondition == false && _haveItemInHands) {
+		if((_sideLooking == 1) && _canDrawArm) {
 			
 			fWithDrawItems(_instance)
 			

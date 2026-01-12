@@ -28,7 +28,7 @@ var _inGround = place_meeting(x,y+1, obj_r_collision);
 var _strSprites = fChangeSprite(hval, inJumpAnimation, xScale, _inGround);
 
 // Muda só se for diferente
-var _sameSprites = ((sprite_body == _strSprites.body) && (sprite_index == _strSprites.leg));
+var _sameSprites = ((sprite_body == _strSprites.body) && (sprite_index == _strSprites.leg) && (sprite_body == _strSprites.body));
 if(_sameSprites == false) {
 	
 	sprite_index	= _strSprites.leg;

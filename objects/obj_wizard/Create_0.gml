@@ -4,6 +4,14 @@ cooldownInteraction = CONSTANTS.SPD_GAME*0.1;
 cooldownEstamina =	CONSTANTS.SPD_GAME*1;
 cooldownDamage = CONSTANTS.SPD_GAME*1.5;
 
+#region Cooldown itens
+
+cooldownAtack	= CONSTANTS.SPD_GAME * 0.4;
+cooldownThrow	= CONSTANTS.SPD_GAME * 0.2;
+cooldownUseItem	= CONSTANTS.SPD_GAME * 0.1;
+
+#endregion
+
 
 // Vida
 maxLife = 100;
@@ -131,7 +139,7 @@ hval = 0;
 vval = 0;
 jumpVal = 0;	// Armazema pulo Pressionado(vezes q ocorreu)
 
-spdVal = 5
+spdVal = 4;
 spd = spdVal;
 spdJumpVal = -8;
 spdJump = spdJumpVal;
@@ -150,7 +158,8 @@ maxEstamina = 100;
 estamina = maxEstamina;
 regeneracaoEstaminaVal = 2;
 regeneracaoEstamina = regeneracaoEstaminaVal;
-estJump = 10;	// Dreno de estamina por pulo
+estThrow	= 15;	// Dreno de estamina por jogar itens
+estAttack	= 20;
 
 #endregion
 
@@ -161,12 +170,7 @@ isJumping = false
 isFalling = false;
 isFirstJump = true;		// Se tu ainda n pulou, só pode acontecer no chão
 isCoyoteJump = false;
-isInInventory = false;
-isInputItem = false;		// Se ta mandando um input pro item em mãos(primario)
-isInputPressedItem = false;	// Se deu um click de input pro item em mão
-isInputItem2 = false;		// Se ta mandando um input pro item em mãos(secundario)
 inJumpAnimation = false;
-isUpdateInvetory = false;
 
 #endregion
 
@@ -213,12 +217,21 @@ instanceInHands = noone;
 
 // Retorna a struct do INVENTARIO
 itemSelectedStruct = clearSlot;
+lastItemSelectedStruct = itemSelectedStruct;
 
 // Pro inventario do draw 
 slotStrClick = undefined;
 slotClick = -1;
 newInventory = undefined;
 
+// Input Itens
+isInputItem = false;			// Se ta mandando um input pro item em mãos(primario)
+isInputPressedItem = false;		// Se deu um click de input pro item em mãos(primario)
+isInputItem2 = false;			// Se ta mandando um input pro item em mãos(secundario)
+isInputPressedItem2 = false;	// Se deu um click de input pro item em mãos(secundario)
+
+isUpdateInvetory = false;
+isInInventory = false;
 #endregion
 
 #region Crafting

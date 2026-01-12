@@ -1,4 +1,3 @@
 str = {
 	text : ["Laboratório abaixo."]
 }
-	

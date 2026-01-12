@@ -13,8 +13,8 @@
   "name":"obj_pickable",
   "overriddenProperties":[],
   "parent":{
-    "name":"Pickable",
-    "path":"folders/Objects/Items/Pickable.yy",
+    "name":"ItemsOnGrond",
+    "path":"folders/Objects/Items/ItemsOnGrond.yy",
   },
   "parentObjectId":{
     "name":"obj_r_interaction",

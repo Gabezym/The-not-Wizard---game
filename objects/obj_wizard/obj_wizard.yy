@@ -48,7 +48,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_wizard_collision",
+    "path":"sprites/spr_wizard_collision/spr_wizard_collision.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

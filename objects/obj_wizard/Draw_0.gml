@@ -34,3 +34,37 @@ if(_lenIA != 0) {
 }
 	
 #endregion
+
+#region Throwing Bar
+
+if(itemInHand != ITEMS_ID.NOTHING) {
+
+	if(instanceInHands.isThrowing) {
+	
+		var _ins = instanceInHands;
+		var _forceValMin = _ins.forceValMin;
+		var _forceVal = _ins.forceVal - _forceValMin;
+		var _forceValMax = _ins.forceValMax - _forceValMin;
+	
+		var _forcePercent = (_forceVal/ _forceValMax);
+	
+		var _spr = spr_throw_bar;
+		var _widSpr = sprite_get_width(_spr);
+		var _heiSpr = sprite_get_height(_spr);
+
+		var _px2 = _widSpr * _forcePercent;
+		var _py2 = _heiSpr;
+
+		var _xx = x;
+		var _yy = (y -_heiSpr);
+		var _xxP = _xx - _widSpr/2;
+		var _yyP = _yy - _heiSpr/2;
+	
+		draw_sprite_part(_spr, 1, 0, 0, _px2, _heiSpr, _xxP, _yyP);
+		draw_sprite_ext(_spr, 1, _xx,  _yy, 1, 1, 0, c_white, 0.3);
+	}
+}
+
+
+
+#endregion

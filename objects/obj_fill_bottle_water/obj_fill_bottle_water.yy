@@ -37,5 +37,5 @@
     "path":"sprites/spr_fill_bottle_water/spr_fill_bottle_water.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

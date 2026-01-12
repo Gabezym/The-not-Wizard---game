@@ -37,5 +37,5 @@
     "path":"sprites/spr_fill_bottle_acid/spr_fill_bottle_acid.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

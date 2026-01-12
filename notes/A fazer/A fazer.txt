@@ -14,9 +14,6 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Pixel art, 1 pixel errado ombro.
-BUG dano e pular ao mesmo tempo - BIG JUMP;
+Zoom ta deixando pixel errados;
 
-Arrumei bug da array de interação, ajustei gasto de estamina no jump, ajustei codigo de movimentação.
-
-Transformei sprite do player em perna e corpo, alterei a escala do jogo.
+Corrigi bug de spawn de itens infinito, adicionei mecanica de força ao arremesso. 

@@ -1,22 +1,18 @@
-if(inPause) exit;
+// Inherit the parent event
+event_inherited();
+	
 
-with(obj_wizard) {
 	
+// Se clicou com o botao esquerdo, usa o item
+var _canUse = obj_config.itemsNoActionData[other.itemId].canUse;
+if(input1Pressed && _canUse)	{
 	
-	var _canUse = obj_config.itemsNoActionData[other.itemId].canUse;
-	
-	// Se clicou com o botao esquerdo, usa o item
-	if(isInputPressedItem && _canUse)	{
+	with(obj_wizard) {
 		
 		isUpdateInvetory = true;
 		newInventory = fUseItem(other.itemId, obj_wizard);
-		fWithSetNewInventory(self)
-	}
-	// Se clicou com o botao direito, joga o item
-	if(isInputItem2) {
-		
-		isUpdateInvetory = true;
-		newInventory = fThrowItem(inventory, selectedSlot, other.x, other.y);
-		fWithSetNewInventory(self)
+		fWithSetNewInventory(self);
 	}
 }
+	
+fWithThrowItem(self);

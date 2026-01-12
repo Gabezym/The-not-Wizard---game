@@ -208,26 +208,22 @@ function fWithSelectedSlot(instance) {
 	
 	with(instance) {
 		
-		var _newSelectedSlot		= selectedSlot;
-		var _newLastSelectedSlot	= lastSelectedSlot;
-
+		var _slot = selectedSlot;
 		var _slotIputButton = slot1 + slot2 + slot3 + slot4 + slot5;
+	
+		if(_slot != lastSelectedSlot) lastSelectedSlot = _slot;
 	
 		if(_slotIputButton != 0) {
 
-			if		(slot1)	_newSelectedSlot =	0;
-			else if (slot2)	_newSelectedSlot =  1;
-			else if (slot3)	_newSelectedSlot =	2;
-			else if (slot4)	_newSelectedSlot =  3;
-			else if (slot5)	_newSelectedSlot =  4;
+			if		(slot1)	_slot =	0;
+			else if (slot2)	_slot =	1;
+			else if (slot3)	_slot =	2;
+			else if (slot4)	_slot =	3;
+			else if (slot5)	_slot =	4;
 		}
 	
-		// Se trocou de slot
-		if(_newSelectedSlot != selectedSlot) _newLastSelectedSlot = selectedSlot;
-	
-	
-		selectedSlot		= _newSelectedSlot;
-		lastSelectedSlot	= _newLastSelectedSlot;
+		//Trocou de slot
+		if(selectedSlot != _slot) selectedSlot = _slot;
 	}
 }
 
@@ -389,7 +385,7 @@ function fWithChangeInstanceHands(instance) {
 	
 			var _InstExist = instance_exists(instanceInHands);
 			
-			var _isNewObject = (_InstExist) ? (instanceInHands.itemId != itemSelectedStruct.itemId) : false;
+			var _isNewObject = (_InstExist) ? (instanceInHands.itemId != lastItemSelectedStruct.itemId) : false;
 			
 			// No action muda só o id
 			var _NASameId = (_strObjHand.type == ITEMS_TYPE.NO_ACTION && _InstExist) ? (itemInHand == instanceInHands.itemId) : true;
@@ -397,7 +393,10 @@ function fWithChangeInstanceHands(instance) {
 			var _lastStruct = fGetSlotInventory(inventory, lastSelectedSlot);
 			var _newStatus = (itemSelectedStruct.itemStatus != _lastStruct.itemStatus);
 			
-			if((_haveInstance == false) || _isNewObject ||  _newStatus) fWithCreateInstanceInHands(instance);
+			if((_haveInstance == false) || _isNewObject ||  _newStatus) {
+				
+				fWithCreateInstanceInHands(instance);
+			}
 			
 		}
 		

@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Spawn Items",
-    "path":"folders/Objects/Items/Pickable/Spawn Items.yy",
+    "path":"folders/Objects/Items/ItemsOnGrond/Spawn Items.yy",
   },
   "parentObjectId":{
     "name":"obj_pickable",
