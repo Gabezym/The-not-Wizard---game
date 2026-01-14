@@ -119,6 +119,15 @@ armX = 0;
 armY = 0;
 armAngle = 0
 
+armShake = 0;		// Armazena valor do shake
+
+armShakeAttackVal = 13;
+armShakeAttack = armShakeAttackVal;
+
+armShakeThrowDirection = 40;	// Valor pra mover pra cima ou pra baixo antes de arremessar
+armShakeThrow = 3;				// Valor do shake do throw
+
+
 // Escala
 xScaleVal = 1;		// Valor pra mudar o lado
 xScale = xScaleVal;	// Inverte o sprite ou nao
@@ -171,6 +180,8 @@ isFalling = false;
 isFirstJump = true;		// Se tu ainda n pulou, só pode acontecer no chão
 isCoyoteJump = false;
 inJumpAnimation = false;
+inAtackAnimation = false;
+inThrowingAnimation	= false;
 
 #endregion
 

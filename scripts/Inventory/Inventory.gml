@@ -396,6 +396,8 @@ function fWithChangeInstanceHands(instance) {
 			if((_haveInstance == false) || _isNewObject ||  _newStatus) {
 				
 				fWithCreateInstanceInHands(instance);
+								
+				fWithArmRestAnimations(instance);
 			}
 			
 		}

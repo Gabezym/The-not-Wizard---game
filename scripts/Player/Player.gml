@@ -447,6 +447,78 @@ function fUseItem(idItem, whoUseItem) {
 		}
 	}
 
+	function fWithArmRestAnimations(_instance) {
+	
+		with(_instance) {
+			
+			inAtackAnimation = false;
+			inThrowingAnimation = false;
+		}
+	}
+
+	function fWithArmAngle(_instance) {
+	
+		with(_instance) {
+			
+			var _angle = (point_direction(armX, armY, mouse_x, mouse_y)); 
+			
+			// Types animation
+			var _aniInCooldown = (inAtackAnimation);
+			var _aniOutCooldown = (inThrowingAnimation);
+			
+			var _haveWeapon = (itemInHand == ITEMS_ID.WEAPON);
+			
+			// Animações durante cooldown
+			if(alarm[0] > 0 && _aniInCooldown) {
+		
+				// Animation Attack
+				if(_haveWeapon) { 
+					
+					if(armShake == armShakeAttack) armShakeAttack = (armShakeAttackVal * -sign(armShakeAttack));
+		
+					armShake = round(lerp(armShake, armShakeAttack, 0.6));
+				}
+				else if(inAtackAnimation) inAtackAnimation = false;
+			}
+			
+			// Animações pré cooldown
+			else if(alarm[0] <= 0 && _aniOutCooldown){
+				
+				
+				var _shakeVal;
+				
+				// Se vai abaixar pra jogar pra cima ou levantar pra jogar pra baixo
+				// Pra cima
+				if(_angle >= 0 && _angle < 180) _shakeVal = -armShakeThrowDirection * xScale;
+				// Pra baixo
+				else							_shakeVal = armShakeThrowDirection * xScale;
+				
+				// Aonde a mao ira
+				var _valToGo = round(_shakeVal + armShakeThrow);	
+				
+				// Levanta lento, fica tremendo depois de levantar
+				var _inc = ((armShake < _shakeVal-0.5 || armShake > _shakeVal+0.5) ? 0.4: 0.9);
+				
+				// Nao chegou no destino ainda
+				var _notInToGo = (armShake < _valToGo-0.5 || armShake > _valToGo+0.5);
+				if(_notInToGo) armShake = lerp(armShake, _valToGo, _inc);
+				
+				// Se chegou, troca a var do shake
+				else armShakeThrow *= -1;
+				
+			}
+			
+			// Reseta vars
+			else {
+		
+				fWithArmRestAnimations(_instance);
+				armShake = 0;
+			}
+		
+			armAngle = _angle + 90 + armShake;
+		}
+	}
+
 #endregion
 
 
@@ -497,11 +569,10 @@ function fUseItem(idItem, whoUseItem) {
 
 				#region Input Itens equipados
 				
-				var _id = fGetSlotInventory(inventory, selectedSlot).itemId;
-				isInputItem			= fIsInputItem(leftClick, alarm[0], stopCondition, _id);
-				isInputPressedItem	= fIsInputItem(leftClickPressed, alarm[0], stopCondition, _id);
-				isInputItem2		= fIsInputItem(rightClick, alarm[0], stopCondition, _id);
-				isInputPressedItem2	= fIsInputItem(rightClickPressed, alarm[0], stopCondition, _id);
+				isInputItem			= fIsInputItem(leftClick, alarm[0], stopCondition, itemInHand);
+				isInputPressedItem	= fIsInputItem(leftClickPressed, alarm[0], stopCondition, itemInHand);
+				isInputItem2		= fIsInputItem(rightClick, alarm[0], stopCondition, itemInHand);
+				isInputPressedItem2	= fIsInputItem(rightClickPressed, alarm[0], stopCondition, itemInHand);
 
 				#endregion
 
@@ -758,7 +829,7 @@ function fUseItem(idItem, whoUseItem) {
 									var _valY = other.y + other.armYVal;
 							
 									// Angulo
-									var _ang = point_direction(_valX, _valY, mouse_x, mouse_y);
+									var _ang = other.armAngle-90;
 							
 									var _x = _valX;	 
 									var _y = _valY;

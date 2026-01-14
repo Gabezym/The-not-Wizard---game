@@ -328,6 +328,8 @@ function fWithThrowItem(_instance) {
 		if(input2Pressed) {
 			
 			isThrowing = true;
+			
+			with(obj_wizard) inThrowingAnimation = true;
 		}
 	}
 }

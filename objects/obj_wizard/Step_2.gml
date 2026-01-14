@@ -48,10 +48,10 @@ var _alarm = alarm[alarmDmg];
 if(_alarm <= 0) shadersDmgCheck = false; 
 else {
 		
-	var _checkRest = (_alarm % shadersDmgCheckVal);
-	var _durationHit = 5;
-	var _isInRange = ((_checkRest == 0) || (_checkRest < _durationHit));
+	var _checkRest = (_alarm % shadersDmgCheckVal);	// Quantas vezes acontece
+	var _durationHit = 5;	// Duração por frames
 	
+	var _isInRange = ((_checkRest == 0) || (_checkRest < _durationHit));
 	if(_isInRange)	shadersDmgCheck = true;
 	else			shadersDmgCheck = false;
 } 
@@ -71,7 +71,7 @@ x+= hval;
 armX = x+armXVal;
 armY = y+armYVal;
 
-armAngle = point_direction(armX, armY, mouse_x, mouse_y) + 90;
+fWithArmAngle(self);
 
 #endregion
 

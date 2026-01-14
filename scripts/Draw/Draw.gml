@@ -39,9 +39,7 @@ function fWithDrawItems(instance) {
 		}
 	}
 }
-
-#endregion
-
+	
 function fDrawCharacter(_instance) {
 
 	with(_instance) {
@@ -50,6 +48,10 @@ function fDrawCharacter(_instance) {
 		draw_sprite_ext(sprite_body, image_index, x, y, image_xscale, image_yscale, image_angle, c_white, image_alpha);
 	}
 }
+
+#endregion
+
+
 
 function fDrawInventory(_instance) {
 
