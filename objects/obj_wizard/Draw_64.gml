@@ -1,7 +1,7 @@
 if(inPause) exit;
 
-var _viewWid = obj_camera.camWidth;
-var _viewHei = obj_camera.camHeight;
+var _viewWid = CONSTANTS.CAMERA_WIDTH;
+var _viewHei = CONSTANTS.CAMERA_HEIGHT;
 
 if(isCrafting) {
 	
@@ -38,8 +38,8 @@ fDrawInventory(self);
 	
 #region Life
 	
-var _UI_LifeXVal = _viewWid div 14; 
-var _UI_LifeYVal = _viewHei div 12;
+var _UI_LifeXVal = _viewWid div 7; 
+var _UI_LifeYVal = _viewHei div 4;
 
 var _heiSpr = sprite_get_height(spr_UI_Life_Full);
 var _widSpr = sprite_get_width(spr_UI_Life_Full);

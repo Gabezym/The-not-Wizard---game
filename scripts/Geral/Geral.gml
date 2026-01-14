@@ -99,35 +99,6 @@ function fDrawBoxText(_x, _y, _text, _font) {
 
 #region Encurtar
 
-// Aplica o zoom na camera
-function fWithCameraZoom(_instance) {
-
-	with(_instance) {
-	
-		// Pega tamanho atual
-		viewWidth	= camera_get_view_width(view_camera[view]);
-		viewHeight	= camera_get_view_height(view_camera[view]);
-
-		// Calcula tamanho desejado pela escala
-		var desired_width = camWidth / zoomVal;
-		var desired_height = camHeight / zoomVal;
-
-		// Interpola para suavizar
-		var _valWid = (lerp(viewWidth, desired_width, zoomSpd));
-		var _valHei = (lerp(viewHeight, desired_height, zoomSpd));
-			
-		// Check se o tamanho da view não é maior que a room
-		// View X
-		if(_valWid < room_width)	viewWidth	= _valWid;
-		else						viewWidth = room_width;
-		
-		// View Y
-		if(_valHei < room_height)	viewHeight	= _valHei;
-		else						viewHeight = room_height;
-		viewHeight	= _valHei;
-	}
-}
-
 // Define novo valor pra mover a camera
 function fWithCameraMove(_instance) {
 
@@ -136,24 +107,24 @@ function fWithCameraMove(_instance) {
 		// O que a camera deve seguir
 		if(follow != noone) {
 
-			xTo = follow.x;
-			yTo = follow.y;
+			xTo = follow.x + follow.hval;
+			yTo = follow.y + follow.vval;
 		}
-	
-		newX = (lerp(x, xTo, 0.15));
-		newY = (lerp(y, yTo, 0.15));
+		
+		newX = (lerp(x, xTo, camSpd));
+		newY = (lerp(y, yTo, camSpd*1.5));
 
-		var _xGreater = (room_width < newX + viewWidth*0.5);
-		var _xLess = (0 > newX - viewWidth*0.5);
+		var _xGreater = (room_width < newX + camWidth*0.5);
+		var _xLess = (0 > newX - camWidth*0.5);
 
-		var _yGreater = (room_height < newY + viewHeight*0.5);
-		var _yLess = (0 > newY - viewHeight * 0.5);
+		var _yGreater = (room_height < newY + camHeight*0.5);
+		var _yLess = (0 > newY - camHeight * 0.5);
 
 		// Limites camera X
 		if(_xGreater ||_xLess) {
 	
-			var _xGreaterVal = (room_width - (viewWidth*0.5));
-			var _xLessVal = (viewWidth*0.5);
+			var _xGreaterVal = (room_width - (camWidth*0.5));
+			var _xLessVal = (camWidth*0.5);
 	
 			if(_xGreater)	newX = _xGreaterVal;
 			else			newX = _xLessVal;
@@ -162,8 +133,8 @@ function fWithCameraMove(_instance) {
 		if(_yGreater || _yLess) {
 	
 	
-			var _yGreaterVal	= (room_height - (viewHeight * 0.5));
-			var _yLessVal		= (0 + viewHeight * 0.5);	
+			var _yGreaterVal	= (room_height - (camHeight * 0.5));
+			var _yLessVal		= (0 + camHeight * 0.5);	
 	
 			if(_yGreater)	newY = _yGreaterVal;
 			else			newY = _yLessVal;
@@ -194,6 +165,16 @@ function fWithShakeScreen(_instance) {
 
 #endregion
 
+function setup_camera() {
+ 	
+	var _view = 0;  	
+
+	view_wport[_view] = 1920;
+	view_hport[_view] = 1080;
+	
+	camera_set_view_size(view_camera[_view], CONSTANTS.CAMERA_WIDTH+1, CONSTANTS.CAMERA_HEIGHT+1);
+}
+
 // Power Shake Screen -> Aplica na camera
 // 0 = shakeRealySmall
 // 1 = Small
@@ -210,14 +191,6 @@ function fShakeScreenPower(_power) {
 }
 
 #endregion
-
-function fSystemPauseGame(_instance) {
-
-	with(_instance) {
-	
-		if(inPause) exit;
-	}
-}
 
 function fPauseGame() {
 

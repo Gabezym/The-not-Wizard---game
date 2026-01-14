@@ -545,8 +545,8 @@ function fWithInvetoryMouse(_instance) {
 
 			#region Vars 
 	
-			var _viewWid = obj_camera.camWidth;
-			var _viewHei = obj_camera.camHeight;
+			var _viewWid = CONSTANTS.CAMERA_WIDTH;
+			var _viewHei = CONSTANTS.CAMERA_HEIGHT;
 	
 			// Cordenadas Mouse
 			var _mouseX = display_mouse_get_x() div 1;
@@ -554,8 +554,8 @@ function fWithInvetoryMouse(_instance) {
 	
 			// Posição X Y
 			var _yLen = array_length(inventory);
-			var _defaultX = _viewWid div 14 * 2;
-			var _defaultY = _viewHei div 12;
+			var _defaultX = _viewWid div 7 * 2.5;
+			var _defaultY = _viewHei div 6;
 	
 			// Tamanho usado
 			var _sprSize = 64;
@@ -602,8 +602,7 @@ function fWithInvetoryMouse(_instance) {
 					var _canIteract = (_same1 && _same2);
 
 					// Na caixa de colisao do slot
-					if ((_mouseX >= _slotColMinX && _mouseX <= _slotColMaX) &&
-						(_mouseY >= _slotColMinY && _mouseY <= _slotColMaxY)) {
+					if(point_in_rectangle(_mouseX, _mouseY, _slotColMinX, _slotColMinY, _slotColMaX, _slotColMaxY)) {
 						
 						// Arrasta os items pra outro lugar quando solta
 						// Se soltou o botao do mouse e ja armazenou a posiçao de um slot
@@ -647,8 +646,7 @@ function fWithInvetoryMouse(_instance) {
 					}
 		
 					// Fora da col do inventario
-					else if !((_mouseX > _minXcol && _mouseX < _maxXCol) &&
-							(_mouseY > _minYcol && _mouseY < _maxYcol)) {
+					else if !(point_in_rectangle(_mouseX, _mouseY, _minXcol, _minYcol, _maxXCol, _maxYcol)) {
 				
 							// Se soltou um item fora do inventario
 							if (leftClickReleased && (slotClick != -1)) {

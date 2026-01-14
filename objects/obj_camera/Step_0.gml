@@ -1,8 +1,5 @@
 if(inPause) exit;
 
-// Vars Camera Zoom
-fWithCameraZoom(self);
-
 // Vars Camera Move
 fWithCameraMove(self);
 

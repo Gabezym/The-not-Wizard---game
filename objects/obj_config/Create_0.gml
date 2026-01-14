@@ -3,7 +3,9 @@ randomize();	// Gera uma seed aleatoria
 enum CONSTANTS
 {
 	SPD_GAME = 60,
-	GRID = 32
+	GRID = 32,		// Tamanho da View
+	CAMERA_WIDTH	= 640,
+	CAMERA_HEIGHT	= 360,
 }
 
 #region Effects
@@ -353,7 +355,8 @@ liquidsData[LIQUIDS_ID.LAVA] = {
 
 // Define a velocida dos frames do jogo
 game_set_speed(CONSTANTS.SPD_GAME, gamespeed_fps);
-window_set_fullscreen(false);
+window_set_size(1920, 1080);
+window_set_fullscreen(true);
 
 // Se esta em dialogo
 global.in_text = false;

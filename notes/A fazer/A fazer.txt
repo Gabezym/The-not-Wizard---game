@@ -16,4 +16,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 
 Zoom ta deixando pixel errados;
 
-Corrigi bug de spawn de itens infinito, adicionei mecanica de força ao arremesso. 
+Trabalhando na camera e resoulução. 

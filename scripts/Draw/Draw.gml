@@ -74,8 +74,8 @@ function fDrawInventory(_instance) {
 	
 		// Posição X Y
 		var _yLen = array_length(inventory);
-		var _defaultX = _viewWid div 14 * 2;
-		var _defaultY = _viewHei div 12;
+		var _defaultX = _viewWid div 7 * 2.5;
+		var _defaultY = _viewHei div 6;
 	
 		// Cordenadas Mouse
 		var _mouseX = display_mouse_get_x();

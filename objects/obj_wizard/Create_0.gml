@@ -143,8 +143,8 @@ spdVal = 4;
 spd = spdVal;
 spdJumpVal = -8;
 spdJump = spdJumpVal;
-maxJumpVal = 15; // Maximo q pode pressionar o pulo
-grav = 1;
+maxJumpVal = 13; // Maximo q pode pressionar o pulo
+grav = 0.7;
 slow = 1;
 
 // Pra n da pra ficar pulando pressionando infinitamente
