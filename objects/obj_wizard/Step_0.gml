@@ -1,10 +1,5 @@
 if(inPause) exit;
 
-stopCondition = (isInInventory || inText || inPause);
-
-// Inputs
-fWithInputs(self);
-
 // Se ficar preso
 fStuck(self);
 

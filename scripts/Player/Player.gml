@@ -91,7 +91,12 @@ function fThrowItem(_inventory, _slot, _x, _y, _force) {
 		
 		return fRemoveOneItemSlotInventoryAndDelete(_inventory, _slot);
 	}
-	else		return _inventory;
+	else {
+		
+		with(obj_wizard) inThrowingAnimation = false;
+		
+		return _inventory;
+	}
 } 
 
 // -- Aprovado \[T]/
@@ -585,7 +590,7 @@ function fUseItem(idItem, whoUseItem) {
 					isInInventory = true;
 					
 					// Sai do crafting
-					if(inputInventory) {
+					if(escape || inputInventory) {
 
 						isInInventory = false;
 						isCrafting = false;
@@ -691,7 +696,9 @@ function fUseItem(idItem, whoUseItem) {
 				if (isFalling) {
 					
 					if(recoilYDmg != 0) recoilYDmg += grav;
-					vval += grav
+					
+					// Limite de velocidade de queda 
+					vval = (vval + grav < maxGravVal? vval+grav : maxGravVal); 
 				}
 					
 				// Hval Andando
@@ -712,37 +719,39 @@ function fUseItem(idItem, whoUseItem) {
 				if(place_meeting(x, y + _moveY, obj_r_collision)) {
 	
 					var isColGround = sign(_moveY);
-	
-					y = y div 1;
-	
-					while (!place_meeting(x, y+sign(_moveY), obj_r_collision)) {
-		
-						y+=sign(_moveY);
-					}
-	
+					
 					// Se for uma colição com o chão
 					if(isColGround > 0) {
 		
 						isFirstJump = true;
+						
+						// Deixa pixel perfect no chão, msm com gravidade decimal
+						y = round(y);
 					}
 					else {
 		
 						// Num da pra ficar segurando pulo batendo a cabeça
 						jumpVal = maxJumpVal;
 					}
+					
+					while (!place_meeting(x, y+sign(_moveY), obj_r_collision)) {
+		
+						y+=sign(_moveY);
+					}
 	
 					// Se colidiu de alguma forma, n ta mais na animacao de pular
 					inJumpAnimation = false;
-					vval = 0;
 					recoilYDmg = 0;
+					vval = 0;
 				}
-
+				
+				// Atualiza moveY
+				 _moveY = vval + recoilYDmg;
+				 
 				// X
 				// +vval pq ainda n somou, ele soma só no final
 				if(place_meeting(x +_moveH, y+_moveY, obj_r_collision)) {
 
-					x = x div 1;
-	
 					while(!place_meeting(x+sign(_moveH), y+_moveY, obj_r_collision)) {
 		
 						x+=sign(_moveH);

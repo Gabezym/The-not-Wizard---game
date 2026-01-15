@@ -1,5 +1,10 @@
-inMenu = !inMenu;
-inPause = inMenu;
+var _charactersMenuIsOff = (instance_exists(obj_wizard) == false || obj_wizard.inCharacterMenus == false);
 
-if(inPause)	fPauseGame();
-else		fUnpauseGame()
+if(_charactersMenuIsOff) {
+
+	inMenu = !inMenu;
+	inPause = inMenu;
+
+	if(inPause)	fPauseGame();
+	else		fUnpauseGame()
+}

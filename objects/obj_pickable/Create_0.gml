@@ -47,6 +47,7 @@ colW = sprite_get_width(sprite_index);
 #region Fisica + hit
 
 grav = 0.3;
+maxGravVal = 11;
 hval = _valHval;
 vval = _valVval;
 angl = (_id != ITEMS_ID.WEAPON)? 0 : obj_mouse.mouseAnglePlayer;

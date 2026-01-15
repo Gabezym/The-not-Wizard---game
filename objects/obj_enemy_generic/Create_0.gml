@@ -18,7 +18,8 @@ damage = 20;
 
 slow = 1;
 
-grav = 0.6; 
+grav = 0.6;
+maxGravVal = 11;
 hDisView = 12;
 vDisView = 8;
 

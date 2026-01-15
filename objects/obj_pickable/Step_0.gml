@@ -15,12 +15,15 @@ if(life > 0) {
 	// Se n tiver chao em baixo
 	if(!_colDown) {
 
-		vval += grav;
-	
+		// Limita Velocidae da queda
+		vval = (vval+grav < maxGravVal ? vval+grav : maxGravVal);
 	}
 
 	// Colisão Y + reset jumpVal +  reset isFirstjump
 	if(place_meeting(x, y + vval, obj_r_collision)) {
+		
+		// Pixel perfect no chao
+		if(sign(vval > 0)) y = round(y);
 	
 		while (!place_meeting(x, y+sign(vval), obj_r_collision)) {
 		

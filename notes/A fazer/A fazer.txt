@@ -14,6 +14,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Zoom ta deixando pixel errados;
-
-Trabalhando na camera e resoulução. 
+Arrumei bug de colisão e posição dos sprites, limitei a velocida da queda.

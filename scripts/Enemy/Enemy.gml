@@ -23,7 +23,7 @@ function fEnemyColisionVH(instance) {
 	
 			var isColGround = sign(vval);
 			
-			y = y div 1;
+			if(isColGround > 0) y = round(y);
 			
 			while (!place_meeting(x, y+sign(vval), obj_r_collision)) {
 		

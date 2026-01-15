@@ -17,7 +17,7 @@ else {
 	
 		var _idBlood = LIQUIDS_ID.BLOOD;
 		var _angle = random_range(65, 125);
-		fSpawnLiquid(x, y, _idBlood, 0.2, 4, _angle, 15);
+		fSpawnLiquid(x, y, _idBlood, 0.2, 4, _angle, 5);
 	}
 
 	// Morte TEMPORARIA ---------------------//----
@@ -37,7 +37,7 @@ else {
 
 	// VVAL
 	if (inGround) vval = vertMoveVal * jump*slow;	// Ve se ele ta pulando ou nao
-	else vval += grav;								// Aplica a gravidade -> cai
+	else vval = (vval+grav < maxGravVal? vval+grav: maxGravVal); // Limita velocidade da gravidade
 
 	// HVAL
 	hval = spd *sideMoveVal*slow;

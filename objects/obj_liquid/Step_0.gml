@@ -69,8 +69,10 @@ x+=hval;
 // Zera o hval
 if(hval != 0) {
 	
-	if(colDown || colUp) hval = lerp(0, hval, 0.95);
-	else hval = lerp(0, hval, 0.99);
+	var _howFastStop = 0.99;	// O quao rapido ele chega para
+	if(colDown || colUp) _howFastStop = 0.94;
+
+	 hval = (hval <= 0.2 && hval >= -0.2 ? 0 : lerp(0, hval, _howFastStop));
 }
 // Diminui ocupacida e exclui obj 
 if(death == 1) {

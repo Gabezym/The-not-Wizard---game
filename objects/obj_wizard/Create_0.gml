@@ -152,8 +152,9 @@ spdVal = 4;
 spd = spdVal;
 spdJumpVal = -8;
 spdJump = spdJumpVal;
-maxJumpVal = 13; // Maximo q pode pressionar o pulo
+maxJumpVal = 11; // Maximo q pode pressionar o pulo
 grav = 0.7;
+maxGravVal = 11;
 slow = 1;
 
 // Pra n da pra ficar pulando pressionando infinitamente
@@ -182,6 +183,7 @@ isCoyoteJump = false;
 inJumpAnimation = false;
 inAtackAnimation = false;
 inThrowingAnimation	= false;
+inCharacterMenus = false;
 
 #endregion
 
