@@ -53,23 +53,30 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 	
 	with(instance) {
 		
-		var _xVal = x;
-		var _yVal = y - 3;
-		var _anglVal = 5;
+		var _angle = (obj_wizard.armAngle);
+		var _side = (obj_wizard.xScale);
+		var _distance = 6 * _side;
+		var _xVal = (x+(2*_side) + lengthdir_x(_distance, _angle));
+		var _yVal = (y + lengthdir_y(_distance, _angle));
+		
+		var _anglVal = 15;
 		var _amount = obj_config.liquidsData[varLiquidId].amount;
 		
 		var _spdVal = varSpd;
-		var _widColSpr = 3;
+		var _widColSpr = sprite_get_width(spr_pixel);
 	
 		for(var _i = 0; _i < _amount; _i++) {
 			
-			var _x = _xVal + random_range(-5, 5);
-			var _y = _yVal + random_range(-5, 5);
+			var _x = _xVal + random_range(-2, 4);
+			var _y = _yVal+ random_range(-2, 2);
 			
-			var _ang = obj_mouse.mouseAnglePlayer + _anglVal * (_i - (_amount - 1) / 2) + random_range(-_anglVal * 0.3, _anglVal * 0.3);
+			var _incAngle = (_anglVal/_amount) * _i;
+			var _randomInc = (random_range(-1.8, 1.8));
+			
+			var _ang = (obj_mouse.mouseAnglePlayer - _anglVal/2) + _incAngle + _randomInc;
 
-			var _spawnX = _x + lengthdir_x(5, _ang);
-			var _spawnY = _y + lengthdir_y(5, _ang);
+			var _spawnX = _x;// + lengthdir_x(5, _ang);
+			var _spawnY = _y;// + lengthdir_y(5, _ang);
 			
 			var _structLiquid = {
 	
@@ -84,14 +91,14 @@ function fSpawnLiquidObject(varLiquidId, varGravVal, varSpd, cooldown, instance)
 	
 		}
 			
-			if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
+			if(!fIsColliding(_spawnX, _spawnY, _widColSpr, _widColSpr, obj_r_collision)) {
 		
 				instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
 				// Coldown entre Inputs
 				obj_wizard.alarm[0] = cooldown;
 				
 				// Reduz o liquido na garrafa
-				liquidAmount -= 1;
+				liquidAmount -= _amount;
 				status.liquidAmount = liquidAmount;
 			}
 		}
@@ -129,7 +136,7 @@ function fSpawnLiquid(_xVal, _yVal, varLiquidId, varGravVal, varSpd, varAngleTo,
 	
 	}
 			
-		if(!fIsColliding(x, y, _widColSpr, _widColSpr, obj_r_collision)) {
+		if(!fIsColliding(_spawnX, _spawnY, _widColSpr, _widColSpr, obj_r_collision)) {
 		
 			instance_create_layer(_spawnX, _spawnY, "ScenarioFront", obj_liquid, _structLiquid)
 		}
@@ -172,6 +179,107 @@ function fSpawnItem(_x, _y, idd, varGravVal, hval, vval, _status, _amount) {
 
 #region Liquid
 
+#region Generico
+
+function fWithLiquidPhysicsAndCollisons(_instance) {
+
+	with(_instance) {
+	
+		var _colDown = place_meeting(x,y+1, obj_r_collision);
+
+		// Cai lento se bater no teto
+		if(place_meeting(x,y-2, obj_r_collision) && colUp) {
+	
+			fallingSlow = true;
+			grav = 0.01;
+		}
+		else if(fallingSlow) {
+	
+			grav = gravVal;
+			vval = vval div 1;
+			fallingSlow = false;
+			colUp = false;
+			scale = scaleMax;
+		}
+
+		#region Colisão + Grav
+
+		// Se n tiver chao em baixo
+		if(!_colDown) {
+
+			vval += grav;
+			colDown = false;
+		}
+		else {
+	
+			// Ativa o efeito do liquido ao cair no chão
+			alarm[2] = 0;
+		}
+
+		// Colisão Y + reset jumpVal +  reset isFirstjump
+		if(place_meeting(x, y + vval, obj_r_collision)) {
+	
+			var isColGround = sign(vval);
+	
+			if(isColGround > 0) y = round(y);
+	
+			while (!place_meeting(x, y+sign(vval), obj_r_collision)) {
+		
+				y+=sign(vval);
+			}
+	
+			// Colidiu com o teto
+			if(isColGround < 0) colUp = true;
+			if(isColGround > 0) colDown = true;
+
+			vval = 0;
+		}
+
+		y+=vval;
+
+		// Colisao X
+		if(place_meeting(x +hval, y, obj_r_collision)) {
+
+			while(!place_meeting(x+sign(hval), y, obj_r_collision)) {
+		
+				x+=sign(hval);
+			}
+	
+			hval = 0;
+		}
+
+		x+=hval;
+
+		#region Colisão com liquido 
+
+		var _other = instance_place(x, y, obj_liquid);
+		var _isBlood = (_other != noone && _other.liquidId == LIQUIDS_ID.BLOOD)
+		if (liquidId == LIQUIDS_ID.WATER && _isBlood) {
+	
+			var _id = _other.id;
+			with(_id) death = true;
+		}
+
+		#endregion
+
+		#endregion
+
+		// Zera o hval
+		if(hval != 0) {
+	
+			var _howFastStop = 0.99;	// O quao rapido ele chega para
+			if(colDown || colUp) _howFastStop = 0.94;
+
+			 hval = (hval <= 0.2 && hval >= -0.2 ? 0 : lerp(0, hval, _howFastStop));
+		}
+	
+	
+	}
+}
+
+
+#endregion
+
 // Colisão de liquidos com characters
 // Intensidade 0: bottle liquid
 // Intensidade 1: static liquid
@@ -195,12 +303,11 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 				var _outOfCooldown = false;
 				var _slow = _status.slow;	// Slow padrão -> Maximo
 				
-				// Cooldow e slow diferente por intensidade
+				// Cooldow diferente por intensidade
 				if(_instensity == 0) { 
 					
 					_outOfCooldown = (alarm[_alarmLiquid] <= 0);	// Cooldow maior
-					_slowVal = 0.01;									// Mais lento o efeito se aplica
-					_slow =  (1  - ((1 - _slow) / 1.4));			// Slow maximo menor 
+					_slowVal = 0.01;								// Mais lento o efeito se aplica
 				}				
 				else {
 					
@@ -235,7 +342,7 @@ function fCollisionLiquid(_alarmCooldown, _instanceCall, _instanceCol, _instensi
 					if(abs(slow - _slow) < 0.01)  slow = _slow;
 				}
 			
-				fWithEffects(self, _effect)
+				fWithEffects(self, _effect);
 			}
 		}	
 	}

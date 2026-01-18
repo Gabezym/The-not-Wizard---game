@@ -68,6 +68,7 @@ x+= hval;
 
 #region Arm draw
 
+
 armX = x+armXVal;
 armY = y+armYVal;
 

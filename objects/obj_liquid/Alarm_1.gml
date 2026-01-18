@@ -1,3 +1,4 @@
+/// @description Scale
 if(scaleMax > scale) { 
 	
 	var _valScale = scaleVal;

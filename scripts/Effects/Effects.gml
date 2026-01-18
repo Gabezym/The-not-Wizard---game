@@ -99,7 +99,7 @@ function fWithSpawParticleFire(_instance, _amount) {
 			var _x = random_range(_x1, _x2);
 			var _y = random_range(_y1, _y2);
 			
-			instance_create_layer(_x, _y, "Objects", obj_fire);
+			instance_create_layer(_x, _y, "ScenarioMiddle", obj_fire);
 		}
 	} 
 }

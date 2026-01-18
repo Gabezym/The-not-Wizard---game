@@ -41,6 +41,8 @@ function fResetSlow(instance, inWater) {
 		if((slow != 1) && (_inWaterOrNoLiquid) && ((hval != 0) || ( vval != 0))) {
 			
 			var _reductionSlow = 0.002;
+			var _isEnemy = ((object_is_ancestor(object_index, obj_enemy_generic)) || (object_index == obj_enemy_generic))
+			if(_isEnemy) _reductionSlow /= 3;
 			
 			if (slow + _reductionSlow < 0.99) _slow += _reductionSlow;
 			else _slow = 1;

@@ -312,8 +312,8 @@ liquidsData[LIQUIDS_ID.WATER] = {
 	
 	spriteBottle: spr_bottle_water,
 	color: make_color_rgb(33, 182, 239),
-	amount: 5,
-	maxLiquidAmount: 200,
+	amount: 8,
+	maxLiquidAmount: 5,
 	damage: 0,
 	slow: 1, 
 	effect: EFFCTS.WATER,
@@ -322,32 +322,40 @@ liquidsData[LIQUIDS_ID.BLOOD] = {
 	
 	spriteBottle: spr_bottle_blood,
 	color: make_color_rgb(102, 7, 9),
-	amount: 5,
-	maxLiquidAmount: 250,
+	amount: 8,
+	maxLiquidAmount: 6,
 	damage: 0,
-	slow: 0.6, 
+	slow: 0.5, 
 	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.ACID] = {
 	
 	spriteBottle: spr_bottle_acid,
 	color: make_color_rgb(197, 255, 50),
-	amount: 3,
-	maxLiquidAmount: 60,
-	damage: 4,
-	slow: 1, 
+	amount: 6,
+	maxLiquidAmount: 4,
+	damage: 3,
+	slow: 0.75, 
 	effect: EFFCTS.NOTHING,
 };
 liquidsData[LIQUIDS_ID.LAVA] = {
 	
 	spriteBottle: spr_bottle_lava,
 	color: make_color_rgb(248, 146, 24),
-	amount: 3,
-	maxLiquidAmount: 40,
+	amount: 5,
+	maxLiquidAmount: 1.3,
 	damage: 2,
 	slow: 1, 
 	effect: EFFCTS.FIRE,
 };
+
+// Max liquid amount
+var _seconds = CONSTANTS.SPD_GAME;
+for(var _i = _sizeLiquidsId-1; _i >= 0; _i--) {
+
+	var _amount = liquidsData[_i].amount;
+	liquidsData[_i].maxLiquidAmount *= (_amount * _seconds);
+}
 
 #endregion
 

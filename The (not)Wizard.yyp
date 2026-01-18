@@ -62,7 +62,7 @@
     {"$GMFolder":"","%Name":"FillBottlePreview","folderPath":"folders/Sprites/Scenario/Liquid/FillBottlePreview.yy","name":"FillBottlePreview","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"LiquidsPreview","folderPath":"folders/Sprites/Scenario/Liquid/LiquidsPreview.yy","name":"LiquidsPreview","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"UI","folderPath":"folders/Sprites/UI.yy","name":"UI","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Others","folderPath":"folders/Sprites/UI/Others.yy","name":"Others","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Others","folderPath":"folders/Sprites/Others.yy","name":"Others","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"PlayerUI","folderPath":"folders/Sprites/UI/PlayerUI.yy","name":"PlayerUI","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Crafting","folderPath":"folders/Sprites/UI/PlayerUI/Crafting.yy","name":"Crafting","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Effects","folderPath":"folders/Sprites/UI/PlayerUI/Effects.yy","name":"Effects","resourceType":"GMFolder","resourceVersion":"2.0",},

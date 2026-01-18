@@ -14,4 +14,4 @@ Plano: Fazer conjunto pequeno de fases, inimigos novos e novas poções pra chec
 - 1 mini boss tbm.
 - Mecânica de quebar e queimar alguns itens pra fazer itens novos.
 
-Arrumei bug de colisão e posição dos sprites, limitei a velocida da queda.
+Otimizei e arrumei bugs dos liquidos.
